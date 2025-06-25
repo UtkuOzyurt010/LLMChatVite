@@ -11,6 +11,7 @@ import theme from './theme.ts';
 import NavBar from './NavBar.tsx'
 import NavBarMobile from './NavBarMobile.tsx'
 import ChatPageMobile from './pages/ChatPage/ChatPageMobile.tsx'
+import PersistentDrawerLeft from './pages/ChatPage/ChatPageNew.tsx'
 
 function App() {
     const isSmallScreen = !useMediaQuery(theme.breakpoints.up('sm'));
@@ -44,9 +45,11 @@ function App() {
                     overflow={"hidden"}
                 >
                     {isSmallScreen ?
-                    <ChatPageMobile></ChatPageMobile>
+                    <ChatPageMobile></ChatPageMobile> //SwipeableDrawer
                     :
-                    <ChatPage></ChatPage>}
+                    <PersistentDrawerLeft></PersistentDrawerLeft>
+                    //<ChatPage></ChatPage> //with Persistent drawer
+                    } 
                 </Box>
             </Box>
         </ThemeProvider>

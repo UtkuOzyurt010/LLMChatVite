@@ -4,7 +4,10 @@ export default function ChatHistory() {
 
     return(
     <Box>
-        ChatHistory
+        Chathistory
+        <Box>
+            
+        </Box>
     </Box>)
     
 }
