@@ -2,7 +2,6 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
 import Home from './pages/Home/Home'
 import ChatPage from './pages/ChatPage/ChatPage'
 import { Box, useMediaQuery } from '@mui/material'
@@ -11,8 +10,7 @@ import theme from './theme.ts';
 import NavBar from './NavBar.tsx'
 import NavBarMobile from './NavBarMobile.tsx'
 import ChatPageMobile from './pages/ChatPage/ChatPageMobile.tsx'
-import PersistentDrawerLeft from './pages/ChatPage/ChatPageNew.tsx'
-import ChatPageNew from './pages/ChatPage/ChatPageNew.tsx'
+import ChatPageDesktop from './pages/ChatPage/ChatPageDesktop.tsx'
 
 function App() {
     const isSmallScreen = !useMediaQuery(theme.breakpoints.up('sm'));
@@ -48,9 +46,7 @@ function App() {
                     {isSmallScreen ?
                     <ChatPageMobile></ChatPageMobile> //SwipeableDrawer
                     :
-                    //<PersistentDrawerLeft></PersistentDrawerLeft>
-                    //<ChatPage></ChatPage> //with Persistent drawer
-                    <ChatPageNew></ChatPageNew>
+                    <ChatPageDesktop></ChatPageDesktop>
                     } 
                 </Box>
             </Box>
