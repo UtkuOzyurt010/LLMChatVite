@@ -19,62 +19,52 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-const drawerWidth = 240;
+const drawerWidth = 180;
+const collapsedWidth = 70;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
+const Main = styled('main', {
+  shouldForwardProp: (prop) => prop !== 'open' && prop !== 'collapsed',
+})<{
   open?: boolean;
-}>(({ theme }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(3),
-  transition: theme.transitions.create('margin', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginLeft: `-${drawerWidth}px`,
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 200,
-      },
-    },
-  ],
-}));
+  collapsed?: boolean;
+}>(({ theme, open, collapsed }) => {
+  const shift = open ? (collapsed ? collapsedWidth : drawerWidth) : 0;
+
+  return {
+    position: 'relative',
+    transform: `translateX(${shift}px)`,
+    transition: theme.transitions.create('transform', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  };
+});
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
+  collapsed?: boolean;
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme }) => ({
+  shouldForwardProp: (prop) => prop !== 'open' && prop !== 'collapsed',
+})<AppBarProps>(({ theme, open, collapsed }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
+    easing: theme.transitions.easing.easeIn,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        left: "0",
-        right: "auto",
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(['margin', 'width'], {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-      },
-    },
-  ],
+  ...(open && {
+    width: `calc(100% - ${collapsed ? collapsedWidth : drawerWidth}px)`,
+    marginLeft: `${collapsed ? collapsedWidth : drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
 }));
 
 const DrawerHeader = styled('div')(({ theme }) => ({
-    width: "500px",
+  
+  width: "500px",
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
@@ -85,7 +75,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
+  const [collapsed, setCollapsed] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -95,65 +86,79 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
+  const handleDrawerCollapse = () => {
+    setCollapsed(true);
+  };
+
+  const handleDrawerExpand = () => {
+    setCollapsed(false);
+  };
+
+  const toggleDrawerCollapse = () => {
+    setCollapsed(!collapsed);
+  }
+
   return (
-    <Box sx={{ display: 'flex',
+    <Box sx={{ 
+      //display: 'flex',
         //width: drawerWidth
      }}>
       <CssBaseline />
       <AppBar 
-      position="fixed" 
-      open={open}
+        position="fixed" 
+        open={open}
+        collapsed={collapsed}
         sx={{
-                width: drawerWidth,
-                left: "0"
+                // width: "100%",
+                // left: "0",
+                backgroundColor: "green"
             }}
-        >
+      >
         <Toolbar
-            sx={{
-                width: drawerWidth
-            }}
+          // sx={(theme) => ({
+          //   width: '100%',
+          //   transition: theme.transitions.create(['margin', 'padding-left'], {
+          //     easing: theme.transitions.easing.sharp,
+          //     duration: theme.transitions.duration.leavingScreen,
+          //   }),
+          //   //paddingLeft: collapsed ? theme.spacing(3) : theme.spacing(6),
+          // })}
         >
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={[
-              {
-                mr: 2,
-              },
-              open && { display: 'none' },
-            ]}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
         </Toolbar>
+
       </AppBar>
       <Drawer
         sx={{
-          width: drawerWidth,
+          width: collapsed ? collapsedWidth : drawerWidth,
           flexShrink: 0,
+          transition: (theme) =>
+            theme.transitions.create('width', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
           '& .MuiDrawer-paper': {
-            width: drawerWidth,
+            width: collapsed ? collapsedWidth : drawerWidth,
             boxSizing: 'border-box',
+            transition: (theme) =>
+              theme.transitions.create('width', {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.leavingScreen,
+              }),
           },
         }}
         variant="persistent"
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-
+        <DrawerHeader
+        sx={{backgroundColor: "yellow"}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={toggleDrawerCollapse}
             edge="start"
             
             sx={[
@@ -171,33 +176,74 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+        { <List sx={{backgroundColor: "orange" }}>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <ListItemIcon
+                sx={{
+                  justifyContent: "center",
+                  minWidth: "0",
+                  width: collapsedWidth / 2, //cant use 100% because it's expandable, this somehow keeps it in place
+                  minHeight: "0"
+                }}>
+                  {index % 2 === 0 ? 
+                  <InboxIcon/> : <MailIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                {!collapsed &&  <Typography
+            noWrap
+            sx={{
+              paddingLeft: '20px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              lineHeight: 1,
+              margin: 0,
+              fontSize: '1rem',
+              flexGrow: 1,
+            }}
+          >
+            {text}
+          </Typography>}
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List>}
         <Divider />
-        <List>
+        { <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
-                <ListItemIcon>
+                <ListItemIcon 
+                  sx={{
+                      minHeight: "0",
+                      justifyContent: "center",
+                      alignItems: 'center',
+                      minWidth: "0",
+                      width: collapsedWidth / 2, //cant use 100% because it's expandable, this somehow keeps it in place
+                    }}
+                  >
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                {!collapsed &&  <Typography
+            noWrap
+            sx={{
+              paddingLeft: '20px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              lineHeight: 1,
+              margin: 0,
+              fontSize: '1rem',
+              flexGrow: 1,
+            }}
+          >
+            {text}
+          </Typography>}
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List>}
       </Drawer>
-      {/* <Main open={open}>
+      <Main open={open} collapsed={collapsed}>
         <DrawerHeader />
         <Typography sx={{ marginBottom: 2 }}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -226,7 +272,7 @@ export default function PersistentDrawerLeft() {
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
-      </Main> */}
+      </Main>
     </Box>
   );
 }
