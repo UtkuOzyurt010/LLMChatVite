@@ -1,35 +1,41 @@
 import { IconButton, Divider, List, ListItem, ListItemButton, ListItemIcon, Typography, styled, useTheme } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
+import CircleIcon from '@mui/icons-material/Circle';
 import Drawer from '@mui/material/Drawer';
 
 import { SquarePen } from 'lucide-react';
 
 import CustomListItem from "./CustomListItem/CustomListItem";
+import { Session } from "../../../../models/Session";
+import { Context } from "../../../../models/Context";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   
-  width: "500px",
+  //width: "500px",
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
+  // necessary for content to be below app bar   ???????????still???????????
   ...theme.mixins.toolbar,
   //justifyContent: 'flex-end',
 }));
-
-
 
 
 const LeftSideDrawer = ({
   collapsed,
   collapsedWidth,
   drawerWidth,
-  toggleDrawerCollapse
+  toggleDrawerCollapse,
+  sessions,
+  contexts
+
 }: {
   collapsed: boolean;
   collapsedWidth: number;
   drawerWidth: number;
   toggleDrawerCollapse: () => void;
+  sessions: Session[];
+  contexts: Context[];
 })  =>
   {
     const theme = useTheme();
@@ -37,6 +43,7 @@ const LeftSideDrawer = ({
     
     <Drawer
       sx={{
+        overflow: "clip",
         width: collapsed ? collapsedWidth : drawerWidth,
         flexShrink: 0,
         transition: (theme) =>
@@ -80,10 +87,26 @@ const LeftSideDrawer = ({
           }}/>
         </IconButton>
       </DrawerHeader>
-      <Divider sx={{backgroundColor: "green"}} />
+      <Divider 
+      //sx={{backgroundColor: "green"}} 
+      />
       {<List sx={{backgroundColor: "orange" }}>
           <CustomListItem collapsed={collapsed} collapsedWidth={collapsedWidth} icon={<SquarePen></SquarePen>} text="New Chat"></CustomListItem>
-
+          <CustomListItem collapsed={collapsed} collapsedWidth={collapsedWidth} icon={<SquarePen></SquarePen>} text="History">
+            <List>
+              {sessions.map((session: Session, sessionIndex) => (
+                session.contexts.map((context: Context, contextIndex) => (
+                  <CustomListItem
+                    key={`${sessionIndex}-${contextIndex}`} // unique key combining both indexes
+                    collapsed={collapsed}
+                    collapsedWidth={collapsedWidth}
+                  >
+                    <CircleIcon sx={{ color: context.color }} />
+                  </CustomListItem>
+                ))
+              ))}
+            </List>
+          </CustomListItem>
 
 
         {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (

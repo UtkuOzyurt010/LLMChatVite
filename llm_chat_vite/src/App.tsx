@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -12,9 +12,39 @@ import NavBarMobile from './NavBarMobile.tsx'
 import ChatPageMobile from './pages/ChatPage/ChatPageMobile.tsx'
 import ChatPageDesktop from './pages/ChatPage/ChatPageDesktop/ChatPageDesktop.tsx'
 
+import { Session } from './models/Session.tsx'
+import { Context } from './models/Context.tsx'
+
+function initContexts(): Context[] {
+  const context = new Context(1, "pink");
+  const context2 = new Context(2, "blue");
+  const context3 = new Context(2, "red");
+
+  return [context, context2, context3];
+}
+
+function initSessions(contexts : Context[]): Session[] {
+  const session = new Session(1, contexts);
+
+  return [session];
+}
+
+
+
 function App() {
     const isSmallScreen = !useMediaQuery(theme.breakpoints.up('sm'));
-    
+
+    const [sessions, setSessions] = useState<Session[]>([]);
+    const [contexts, setContexts] = useState<Context[]>([]);
+
+    useEffect(() => {
+    const initialContexts = initContexts();
+    setContexts(initialContexts);
+
+    const initialSessions = initSessions(initialContexts);
+    setSessions(initialSessions);
+  }, []);
+
     return (
         <ThemeProvider theme={theme}>
             <Box
@@ -35,10 +65,7 @@ function App() {
                     {/* <NavBar ></NavBar> */}
                 </Box>
                 <Box
-                    //flex="1"
                     flexGrow={"1"}
-                    //height={"100vh"}
-                    //width={"100vw"}
                     border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid green" : undefined}
                     margin={"0"}
                     overflow={"hidden"}
@@ -46,7 +73,7 @@ function App() {
                     {isSmallScreen ?
                     <ChatPageMobile></ChatPageMobile> //SwipeableDrawer
                     :
-                    <ChatPageDesktop></ChatPageDesktop>
+                    <ChatPageDesktop sessions={sessions} contexts={contexts}></ChatPageDesktop>
                     } 
                 </Box>
             </Box>

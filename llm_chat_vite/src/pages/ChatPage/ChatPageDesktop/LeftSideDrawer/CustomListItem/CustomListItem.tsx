@@ -2,12 +2,13 @@
 import { ListItemIcon, ListItemButton, Typography, ListItem } from '@mui/material';
 //import { icon, text } from '@fortawesome/fontawesome-svg-core';
 
-const CustomListItem = ({collapsed, collapsedWidth, icon, text} : 
+const CustomListItem = ({collapsed, collapsedWidth, icon, text, children} : 
   {
     collapsed: boolean, 
     collapsedWidth: number, 
-    icon: React.ReactNode
-    text: string
+    icon?: React.ReactNode
+    text?: string
+    children?: React.ReactNode;
   }) => 
 {
 return(
@@ -38,6 +39,7 @@ return(
         >
           {text}
         </Typography>}
+        {children}
     </ListItemButton>
   </ListItem>
   )

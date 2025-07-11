@@ -21,8 +21,10 @@ import MailIcon from '@mui/icons-material/Mail';
 
 import { SquarePen } from 'lucide-react';
 import LeftSideDrawer from './LeftSideDrawer/LeftSideDrawer';
+import type { Session } from '../../../models/Session';
+import type { Context } from '../../../models/Context';
 
-const drawerWidth = 180;
+const drawerWidth = 260;
 const collapsedWidth = 70;
 
 const Main = styled('main', {
@@ -67,7 +69,12 @@ const AppBar = styled(MuiAppBar, {
 
 
 
-export default function PersistentDrawerLeft() {
+export default function ChatPageDesktop({sessions, contexts} :
+  {
+    sessions: Session[]
+    contexts: Context[]
+  }
+) {
   const theme = useTheme();
   //const [open, setOpen] = React.useState(true);
   const [collapsed, setCollapsed] = React.useState(true);
@@ -113,7 +120,14 @@ export default function PersistentDrawerLeft() {
         </Toolbar>
 
       </AppBar>
-      <LeftSideDrawer collapsed={collapsed} collapsedWidth={collapsedWidth} drawerWidth={drawerWidth} toggleDrawerCollapse={toggleDrawerCollapse}></LeftSideDrawer>
+      <LeftSideDrawer 
+      collapsed={collapsed} 
+      collapsedWidth={collapsedWidth} 
+      drawerWidth={drawerWidth} 
+      toggleDrawerCollapse={toggleDrawerCollapse}
+      sessions={sessions}
+      contexts={contexts}
+      ></LeftSideDrawer>
       <Main open={true} collapsed={collapsed}>
         {/* <DrawerHeader /> */}
         <Typography sx={{ marginBottom: 2 }}>

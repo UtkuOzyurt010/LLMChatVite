@@ -4,9 +4,11 @@ export class Context{
     responses : Record<number, string> = {}
     current_prompt_index : number = 0
     current_response_index : number = 0
+    color: string = "green"
 
-    constructor(id : number){
+    constructor(id : number, color: string){
         this.id = id
+        this.color = color
     }
 
     addprompt(key: string) {
