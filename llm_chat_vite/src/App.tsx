@@ -10,7 +10,7 @@ import theme from './theme.ts';
 import NavBar from './NavBar.tsx'
 import NavBarMobile from './NavBarMobile.tsx'
 import ChatPageMobile from './pages/ChatPage/ChatPageMobile.tsx'
-import ChatPageDesktop from './pages/ChatPage/ChatPageDesktop.tsx'
+import ChatPageDesktop from './pages/ChatPage/ChatPageDesktop/ChatPageDesktop.tsx'
 
 function App() {
     const isSmallScreen = !useMediaQuery(theme.breakpoints.up('sm'));

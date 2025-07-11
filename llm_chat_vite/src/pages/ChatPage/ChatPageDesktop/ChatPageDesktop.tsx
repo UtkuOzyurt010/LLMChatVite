@@ -19,6 +19,9 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
+import { SquarePen } from 'lucide-react';
+import LeftSideDrawer from './LeftSideDrawer/LeftSideDrawer';
+
 const drawerWidth = 180;
 const collapsedWidth = 70;
 
@@ -62,29 +65,20 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  
-  width: "500px",
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  //justifyContent: 'flex-end',
-}));
+
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  //const [open, setOpen] = React.useState(true);
   const [collapsed, setCollapsed] = React.useState(true);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  // const handleDrawerOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  // const handleDrawerClose = () => {
+  //   setOpen(false);
+  // };
 
   const handleDrawerCollapse = () => {
     setCollapsed(true);
@@ -105,146 +99,23 @@ export default function PersistentDrawerLeft() {
      }}>
       <CssBaseline />
       <AppBar 
-        position="fixed" 
-        open={open}
+        position="relative" 
+        open={true}
         collapsed={collapsed}
         sx={{
-                // width: "100%",
-                // left: "0",
                 backgroundColor: "green"
             }}
       >
-        <Toolbar
-          // sx={(theme) => ({
-          //   width: '100%',
-          //   transition: theme.transitions.create(['margin', 'padding-left'], {
-          //     easing: theme.transitions.easing.sharp,
-          //     duration: theme.transitions.duration.leavingScreen,
-          //   }),
-          //   //paddingLeft: collapsed ? theme.spacing(3) : theme.spacing(6),
-          // })}
-        >
+        <Toolbar>
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
         </Toolbar>
 
       </AppBar>
-      <Drawer
-        sx={{
-          width: collapsed ? collapsedWidth : drawerWidth,
-          flexShrink: 0,
-          transition: (theme) =>
-            theme.transitions.create('width', {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-          '& .MuiDrawer-paper': {
-            width: collapsed ? collapsedWidth : drawerWidth,
-            boxSizing: 'border-box',
-            transition: (theme) =>
-              theme.transitions.create('width', {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.leavingScreen,
-              }),
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader
-        sx={{backgroundColor: "yellow"}}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawerCollapse}
-            edge="start"
-            
-            sx={[
-              {
-                position: "absolute",
-                right: "0",
-                mr: 2,
-              },
-              
-            ]}
-          >
-            <MenuIcon sx={{
-                //color:"black"
-            }} />
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        { <List sx={{backgroundColor: "orange" }}>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon
-                sx={{
-                  justifyContent: "center",
-                  minWidth: "0",
-                  width: collapsedWidth / 2, //cant use 100% because it's expandable, this somehow keeps it in place
-                  minHeight: "0"
-                }}>
-                  {index % 2 === 0 ? 
-                  <InboxIcon/> : <MailIcon />}
-                </ListItemIcon>
-                {!collapsed &&  <Typography
-            noWrap
-            sx={{
-              paddingLeft: '20px',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              lineHeight: 1,
-              margin: 0,
-              fontSize: '1rem',
-              flexGrow: 1,
-            }}
-          >
-            {text}
-          </Typography>}
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>}
-        <Divider />
-        { <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon 
-                  sx={{
-                      minHeight: "0",
-                      justifyContent: "center",
-                      alignItems: 'center',
-                      minWidth: "0",
-                      width: collapsedWidth / 2, //cant use 100% because it's expandable, this somehow keeps it in place
-                    }}
-                  >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                {!collapsed &&  <Typography
-            noWrap
-            sx={{
-              paddingLeft: '20px',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              lineHeight: 1,
-              margin: 0,
-              fontSize: '1rem',
-              flexGrow: 1,
-            }}
-          >
-            {text}
-          </Typography>}
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>}
-      </Drawer>
-      <Main open={open} collapsed={collapsed}>
-        <DrawerHeader />
+      <LeftSideDrawer collapsed={collapsed} collapsedWidth={collapsedWidth} drawerWidth={drawerWidth} toggleDrawerCollapse={toggleDrawerCollapse}></LeftSideDrawer>
+      <Main open={true} collapsed={collapsed}>
+        {/* <DrawerHeader /> */}
         <Typography sx={{ marginBottom: 2 }}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
