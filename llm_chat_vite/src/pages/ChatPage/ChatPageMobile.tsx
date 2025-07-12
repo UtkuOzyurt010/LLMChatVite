@@ -61,7 +61,7 @@ export default function ChatPage(
                     flexGrow: "10",
                     display: "flex",
                     flexDirection: "row",
-                    overflow: 'hidden',
+                    //overflow: 'hidden',
                     backgroundColor: "white",
                     color: "black",
                     boxSizing: 'border-box',
@@ -76,7 +76,7 @@ export default function ChatPage(
                         flexGrow: "1",
                         display: "flex",
                         flexDirection: "column",
-                        overflow: 'hidden',
+                        //overflow: 'hidden',
                         boxSizing: 'border-box',
                         border: import.meta.env.VITE_DEBUG === 'true' ? "5px dashed orange" : undefined,
                         

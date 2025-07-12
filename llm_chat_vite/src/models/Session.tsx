@@ -2,6 +2,7 @@ import type { Context } from "./Context";
 
 export class Session{
   id: number
+  summary: string = ""
   all_prompts : Record<number, string> = {}
   all_responses : Record<number, string> = {}
   contexts: Context[]

@@ -18,15 +18,20 @@ import { Context } from './models/Context.tsx'
 function initContexts(): Context[] {
   const context = new Context(1, "pink");
   const context2 = new Context(2, "blue");
-  const context3 = new Context(2, "red");
+  const context3 = new Context(3, "red");
+  const context4 = new Context(4, "green");
+  const context5 = new Context(5, "black");
+  const context6 = new Context(6, "brown");
 
-  return [context, context2, context3];
+  return [context, context2, context3, context4, context5, context6];
 }
 
 function initSessions(contexts : Context[]): Session[] {
-  const session = new Session(1, contexts);
-
-  return [session];
+  let session = new Session(1, contexts);
+  let session2 = new Session(2, contexts);
+  session.summary = "My first session!"
+  session2.summary = "My second session!"
+  return [session, session2];
 }
 
 
@@ -68,7 +73,7 @@ function App() {
                     flexGrow={"1"}
                     border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid green" : undefined}
                     margin={"0"}
-                    overflow={"hidden"}
+                    //overflow={"hidden"}
                 >
                     {isSmallScreen ?
                     <ChatPageMobile></ChatPageMobile> //SwipeableDrawer

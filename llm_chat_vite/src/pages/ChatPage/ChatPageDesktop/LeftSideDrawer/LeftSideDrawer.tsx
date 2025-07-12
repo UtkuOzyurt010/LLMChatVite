@@ -1,13 +1,16 @@
-import { IconButton, Divider, List, ListItem, ListItemButton, ListItemIcon, Typography, styled, useTheme } from "@mui/material"
+import { useState } from "react";
+import { IconButton, Divider, List, ListItem, ListItemButton, ListItemIcon, Typography, styled, useTheme, Button, } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 import CircleIcon from '@mui/icons-material/Circle';
 import Drawer from '@mui/material/Drawer';
 
-import { SquarePen } from 'lucide-react';
+import { ChevronRight, SquarePen } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 import CustomListItem from "./CustomListItem/CustomListItem";
 import { Session } from "../../../../models/Session";
 import { Context } from "../../../../models/Context";
+import ContextsButton from "./ContextsButton/ContextsButton";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   
@@ -39,11 +42,13 @@ const LeftSideDrawer = ({
 })  =>
   {
     const theme = useTheme();
+    const [showHistory, setShowHistory] = useState<boolean>(false)
+
   return(
     
     <Drawer
       sx={{
-        overflow: "clip",
+        overflow: "visible",
         width: collapsed ? collapsedWidth : drawerWidth,
         flexShrink: 0,
         transition: (theme) =>
@@ -90,95 +95,37 @@ const LeftSideDrawer = ({
       <Divider 
       //sx={{backgroundColor: "green"}} 
       />
-      {<List sx={{backgroundColor: "orange" }}>
-          <CustomListItem collapsed={collapsed} collapsedWidth={collapsedWidth} icon={<SquarePen></SquarePen>} text="New Chat"></CustomListItem>
-          <CustomListItem collapsed={collapsed} collapsedWidth={collapsedWidth} icon={<SquarePen></SquarePen>} text="History">
-            <List>
-              {sessions.map((session: Session, sessionIndex) => (
-                session.contexts.map((context: Context, contextIndex) => (
-                  <CustomListItem
-                    key={`${sessionIndex}-${contextIndex}`} // unique key combining both indexes
-                    collapsed={collapsed}
-                    collapsedWidth={collapsedWidth}
-                  >
-                    <CircleIcon sx={{ color: context.color }} />
-                  </CustomListItem>
-                ))
-              ))}
-            </List>
-          </CustomListItem>
-
-
-        {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon
-                sx={{
-                  justifyContent: "center",
-                  minWidth: "0",
-                  width: collapsedWidth / 2, //cant use 100% because it's expandable, this somehow keeps it in place
-                  minHeight: "0"
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon/> : <MailIcon />}
-              </ListItemIcon>
-              {!collapsed &&
-              <Typography
-                noWrap
-                sx={{
-                  paddingLeft: '20px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  lineHeight: 1,
-                  margin: 0,
-                  fontSize: '1rem',
-                  flexGrow: 1,
-                }}
-              >
-                {text}
-              </Typography>}
-            </ListItemButton>
-          </ListItem>
-        ))} */}
-        
+      {<List sx={{backgroundColor: "orange" , overflow: "visible",}} >
+          <CustomListItem key={"New Chat"} collapsed={collapsed} collapsedWidth={collapsedWidth} icon={<SquarePen></SquarePen>} text="New Chat"></CustomListItem>
+          <CustomListItem 
+            key={"History"} 
+            collapsed={collapsed} 
+            collapsedWidth={collapsedWidth} 
+            icon={showHistory ? <ChevronDown/> : <ChevronRight/>} 
+            text="History"
+            onClick={() => 
+                {
+                  setShowHistory(!showHistory)
+                  if(collapsed) toggleDrawerCollapse()
+                }
+              }>
+            {/* <Button onClick={() => setShowHistory(!showHistory)}></Button> */}
+          </CustomListItem >
+          {showHistory && <List key={"SessionsList"} sx={{backgroundColor: "red", padding: "0" }}>
+            {sessions.map((session: Session, sessionIndex) => (
+              <ContextsButton key={`session: ${sessionIndex}`}session={session}>
+                {session.summary}
+              </ContextsButton>
+            ))}
+          </List>}
       </List>}
-      {/* <Divider />
-      {<List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon
-                sx={{
-                  minHeight: "0",
-                  justifyContent: "center",
-                  alignItems: 'center',
-                  minWidth: "0",
-                  width: collapsedWidth / 2, //cant use 100% because it's expandable, this somehow keeps it in place
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              {!collapsed &&
-              <Typography
-                noWrap
-                sx={{
-                  paddingLeft: '20px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  lineHeight: 1,
-                  margin: 0,
-                  fontSize: '1rem',
-                  flexGrow: 1,
-                }}
-              >
-                {text}
-              </Typography>}
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>} */}
+     
     </Drawer>
     )
   }
 
 export default LeftSideDrawer;
+
+function UseState(arg0: boolean): [any, any] {
+  throw new Error("Function not implemented.");
+}

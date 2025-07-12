@@ -19,7 +19,7 @@ return(
             border: import.meta.env.VITE_DEBUG == 'true' ? "3px solid red" : undefined,
             color: "black",
             backgroundColor: (theme) => theme.palette.custom.bggray,
-            overflow: "hidden",
+            overflow: "visible",
             zIndex: 2
             
         }}
