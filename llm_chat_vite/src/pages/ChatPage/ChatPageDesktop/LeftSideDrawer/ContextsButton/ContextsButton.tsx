@@ -14,14 +14,9 @@ const ContextsButton = ({session, children} :
   }
 ) =>
 {
+
 const overlapOffset = 5;
 const [isHovering, setIsHovering] = useState(false);
-const [showPopper, setShowPopper] = useState(false);
-const [anchorEl, setAnchorEl] = useState<HTMLElement>()
-
-const normalWidth = session.contexts.length * overlapOffset;
-const hoverWidth = session.contexts.length * 28; // or whatever your hover spacing is
-
 const buttonHeight = "24px"
     
   return(
@@ -46,8 +41,7 @@ const buttonHeight = "24px"
         sx={{
           position: "relative",
           height: buttonHeight,
-          overflow: "visible", // allow bleeding
-          //bgcolor: "red"
+          overflow: "visible", 
         }}
       >
          <Box
@@ -55,14 +49,16 @@ const buttonHeight = "24px"
               position: "absolute",
               top: 0,
               left: 0,
-              width: `${session.contexts.length * 28}px`, // wider than container width
+              width: isHovering ? `${session.contexts.length * 28}px` : "0px", // wider than container width
               height: "100%",
               backgroundColor: "purple",
               borderRadius: "8px",
               zIndex: 1,
-              visibility: isHovering ? "visible" : "hidden",
+              //visibility: isHovering ? "visible" : "hidden", //now changing the width to 0 instead
               opacity: isHovering ? 1 : 0,
-              transition: "opacity 0.3s ease",
+              transition: isHovering ?
+              "opacity 0.3s ease, width 0.3s ease"
+              :"opacity 0.8s ease, width 0.3s ease" , //not sure about this one
             }}
           />
         {session.contexts.map((context: Context, index) => (
