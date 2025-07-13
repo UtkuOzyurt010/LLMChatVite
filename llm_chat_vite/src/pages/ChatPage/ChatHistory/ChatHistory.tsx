@@ -2,6 +2,7 @@ import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import type { Session } from "../../../models/Session";
 import type { ChronologicalEntry } from "../../../models/ChronologicalEntry";
+import FirstPrompt from "./FirstPrompt/FirstPrompt";
 
 // You can base it on Box instead of 'main' if needed
 const StyledChatHistory = styled(Box, {
@@ -38,8 +39,14 @@ export default function ChatHistory({ open, collapsed, drawerwidth, collapsedwid
     <StyledChatHistory open={open} collapsed={collapsed} drawerwidth={drawerwidth} collapsedwidth={collapsedwidth} currentSession={currentSession}>
       
       {
+        
         currentSession.getChronologicalEntries().map((value: ChronologicalEntry, index: number) => {
+          const entries = currentSession.getChronologicalEntries();
+          
           return(
+            entries.length == 0 ?
+            <FirstPrompt></FirstPrompt> 
+            :
             <Box
             position={"relative"}
               key={`chronologicalentry: ${index}`}

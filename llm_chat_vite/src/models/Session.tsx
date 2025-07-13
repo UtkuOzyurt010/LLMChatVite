@@ -1,5 +1,6 @@
 import type { Context } from "./Context";
 import type { PromptResponse } from "./PromptResponse";
+import type { ChronologicalEntry } from "./ChronologicalEntry";
 
 
 
