@@ -48,6 +48,7 @@ const LeftSideDrawer = ({
     
     <Drawer
       sx={{
+        
         overflow: "visible",
         width: collapsed ? collapsedWidth : drawerWidth,
         flexShrink: 0,
@@ -57,6 +58,7 @@ const LeftSideDrawer = ({
           duration: theme.transitions.duration.enteringScreen,
         }),
         '& .MuiDrawer-paper': {
+          overflow: "visible",
           width: collapsed ? collapsedWidth : drawerWidth,
           boxSizing: 'border-box',
           transition: (theme) =>

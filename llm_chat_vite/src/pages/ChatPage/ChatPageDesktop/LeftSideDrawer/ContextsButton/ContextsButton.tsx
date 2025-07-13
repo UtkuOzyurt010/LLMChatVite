@@ -2,7 +2,7 @@ import ListItem from "@mui/material/ListItem";
 import type { Context } from "../../../../../models/Context";
 import type { Session } from "../../../../../models/Session";
 import CircleIcon from '@mui/icons-material/Circle';
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Popover, Typography } from "@mui/material";
 import { useState } from "react";
 
 
@@ -16,6 +16,13 @@ const ContextsButton = ({session, children} :
 {
 const overlapOffset = 5;
 const [isHovering, setIsHovering] = useState(false);
+const [showPopper, setShowPopper] = useState(false);
+const [anchorEl, setAnchorEl] = useState<HTMLElement>()
+
+const normalWidth = session.contexts.length * overlapOffset;
+const hoverWidth = session.contexts.length * 28; // or whatever your hover spacing is
+
+const buttonHeight = "24px"
     
   return(
     <Box
@@ -23,7 +30,6 @@ const [isHovering, setIsHovering] = useState(false);
       display={"flex"}
       flexDirection={"row"}
       sx={{backgroundColor: "green"}}
-      
     >
       <Box
       sx={{
@@ -34,62 +40,52 @@ const [isHovering, setIsHovering] = useState(false);
           {children}
         </Typography>
       </Box>
-        <Box
-          sx={{
-            position: "relative",
-            zIndex: 10,
-            width: `${session.contexts.length * 24}px`,
-            height: "24px",
-            "&:hover .circle": {
-              transform: "translateX(var(--spread))",
-            },
-            backgroundColor: "purple",
-          }}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-        >
-        {session.contexts.map((context: Context, index) => (
-          // <Box
-          //   key={index}
-          //   className="circle"
-          //   sx={{
-          //     position: "absolute",
-          //     left: `${index * overlapOffset}px`,
-          //     transition: "transform 0.3s",
-          //     zIndex: session.contexts.length - index, // ensures leftmost is on top
-          //     "--spread": `${index * 20}px`, // how much to spread out on hover
-          //   }}
-          // >
-          
-          <Box
-            key={index}
-            className="circle"
+      <Box
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        sx={{
+          position: "relative",
+          height: buttonHeight,
+          overflow: "visible", // allow bleeding
+          //bgcolor: "red"
+        }}
+      >
+         <Box
             sx={{
               position: "absolute",
-              left: `${index * overlapOffset}px`,
-              //top: "-5px",
-              //transform: "translateY(-50%)", // Center vertically
-              transition: "transform 0.3s",
-              zIndex: session.contexts.length - index,
-              "--spread": `${index * 20}px`,
+              top: 0,
+              left: 0,
+              width: `${session.contexts.length * 28}px`, // wider than container width
+              height: "100%",
+              backgroundColor: "purple",
+              borderRadius: "8px",
+              zIndex: 1,
+              visibility: isHovering ? "visible" : "hidden",
+              opacity: isHovering ? 1 : 0,
+              transition: "opacity 0.3s ease",
             }}
-          >
-            
-            <Button sx={{padding: "0"}}>
-              <CircleIcon sx={{ color: context.color, fontSize: 24 }} />
-            </Button>
-            
-          </Box>
+          />
+        {session.contexts.map((context: Context, index) => (
+        <Box
+          key={index}
+          className="circle"
+          sx={{
+            position: "absolute",
+            left: `${index * (isHovering ? 28 : overlapOffset)}px`, // spread if hovering
+            transition: "left 0.3s ease",
+            zIndex: session.contexts.length - index,
+          }}
+        >
+          <Button sx={{ padding: 0, minWidth: 0 }}>
+            <CircleIcon sx={{ color: context.color, fontSize: 24 }} />
+          </Button>
+        </Box>
         ))}
       </Box>
     </Box>
 
+      
     
-    // session.contexts.map((context: Context, contextIndex) => (
-    //   <ListItem>
-    //     <CircleIcon sx={{ color: context.color }} />
-    //   </ListItem>
-    // ))
   )
 }
 
