@@ -39,17 +39,13 @@ function initSessions(contexts : Context[]): Session[] {
 function App() {
     const isSmallScreen = !useMediaQuery(theme.breakpoints.up('sm'));
 
-    const [sessions, setSessions] = useState<Session[]>([]);
-    const [contexts, setContexts] = useState<Context[]>([]);
+  const initialContexts = initContexts();
+  const initialSessions = initSessions(initialContexts);
 
-    useEffect(() => {
-    const initialContexts = initContexts();
-    setContexts(initialContexts);
-
-    const initialSessions = initSessions(initialContexts);
-    setSessions(initialSessions);
-  }, []);
-
+  const [contexts, setContexts] = useState<Context[]>(initialContexts);
+  const [sessions, setSessions] = useState<Session[]>(initialSessions);
+  const [currentSession, setCurrentSession] = useState<Session>(initialSessions[0]);
+  
     return (
         <ThemeProvider theme={theme}>
             <Box
@@ -78,7 +74,7 @@ function App() {
                     {isSmallScreen ?
                     <ChatPageMobile></ChatPageMobile> //SwipeableDrawer
                     :
-                    <ChatPageDesktop sessions={sessions} contexts={contexts}></ChatPageDesktop>
+                    <ChatPageDesktop sessions={sessions} contexts={contexts} currentSession={currentSession}></ChatPageDesktop>
                     } 
                 </Box>
             </Box>

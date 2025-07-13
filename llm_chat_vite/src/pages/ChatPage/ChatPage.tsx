@@ -109,7 +109,7 @@ export default function ChatPage(
                             flex: "1"
                         }}
                     >
-                        <ChatHistory></ChatHistory>
+                        {/* <ChatHistory></ChatHistory> */}
                     </Box>
                     <Box
                         sx={{

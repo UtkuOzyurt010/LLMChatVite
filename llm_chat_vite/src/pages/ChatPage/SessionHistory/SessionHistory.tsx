@@ -1,3 +1,6 @@
+//unused in new LeftSideDrawer for desktop oops :O
+
+
 import { Box, Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";

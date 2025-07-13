@@ -1,7 +1,9 @@
+import { PromptResponse } from "./PromptResponse"
+
 export class Context{
     id : number
-    prompts : Record<number, string> = {}
-    responses : Record<number, string> = {}
+    prompts : Record<number, PromptResponse> = {}
+    responses : Record<number, PromptResponse> = {}
     current_prompt_index : number = 0
     current_response_index : number = 0
     color: string = "green"
@@ -11,14 +13,13 @@ export class Context{
         this.color = color
     }
 
-    addprompt(key: string) {
-        const newDict = { ...this.prompts, [key]: this.current_prompt_index++}
-        this.prompts = newDict
+    addprompt(text: string) {
+        this.prompts[this.current_prompt_index++] = new PromptResponse(text)
     }
 
-    addresponse(key: string) {
-        const newDict = { ...this.responses, [key]: this.current_response_index++ }
-        this.responses = newDict
+    addresponse(text: string) 
+    {
+        this.responses[this.current_response_index++] = new PromptResponse(text)
     }
 
     getall() : string {

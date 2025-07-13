@@ -18,10 +18,11 @@ const ContextsButton = ({session, children} :
 const overlapOffset = 5;
 const [isHovering, setIsHovering] = useState(false);
 const buttonHeight = "24px"
+const allCirclesWidth = "36px"
     
   return(
     <Box
-      overflow={"visible"}
+      //overflow={"visible"}
       display={"flex"}
       flexDirection={"row"}
       sx={{backgroundColor: "green"}}
@@ -29,6 +30,7 @@ const buttonHeight = "24px"
       <Box
       sx={{
         paddingLeft: "20px",
+        overflow: "hidden"
       }}
       >
         <Typography noWrap={true}>
@@ -39,7 +41,8 @@ const buttonHeight = "24px"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         sx={{
-          position: "relative",
+          position: "absolute",
+          right: allCirclesWidth,
           height: buttonHeight,
           overflow: "visible", 
         }}
@@ -49,7 +52,7 @@ const buttonHeight = "24px"
               position: "absolute",
               top: 0,
               left: 0,
-              width: isHovering ? `${session.contexts.length * 28}px` : "0px", // wider than container width
+              width: isHovering ? `${session.contexts.length * 28}px` : allCirclesWidth, 
               height: "100%",
               backgroundColor: "purple",
               borderRadius: "8px",
@@ -58,7 +61,7 @@ const buttonHeight = "24px"
               opacity: isHovering ? 1 : 0,
               transition: isHovering ?
               "opacity 0.3s ease, width 0.3s ease"
-              :"opacity 0.8s ease, width 0.3s ease" , //not sure about this one
+              :"opacity 0.3s ease, width 0.3s ease" , //not sure about this one
             }}
           />
         {session.contexts.map((context: Context, index) => (
@@ -66,10 +69,15 @@ const buttonHeight = "24px"
           key={index}
           className="circle"
           sx={{
+            //visibility: (isHovering || index < 3) ? "visible" : "hidden",
+            width: (isHovering || index < 3) ? "24px" : "0px", //this is much prettier wow! :D
             position: "absolute",
             left: `${index * (isHovering ? 28 : overlapOffset)}px`, // spread if hovering
-            transition: "left 0.3s ease",
             zIndex: session.contexts.length - index,
+            opacity: (isHovering || index < 3) ? 1 : 0,
+            transition: isHovering ?
+              "left 0.3s ease, opacity 0.3s ease, width 0.3s ease"
+              :"left 0.3s ease, opacity 0.8s ease, width 0.3s ease"
           }}
         >
           <Button sx={{ padding: 0, minWidth: 0 }}>
