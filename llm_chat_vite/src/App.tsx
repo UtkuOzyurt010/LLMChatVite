@@ -1,40 +1,32 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {useState } from 'react'
 import './App.css'
-import Home from './pages/Home/Home'
-import ChatPage from './pages/ChatPage/ChatPage'
 import { Box, useMediaQuery } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme.ts';
-import NavBar from './NavBar.tsx'
-import NavBarMobile from './NavBarMobile.tsx'
-import ChatPageMobile from './pages/ChatPage/ChatPageMobile.tsx'
+import ChatPageMobile from './pages/ChatPage/ChatPageMobile/ChatPageMobile.tsx'
 import ChatPageDesktop from './pages/ChatPage/ChatPageDesktop/ChatPageDesktop.tsx'
 
 import { Session } from './models/Session.tsx'
 import { Context } from './models/Context.tsx'
 
 function initContexts(): Context[] {
-  const context = new Context(1, "pink");
-  const context2 = new Context(2, "blue");
-  const context3 = new Context(3, "red");
-  const context4 = new Context(4, "green");
-  const context5 = new Context(5, "black");
-  const context6 = new Context(6, "brown");
+  const context = new Context("pink");
+  const context2 = new Context("blue");
+  const context3 = new Context("red");
+  const context4 = new Context("green");
+  const context5 = new Context("black");
+  const context6 = new Context("brown");
 
   return [context, context2, context3, context4, context5, context6];
 }
 
 function initSessions(contexts : Context[]): Session[] {
-  let session = new Session(1, contexts);
-  let session2 = new Session(2, contexts);
+  let session = new Session(contexts);
+  let session2 = new Session(contexts);
   session.summary = "My first session!"
   session2.summary = "My second session!"
   return [session, session2];
 }
-
-
 
 function App() {
     const isSmallScreen = !useMediaQuery(theme.breakpoints.up('sm'));
@@ -45,7 +37,7 @@ function App() {
   const [contexts, setContexts] = useState<Context[]>(initialContexts);
   const [sessions, setSessions] = useState<Session[]>(initialSessions);
   const [currentSession, setCurrentSession] = useState<Session>(initialSessions[0]);
-  
+
     return (
         <ThemeProvider theme={theme}>
             <Box

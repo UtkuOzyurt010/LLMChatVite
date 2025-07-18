@@ -1,35 +1,38 @@
 import type { Context } from "./Context";
-import type { PromptResponse } from "./PromptResponse";
-import type { ChronologicalEntry } from "./ChronologicalEntry";
+import type { ChatEntry } from "./ChatEntry";
+//import type { ChronologicalEntry } from "./ChronologicalEntry";
+
+import { v4 as uuidv4 } from 'uuid';
 
 
 
 
 export class Session{
-  id: number
+  //id: number
+  guid: string
   summary: string = ""
-  all_prompts : Record<number, PromptResponse> = {}
-  all_responses : Record<number, PromptResponse> = {}
+  all_prompts : Record<number, ChatEntry> = {}
+  all_responses : Record<number, ChatEntry> = {}
   contexts: Context[]
-  context_ids: Set<number> = new Set<number>()
+  context_ids: Set<string> = new Set<string>()
   current_context: Context
   
 
-  constructor(id : number, contexts: Context[]) //contexts is passed by reference
+  constructor(contexts: Context[]) //contexts is passed by reference
   {
-    this.id = id
-    this.contexts = contexts;
+    this.guid = uuidv4()
+    this.contexts = contexts
     this.contexts.forEach(element => {
-      this.context_ids.add(element.id)
+      this.context_ids.add(element.guid)
     });
     this.current_context=contexts[0]
   }
 
-  add_context_id(id: number) : boolean 
+  private addContextGuid(guid: string) : boolean 
   {
     try{
-      this.context_ids.add(id);
-      if(this.context_ids.has(id)) return true;
+      this.context_ids.add(guid);
+      if(this.context_ids.has(guid)) return true;
       else return false;
     }
     catch(e){
@@ -38,76 +41,56 @@ export class Session{
     }
   }
 
-  remove_context_id(id: number) : boolean 
+  private removeContextGuid(guid: string) : boolean 
   {
-    // try{
-    //     this.context_ids.delete(id)
-    // }
-    return this.context_ids.delete(id);
+    return this.context_ids.delete(guid);
   }
 
-  add_context(id: number, allContexts : Context[]) : boolean
+  addContext(guid: string, allContexts : Context[]) : boolean
   {
     allContexts.forEach(element => 
       {
-        if(element.id == id) {
+        if(element.guid == guid) {
           this.contexts.push(element);
-          this.add_context_id(id);
+          this.addContextGuid(guid);
           return true;
         } 
       })
     return false
   }
 
-  remove_context(id: number) : boolean
+  removeContext(guid: string) : boolean
   {
     for(let i = 0; i < this.contexts.length; i++)
     {
-      if(this.contexts[i].id == id)
+      if(this.contexts[i].guid == guid)
       {
         this.contexts.splice(i, 1);
-        this.remove_context_id(id);
+        this.removeContextGuid(guid);
         return true;
       }
     }
     return false;
   }
 
-  getall() : string {
-    let all = ""
-    for (let index = 0; index < this.contexts.length ; index++) { //there cant be more responses than prompts
-      all += "Context " + this.contexts[index].id.toString() + ": " +  this.contexts[index].getall()
-    }
-    return all
-  }
+  // getAll() : string {
+  //   let all = ""
+  //   for (let index = 0; index < this.contexts.length ; index++) { //there cant be more responses than prompts
+  //     all += "Context " + this.contexts[index].guid.toString() + ": " +  this.contexts[index].getall()
+  //   }
+  //   return all
+  // }
 
-  getChronologicalEntries(): ChronologicalEntry[] {
-    const entries: ChronologicalEntry[] = [];
+  getSortedEntriesAllContexts(): ChatEntry[] {
+    const entries: ChatEntry[] = [];
 
-    for (const ctx of this.contexts) {
-      // Add all prompts
-      for (const indexStr of Object.keys(ctx.prompts)) {
-        const index = Number(indexStr);
-        entries.push({
-          contextId: ctx.id,
-          type: "prompt",
-          promptResponse: ctx.prompts[index]
-        });
-      }
-
-      // Add all responses
-      for (const indexStr of Object.keys(ctx.responses)) {
-        const index = Number(indexStr);
-        entries.push({
-          contextId: ctx.id,
-          type: "response",
-          promptResponse: ctx.responses[index]
-        });
-      }
+    for (const context of this.contexts) {
+      entries.push(...Object.values(context.prompts));
+      entries.push(...Object.values(context.responses));
     }
 
     // Sort by datetime ascending
-    entries.sort((a, b) => a.promptResponse.datetime.getTime() - b.promptResponse.datetime.getTime());
+    entries.sort((a, b) => a.datetime.getTime() - b.datetime.getTime());
 
     return entries;
   }

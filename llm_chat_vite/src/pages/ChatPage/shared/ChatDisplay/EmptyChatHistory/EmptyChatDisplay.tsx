@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 
-const FirstPrompt = () => {
+const EmptyChatHistory = () => {
 return(
 
 <Box>
@@ -9,4 +9,4 @@ return(
 )
 }
 
-export default FirstPrompt
+export default EmptyChatHistory
