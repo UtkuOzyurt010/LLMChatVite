@@ -2,7 +2,13 @@ import Box from "@mui/material/Box"
 import type { ChatEntry } from "../../../../../models/ChatEntry"
 //import type { ChronologicalEntry } from "../../../../models/ChronologicalEntry"
 
-const ChatHistory = ({entries} : {entries : ChatEntry[]}) =>
+const ChatHistory = ({entries, focusedField, setFocusedField} 
+  : 
+  {
+    entries : ChatEntry[]
+    focusedField: string
+    setFocusedField: (focusedField: string) => void
+  }) =>
 {
   return(
   <div>

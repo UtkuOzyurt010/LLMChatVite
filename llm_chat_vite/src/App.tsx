@@ -47,26 +47,33 @@ function App() {
                 width={"100vw"}
                 border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid purple" : undefined}
             >
-                <Box
+                {/* <Box
                     //flex="1"
                     border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid yellow" : undefined}
+                    height={"100%"}
                     width={"100%"}
-                >
+                > */}
                     {/* {
                         isSmallScreen ? <NavBarMobile isSmallScreen={isSmallScreen} showLeft={showl}></NavBarMobile>
                     } */}
                     {/* <NavBar ></NavBar> */}
-                </Box>
+                {/* </Box> */}
                 <Box
-                    flexGrow={"1"}
+                    //flexGrow={"1"}
                     border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid green" : undefined}
                     margin={"0"}
+                    sx={{
+                      height: "100vh",
+                      width: "100vw"
+                    }}
                     //overflow={"hidden"}
                 >
                     {isSmallScreen ?
                     <ChatPageMobile></ChatPageMobile> //SwipeableDrawer
                     :
+                    <Box height={"100vh"}>
                     <ChatPageDesktop sessions={sessions} contexts={contexts} currentSession={currentSession}></ChatPageDesktop>
+                    </Box>
                     } 
                 </Box>
             </Box>

@@ -10,9 +10,11 @@ import LeftSideDrawer from './LeftSideDrawer/LeftSideDrawer';
 import type { Session } from '../../../models/Session';
 import type { Context } from '../../../models/Context';
 import ChatDisplay from '../shared/ChatDisplay/ChatDisplay';
+import { height } from '@fortawesome/free-solid-svg-icons/faBars';
 
 const drawerWidth = 260;
 const collapsedWidth = 70;
+const appBarHeight = 60;
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -27,6 +29,7 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
+    //height: `calc(100% - ${appBarHeight}px)`,
     width: `calc(100% - ${collapsed ? collapsedWidth : drawerWidth}px)`,
     marginLeft: `${collapsed ? collapsedWidth : drawerWidth}px`,
     transition: theme.transitions.create(['margin', 'width'], {
@@ -61,26 +64,14 @@ export default function ChatPageDesktop({sessions, contexts, currentSession} :
   }
 
   return (
-    <Box sx={{ 
-      //display: 'flex',
-        //width: drawerWidth
-     }}>
-      <CssBaseline />
-      <AppBar 
-        position="relative" 
-        open={true}
-        collapsed={collapsed}
-        sx={{
-                backgroundColor: "green"
-            }}
-      >
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Green-L Writing
-          </Typography>
-        </Toolbar>
-
-      </AppBar>
+    <Box
+    //display={"flex"}
+    //flexDirection={"column"}
+    sx={{
+      height: "100vh",
+      width: "100vw"
+    }}
+    >
       <LeftSideDrawer 
       collapsed={collapsed} 
       collapsedWidth={collapsedWidth} 
@@ -88,10 +79,50 @@ export default function ChatPageDesktop({sessions, contexts, currentSession} :
       toggleDrawerCollapse={toggleDrawerCollapse}
       sessions={sessions}
       contexts={contexts}
-      ></LeftSideDrawer>
+      >
+      </LeftSideDrawer>
+      {/* <Box sx={{ 
+        height: "100%",
+      }}> */}
+        <CssBaseline />
 
-      <ChatDisplay open={true} collapsed={collapsed} drawerwidth={drawerWidth} collapsedwidth={collapsedWidth} currentSession={currentSession}></ChatDisplay>
-
+        <AppBar 
+          position="relative"
+           
+          open={true}
+          collapsed={collapsed}
+          sx={{
+              height: `${appBarHeight}px`,
+              backgroundColor: "green"
+            }}
+        >
+          <Toolbar>
+            <Typography variant="h6" noWrap component="div">
+              Green-L Writing
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      
+        <Box
+        //flex={1} //calculating height once using appBarHeight might be more performant
+           sx={{ 
+            height: `calc(100vh - ${appBarHeight}px)`,
+            //height: "50vh",
+            width: `calc(100% - ${collapsed ? collapsedWidth : drawerWidth}px)`,
+            marginLeft: `${collapsed ? collapsedWidth : drawerWidth}px`,
+            transition: theme.transitions.create(['margin', 'width'], {
+              easing: theme.transitions.easing.easeOut,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+            boxSizing: "border-box",
+            //border: "4px solid red",
+            
+           }}
+        >
+          <ChatDisplay open={true} collapsed={collapsed} drawerwidth={drawerWidth} collapsedwidth={collapsedWidth} currentSession={currentSession}></ChatDisplay>
+        </Box>
+      {/* </Box> */}
+    {/* </Box> */}
     </Box>
   );
 }
