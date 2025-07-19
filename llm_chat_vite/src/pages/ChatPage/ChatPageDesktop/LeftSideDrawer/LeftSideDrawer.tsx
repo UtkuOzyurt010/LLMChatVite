@@ -1,16 +1,13 @@
 import { useState } from "react";
-import { IconButton, Divider, List, ListItem, ListItemButton, ListItemIcon, Typography, styled, useTheme, Button, } from "@mui/material"
+import { IconButton, Divider, List, styled, useTheme} from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
-import CircleIcon from '@mui/icons-material/Circle';
 import Drawer from '@mui/material/Drawer';
-
 import { ChevronRight, SquarePen } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
-
 import CustomListItem from "./CustomListItem/CustomListItem";
 import { type Session } from "../../../../models/Session";
-import { type Context } from "../../../../models/Context";
 import ContextsButton from "../../shared/ContextsButton/ContextsButton";
+import { useAppContext } from "../../../../utils/AppContext";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   
@@ -29,9 +26,6 @@ const LeftSideDrawer = ({
   collapsedWidth,
   drawerWidth,
   toggleDrawerCollapse,
-  sessions,
-  //contextIds
-
 }: {
   collapsed: boolean;
   collapsedWidth: number;
@@ -43,6 +37,7 @@ const LeftSideDrawer = ({
   {
     const theme = useTheme();
     const [showHistory, setShowHistory] = useState<boolean>(false)
+    const {sessions} = useAppContext(); 
 
   return(
     

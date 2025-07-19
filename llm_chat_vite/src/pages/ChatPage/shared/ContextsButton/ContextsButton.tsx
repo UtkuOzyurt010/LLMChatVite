@@ -1,40 +1,31 @@
-import ListItem from "@mui/material/ListItem";
-import  { type Context, defaultContext } from "../../../../models/Context";
-import  { defaultSession, type Session } from "../../../../models/Session";
 import CircleIcon from '@mui/icons-material/Circle';
-import { Box, Button, Popover, Typography } from "@mui/material";
-import { useContext, useState } from "react";
-import useLocalStorage from "../../../../utils/useLocalStorage";
-import { useCurrentContextId } from "../../../../utils/ReactContextProvider";
+import { Box, Button, Typography } from "@mui/material";
+import { useState } from "react";
+import { useAppContext } from "../../../../utils/AppContext";
 
-
-//since this is currently used in ChatInputBox as well, consider moving this to a shared folder
 const ContextsButton = ({children} : 
   {
     children?: React.ReactNode;
   }
 ) =>
 {
-// const state = useContext(AppStateContext);
-// const currentContext = state.currentContextId;
-// const currentSession = state.currentSession;
 
-const [contexts] = useLocalStorage<Context[]>("contexts", [])
-//const [currentContextId, setCurrentContextId]= useLocalStorage<string>("currentContextId", "")
-const { currentContextId, setCurrentContextId } = useCurrentContextId();
-//const { setCurrentContextId } = useCurrentContextId();
-const [currentSession] = useLocalStorage<Session>("currentSession", defaultSession)
+const {contexts, sessions, currentSessionId, currentContextId, setCurrentContextId } = useAppContext(); 
+
 
 const overlapOffset = 5;
 const [isHovering, setIsHovering] = useState(false);
 const buttonHeight = "24px"
 const allCirclesWidth = "36px"
     
-  //to make sure currentContext is first
-const reorderedContexts = [ 
-  currentContextId,
-  ...currentSession.contextIds.filter((cguid) => cguid !== currentContextId)
-];
+const currentSession = sessions.find((s) => s.guid === currentSessionId)!;
+
+const reorderedContexts = currentSession
+  ? [
+      currentContextId,
+      ...currentSession.contextIds.filter((cguid) => cguid !== currentContextId),
+    ]
+  : [];
 
   return(
     <Box

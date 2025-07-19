@@ -1,19 +1,10 @@
 import { Box, Button, TextField } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
-import useLocalStorage from "../../../../utils/useLocalStorage";
-import { type Context, defaultContext } from "../../../../models/Context";
-import { useContext } from "react";
-import { useCurrentContextId } from "../../../../utils/ReactContextProvider";
+import { useAppContext } from "../../../../utils/AppContext";
 
 export default function ChatInputBox() {
 
-    //using LocalStorage had some issues with frame timing
-  //const state = useContext(AppStateContext);
-  //const currentContext = state.currentContext;
-
-  const [contexts] = useLocalStorage<Context[]>("contexts", [])
-  //const [currentContextId] = useLocalStorage<string>("currentContextId", "")
-  const { currentContextId } = useCurrentContextId()
+  const { contexts, currentContextId } = useAppContext()
 
     return(
       <Box

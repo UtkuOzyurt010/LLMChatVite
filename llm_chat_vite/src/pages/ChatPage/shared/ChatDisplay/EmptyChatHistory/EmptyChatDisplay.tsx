@@ -1,61 +1,26 @@
-import { Box, TextField } from "@mui/material"
-import { useState } from "react";
+import { Box } from "@mui/material"
 import ChatInputBox from "../../ChatInputBox/ChatInputBox";
-
 import ContextsButton from "../../ContextsButton/ContextsButton";
-import useLocalStorage from "../../../../../utils/useLocalStorage";
-import { type Session } from "../../../../../models/Session";
 
 const EmptyChatDisplay = () => {
-    //consider using react context instead
-  const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", null) 
 
 return(
-  <Box sx={{
-  //height: 'calc(100vh - 60px)',
-  //height: "100%",
-  //paddingTop: "10%" //somehow this is based on the parent width? I'd rather not use vh here...
-  paddingTop: `calc(100vh / 10 * 4)`,
-  display: 'flex',
-  //alignItems: 'center',
-  justifyContent: 'center',
-  boxSizing: "border-box"
-}}
+  <Box 
+    sx={{
+      //height: 'calc(100vh - 60px)',
+      //height: "100%",
+      //paddingTop: "10%" //somehow this is based on the parent width? I'd rather not use vh here...
+      paddingTop: `calc(100vh / 10 * 4)`,
+      display: 'flex',
+      //alignItems: 'center',
+      justifyContent: 'center',
+      boxSizing: "border-box"
+    }}
   >
-    <ChatInputBox>
-
-    </ChatInputBox>
-      {/* needs better null handling later */}
-      {/* <Box
-        sx={{position: 'relative'}} //consider moving this into Contextsbutton to make sure everything necessary is included
-      > */}
-        <ContextsButton ></ContextsButton> 
-      {/* </Box> */}
-    
-    {/* <Box
-      component="form"
-      sx={{ 
-        '& .MuiTextField-root': {width: '25ch' } ,
-        boxSizing: "border-box",
-        border: "2px solid green",
-    //     marginTop:"10%",
-    //     paddingBottom:"10%",
-    //     paddingX:"30%",
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      ask me something!
-      <TextField 
-        required
-        id="prompt" 
-        variant="filled"
-        placeholder="Ask me anything!"
-        hiddenLabel={true}
-        
-      >
-      </TextField>
-    </Box> */}
+    <ChatInputBox></ChatInputBox>
+   
+    <ContextsButton ></ContextsButton> 
+      
   </Box>
 )
 }

@@ -1,6 +1,4 @@
-//import { InboxIcon, MailIcon, SquarePen } from 'lucide-react';
 import { ListItemIcon, ListItemButton, Typography, ListItem } from '@mui/material';
-//import { icon, text } from '@fortawesome/fontawesome-svg-core';
 
 const CustomListItem = ({collapsed, collapsedWidth, icon, text, onClick, children} : 
   {

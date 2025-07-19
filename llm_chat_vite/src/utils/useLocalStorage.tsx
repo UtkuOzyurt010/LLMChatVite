@@ -1,26 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-function useLocalStorage<T>(key : string, initialValue : T): [T, (value: T ) => void]  //generic needs return type for safety, to make sure setter only accepts T
-{
-  const [value, setValue] = useState(() => {
+export function useLocalStorage<T>(key: string, initialValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
+  const [storedValue, setStoredValue] = useState<T>(() => {
     try {
-      const stored = localStorage.getItem(key);
-      return stored !== null ? JSON.parse(stored) as T : initialValue;
+      const item = localStorage.getItem(key);
+      return item ? (JSON.parse(item) as T) : initialValue;
     } catch (error) {
-      console.warn(error);
+      console.warn("useLocalStorage get error:", error);
       return initialValue;
     }
   });
 
   useEffect(() => {
     try {
-      localStorage.setItem(key, JSON.stringify(value));
+      localStorage.setItem(key, JSON.stringify(storedValue));
     } catch (error) {
-      console.warn(error);
+      console.warn("useLocalStorage set error:", error);
     }
-  }, [key, value]);
+  }, [key, storedValue]);
 
-  return [value, setValue];
+  return [storedValue, setStoredValue];
 }
-
-export default useLocalStorage
