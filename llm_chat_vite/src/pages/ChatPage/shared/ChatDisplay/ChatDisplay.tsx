@@ -1,8 +1,8 @@
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
-import type { Session } from "../../../../models/Session";
+import  { type Session, getSortedEntriesAllContexts } from "../../../../models/Session";
 //import type { ChronologicalEntry } from "../../../models/ChronologicalEntry";
-import EmptyChatHistory from "./EmptyChatHistory/EmptyChatDisplay";
+import EmptyChatDisplay from "./EmptyChatHistory/EmptyChatDisplay";
 import ChatHistory from "./ChatHistory/ChatHistory";
 import { useState } from "react";
 import useLocalStorage from "../../../../utils/useLocalStorage";
@@ -15,7 +15,7 @@ export default function ChatDisplay({open, collapsed, drawerwidth, collapsedwidt
   collapsedwidth: number
 }) {
   const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", null)
-  const entries = currentSession ? currentSession.getSortedEntriesAllContexts() : []; //since this is only used by ChatHistory...
+  const entries = currentSession ? getSortedEntriesAllContexts(currentSession) : []; //since this is only used by ChatHistory...
         //...it might be better to check a different way whether its empty, like accessing the first element, and then 
         //getting all entries within ChatHistory rather than passing it as a prop
   const [focusedField, setFocusedField] = useState("");
@@ -31,7 +31,7 @@ export default function ChatDisplay({open, collapsed, drawerwidth, collapsedwidt
     >
       {
         entries.length === 0 
-          ? <EmptyChatHistory />
+          ? <EmptyChatDisplay />
           : <ChatHistory entries={entries} focusedField={focusedField} setFocusedField={setFocusedField} />
       }
     </Box>

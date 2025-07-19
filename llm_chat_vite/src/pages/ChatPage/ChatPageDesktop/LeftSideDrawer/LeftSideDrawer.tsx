@@ -8,8 +8,8 @@ import { ChevronRight, SquarePen } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
 
 import CustomListItem from "./CustomListItem/CustomListItem";
-import { Session } from "../../../../models/Session";
-import { Context } from "../../../../models/Context";
+import { type Session } from "../../../../models/Session";
+import { type Context } from "../../../../models/Context";
 import ContextsButton from "../../shared/ContextsButton/ContextsButton";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -30,7 +30,7 @@ const LeftSideDrawer = ({
   drawerWidth,
   toggleDrawerCollapse,
   sessions,
-  contexts
+  //contextIds
 
 }: {
   collapsed: boolean;
@@ -38,7 +38,7 @@ const LeftSideDrawer = ({
   drawerWidth: number;
   toggleDrawerCollapse: () => void;
   sessions: Session[];
-  contexts: Context[];
+  //contextIds: string[];
 })  =>
   {
     const theme = useTheme();
@@ -115,7 +115,7 @@ const LeftSideDrawer = ({
           </CustomListItem >
           {showHistory && <List key={"SessionsList"} sx={{backgroundColor: "red", padding: "0" }}>
             {sessions.map((session: Session, sessionIndex) => (
-              <ContextsButton key={`session: ${sessionIndex}`}session={session}>
+              <ContextsButton key={`session: ${sessionIndex}`}>
                 {session.summary}
               </ContextsButton>
             ))}

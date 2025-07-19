@@ -7,8 +7,10 @@ import ChatPageMobile from './pages/ChatPage/ChatPageMobile/ChatPageMobile.tsx'
 import ChatPageDesktop from './pages/ChatPage/ChatPageDesktop/ChatPageDesktop.tsx'
 
 import { type Session, createSession } from './models/Session.tsx'
-import { type Context, createContext } from './models/Context.tsx'
+import { createContext } from './models/Context.tsx'
+import { type Context, defaultContext } from './models/Context.tsx';
 import useLocalStorage from './utils/useLocalStorage.tsx';
+import { CurrentContextIdProvider } from './utils/ReactContextProvider.tsx';
 
 function initContexts(): Context[] {
   const context = createContext("pink");
@@ -21,26 +23,29 @@ function initContexts(): Context[] {
   return [context, context2, context3, context4, context5, context6];
 }
 
-function initSessions(contexts : Context[]): Session[] {
-  const session : Session = createSession(contexts)
-  const session2 : Session = createSession(contexts)
+function initSessions(contextIds : string[]): Session[] {
+  const session : Session = createSession(contextIds)
+  const session2 : Session = createSession(contextIds)
   session.summary = "My first session!"
   session2.summary = "My second session!"
   return [session, session2];
 }
 
 function App() {
-    const isSmallScreen = !useMediaQuery(theme.breakpoints.up('sm'));
+  const isSmallScreen = !useMediaQuery(theme.breakpoints.up('sm'));
 
-  const initialContexts = initContexts();
-  const initialSessions = initSessions(initialContexts);
+  const initialContexts = initContexts()
+  const initialContextIds = initialContexts.map((context) => context.guid);
+  const initialSessions = initSessions(initialContextIds);
 
-  const [contexts, setContexts] = useState<Context[]>(initialContexts);
-  const [sessions, setSessions] = useState<Session[]>(initialSessions);
+  const [contexts, setContexts] = useLocalStorage<Context[]>("contexts", initialContexts);
+  const [sessions, setSessions] = useLocalStorage<Session[]>("sessions", initialSessions);
   //const [currentSession, setCurrentSession] = useState<Session>(initialSessions[0]);
-  const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", initialSessions[0])
+  const [currentSession, setCurrentSession] = useLocalStorage<Session>("currentSession", initialSessions[0])
+  const [currentContextId, setCurrentContextId] = useLocalStorage<string>("currentContextId", initialContextIds[0])
 
     return (
+      <CurrentContextIdProvider>
         <ThemeProvider theme={theme}>
             <Box
                 display={"flex"}
@@ -74,12 +79,14 @@ function App() {
                     <ChatPageMobile></ChatPageMobile> //SwipeableDrawer
                     :
                     <Box height={"100vh"}>
-                    <ChatPageDesktop sessions={sessions} contexts={contexts}></ChatPageDesktop>
+                    <ChatPageDesktop sessions={sessions} //</Box>contextIds={contextIds}
+                    ></ChatPageDesktop>
                     </Box>
                     } 
                 </Box>
             </Box>
         </ThemeProvider>
+      </CurrentContextIdProvider>
     
     )
 }

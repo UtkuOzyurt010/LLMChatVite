@@ -3,7 +3,7 @@ import SessionHistory from "../shared/SessionHistory/SessionHistory";
 import ChatHistory from "../shared/ChatDisplay/ChatDisplay";
 import ChatInputBox from "../shared/ChatInputBox/ChatInputBox"; 
 import { useEffect, useState } from "react";
-import { Context } from "../../../models/Context";
+import type { Context } from "../../../models/Context";
 import ChatTimeline from "../shared/ChatTimeline/ChatTimeline";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";

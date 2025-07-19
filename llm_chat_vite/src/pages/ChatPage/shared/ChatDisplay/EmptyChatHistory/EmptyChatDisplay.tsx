@@ -4,10 +4,11 @@ import ChatInputBox from "../../ChatInputBox/ChatInputBox";
 
 import ContextsButton from "../../ContextsButton/ContextsButton";
 import useLocalStorage from "../../../../../utils/useLocalStorage";
-import type { Session } from "../../../../../models/Session";
+import { type Session } from "../../../../../models/Session";
 
-const EmptyChatHistory = () => {
-  const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", null)
+const EmptyChatDisplay = () => {
+    //consider using react context instead
+  const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", null) 
 
 return(
   <Box sx={{
@@ -25,7 +26,12 @@ return(
 
     </ChatInputBox>
       {/* needs better null handling later */}
-    <ContextsButton session={currentSession as Session}></ContextsButton> 
+      {/* <Box
+        sx={{position: 'relative'}} //consider moving this into Contextsbutton to make sure everything necessary is included
+      > */}
+        <ContextsButton ></ContextsButton> 
+      {/* </Box> */}
+    
     {/* <Box
       component="form"
       sx={{ 
@@ -54,4 +60,4 @@ return(
 )
 }
 
-export default EmptyChatHistory
+export default EmptyChatDisplay

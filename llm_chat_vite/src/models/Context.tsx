@@ -2,7 +2,8 @@ import { type ChatEntry, createChatEntry } from "./ChatEntry"
 
 import { v4 as uuidv4 } from 'uuid';
 
-export interface Context{
+export interface Context
+{
     guid : string
     prompts : Record<number, ChatEntry>
     responses : Record<number, ChatEntry>
@@ -11,6 +12,8 @@ export interface Context{
     color: string
 
 }
+
+export const defaultContext : Context = createContext("black")
 
 export function createContext(color: string){
 

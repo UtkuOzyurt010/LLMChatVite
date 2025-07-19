@@ -42,15 +42,18 @@ const AppBar = styled(MuiAppBar, {
 
 
 
-export default function ChatPageDesktop({sessions, contexts} :
+export default function ChatPageDesktop(
+  {sessions, 
+  //contextIds
+  } :
   {
     sessions: Session[]
-    contexts: Context[]
+    //contextIds: string[]
   }
 ) {
   const theme = useTheme();
   const [collapsed, setCollapsed] = React.useState(true);
-  //const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", null)
+  const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", null)
 
   const handleDrawerCollapse = () => {
     setCollapsed(true);
@@ -79,7 +82,7 @@ export default function ChatPageDesktop({sessions, contexts} :
       drawerWidth={drawerWidth} 
       toggleDrawerCollapse={toggleDrawerCollapse}
       sessions={sessions}
-      contexts={contexts}
+      //contextIds={contextIds}
       >
       </LeftSideDrawer>
       {/* <Box sx={{ 
