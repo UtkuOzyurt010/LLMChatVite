@@ -6,23 +6,24 @@ import theme from './theme.ts';
 import ChatPageMobile from './pages/ChatPage/ChatPageMobile/ChatPageMobile.tsx'
 import ChatPageDesktop from './pages/ChatPage/ChatPageDesktop/ChatPageDesktop.tsx'
 
-import { Session } from './models/Session.tsx'
-import { Context } from './models/Context.tsx'
+import { type Session, createSession } from './models/Session.tsx'
+import { type Context, createContext } from './models/Context.tsx'
+import useLocalStorage from './utils/useLocalStorage.tsx';
 
 function initContexts(): Context[] {
-  const context = new Context("pink");
-  const context2 = new Context("blue");
-  const context3 = new Context("red");
-  const context4 = new Context("green");
-  const context5 = new Context("black");
-  const context6 = new Context("brown");
+  const context = createContext("pink");
+  const context2 = createContext("blue");
+  const context3 = createContext("red");
+  const context4 = createContext("green");
+  const context5 = createContext("black");
+  const context6 = createContext("brown");
 
   return [context, context2, context3, context4, context5, context6];
 }
 
 function initSessions(contexts : Context[]): Session[] {
-  let session = new Session(contexts);
-  let session2 = new Session(contexts);
+  const session : Session = createSession(contexts)
+  const session2 : Session = createSession(contexts)
   session.summary = "My first session!"
   session2.summary = "My second session!"
   return [session, session2];
@@ -36,7 +37,8 @@ function App() {
 
   const [contexts, setContexts] = useState<Context[]>(initialContexts);
   const [sessions, setSessions] = useState<Session[]>(initialSessions);
-  const [currentSession, setCurrentSession] = useState<Session>(initialSessions[0]);
+  //const [currentSession, setCurrentSession] = useState<Session>(initialSessions[0]);
+  const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", initialSessions[0])
 
     return (
         <ThemeProvider theme={theme}>
@@ -72,7 +74,7 @@ function App() {
                     <ChatPageMobile></ChatPageMobile> //SwipeableDrawer
                     :
                     <Box height={"100vh"}>
-                    <ChatPageDesktop sessions={sessions} contexts={contexts} currentSession={currentSession}></ChatPageDesktop>
+                    <ChatPageDesktop sessions={sessions} contexts={contexts}></ChatPageDesktop>
                     </Box>
                     } 
                 </Box>

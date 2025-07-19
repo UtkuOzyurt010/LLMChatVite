@@ -10,7 +10,7 @@ import { ChevronDown } from 'lucide-react';
 import CustomListItem from "./CustomListItem/CustomListItem";
 import { Session } from "../../../../models/Session";
 import { Context } from "../../../../models/Context";
-import ContextsButton from "./ContextsButton/ContextsButton";
+import ContextsButton from "../../shared/ContextsButton/ContextsButton";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   

@@ -16,7 +16,7 @@ const ChatHistory = ({entries, focusedField, setFocusedField}
     return(
       <Box
       position={"relative"}
-        key={`chronologicalentry: ${index}`}
+        key={`chatEntry: ${index}`}
       >
         {value.type == "prompt" ?
         <Box

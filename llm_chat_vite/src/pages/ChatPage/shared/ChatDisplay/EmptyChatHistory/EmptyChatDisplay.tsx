@@ -2,7 +2,13 @@ import { Box, TextField } from "@mui/material"
 import { useState } from "react";
 import ChatInputBox from "../../ChatInputBox/ChatInputBox";
 
+import ContextsButton from "../../ContextsButton/ContextsButton";
+import useLocalStorage from "../../../../../utils/useLocalStorage";
+import type { Session } from "../../../../../models/Session";
+
 const EmptyChatHistory = () => {
+  const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", null)
+
 return(
   <Box sx={{
   //height: 'calc(100vh - 60px)',
@@ -18,6 +24,8 @@ return(
     <ChatInputBox>
 
     </ChatInputBox>
+      {/* needs better null handling later */}
+    <ContextsButton session={currentSession as Session}></ContextsButton> 
     {/* <Box
       component="form"
       sx={{ 

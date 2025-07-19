@@ -11,6 +11,7 @@ import type { Session } from '../../../models/Session';
 import type { Context } from '../../../models/Context';
 import ChatDisplay from '../shared/ChatDisplay/ChatDisplay';
 import { height } from '@fortawesome/free-solid-svg-icons/faBars';
+import useLocalStorage from '../../../utils/useLocalStorage';
 
 const drawerWidth = 260;
 const collapsedWidth = 70;
@@ -41,15 +42,15 @@ const AppBar = styled(MuiAppBar, {
 
 
 
-export default function ChatPageDesktop({sessions, contexts, currentSession} :
+export default function ChatPageDesktop({sessions, contexts} :
   {
     sessions: Session[]
     contexts: Context[]
-    currentSession: Session
   }
 ) {
   const theme = useTheme();
   const [collapsed, setCollapsed] = React.useState(true);
+  //const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", null)
 
   const handleDrawerCollapse = () => {
     setCollapsed(true);
@@ -119,7 +120,7 @@ export default function ChatPageDesktop({sessions, contexts, currentSession} :
             
            }}
         >
-          <ChatDisplay open={true} collapsed={collapsed} drawerwidth={drawerWidth} collapsedwidth={collapsedWidth} currentSession={currentSession}></ChatDisplay>
+          <ChatDisplay open={true} collapsed={collapsed} drawerwidth={drawerWidth} collapsedwidth={collapsedWidth}></ChatDisplay>
         </Box>
       {/* </Box> */}
     {/* </Box> */}

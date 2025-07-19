@@ -1,35 +1,55 @@
-import { ChatEntry } from "./ChatEntry"
+import { type ChatEntry, createChatEntry } from "./ChatEntry"
 
 import { v4 as uuidv4 } from 'uuid';
 
-export class Context{
+export interface Context{
     guid : string
-    prompts : Record<number, ChatEntry> = {}
-    responses : Record<number, ChatEntry> = {}
-    current_prompt_index : number = 0
-    current_response_index : number = 0
-    color: string = "green"
+    prompts : Record<number, ChatEntry>
+    responses : Record<number, ChatEntry>
+    current_prompt_index : number
+    current_response_index : number
+    color: string
 
-    constructor(color: string){
-        this.guid = uuidv4()
-        this.color = color
-    }
+}
 
-    addprompt(text: string) {
-        this.prompts[this.current_prompt_index++] = new ChatEntry(text, this.guid, "prompt")
-    }
+export function createContext(color: string){
 
-    addresponse(text: string) 
-    {
-        this.responses[this.current_response_index++] = new ChatEntry(text, this.guid, "response")
-    }
-
-    getall() : string {
-        let all = ""
-        for (let index = 0; index < Object.keys(this.responses).length ; index++) { //there cant be more responses than prompts
-            all += "P: " + this.prompts[index]
-            all += "R: " + this.responses[index]
-        }
-        return all
+    return{
+        guid: uuidv4(),
+        prompts: {},
+        responses: {},
+        current_prompt_index: 0,
+        current_response_index: 0,
+        color: color
     }
 }
+
+export function addprompt(context: Context, text: string) : Context
+{
+    const newprompts = context.prompts;
+    newprompts[context.current_prompt_index++] = createChatEntry(text, context.guid, "prompt")
+    return {
+        ...context,
+        prompts: newprompts,
+    }
+}
+
+export function addresponse(context: Context, text: string) 
+{
+    const newresponses = context.responses;
+    newresponses[context.current_response_index++] = createChatEntry(text, context.guid, "response")
+    return {
+        ...context,
+        prompts: newresponses,
+    }
+}
+
+    //  still needs to rewritten from class function, but might nto use it at all so not doing that now
+// export function getall(context: Context) : string {
+//     let all = ""
+//     for (let index = 0; index < Object.keys(context.responses).length ; index++) { //there cant be more responses than prompts
+//         all += "P: " + context.prompts[index]
+//         all += "R: " + context.responses[index]
+//     }
+//     return all
+// }

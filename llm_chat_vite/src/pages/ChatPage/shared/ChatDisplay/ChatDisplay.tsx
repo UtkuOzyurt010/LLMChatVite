@@ -5,17 +5,21 @@ import type { Session } from "../../../../models/Session";
 import EmptyChatHistory from "./EmptyChatHistory/EmptyChatDisplay";
 import ChatHistory from "./ChatHistory/ChatHistory";
 import { useState } from "react";
+import useLocalStorage from "../../../../utils/useLocalStorage";
 
-export default function ChatDisplay({ open, collapsed, drawerwidth, collapsedwidth, currentSession }: 
+export default function ChatDisplay({open, collapsed, drawerwidth, collapsedwidth}: 
   { 
   open?: boolean
   collapsed?: boolean
   drawerwidth: number
   collapsedwidth: number
-  currentSession: Session
 }) {
-  const entries = currentSession.getSortedEntriesAllContexts();
+  const [currentSession, setCurrentSession] = useLocalStorage<Session | null>("currentSession", null)
+  const entries = currentSession ? currentSession.getSortedEntriesAllContexts() : []; //since this is only used by ChatHistory...
+        //...it might be better to check a different way whether its empty, like accessing the first element, and then 
+        //getting all entries within ChatHistory rather than passing it as a prop
   const [focusedField, setFocusedField] = useState("");
+  
 
   return (
     <Box

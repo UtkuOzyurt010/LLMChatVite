@@ -1,12 +1,12 @@
 import ListItem from "@mui/material/ListItem";
-import type { Context } from "../../../../../models/Context";
-import type { Session } from "../../../../../models/Session";
+import type { Context } from "../../../../models/Context";
+import type { Session } from "../../../../models/Session";
 import CircleIcon from '@mui/icons-material/Circle';
 import { Box, Button, Popover, Typography } from "@mui/material";
 import { useState } from "react";
 
 
-
+//since this is currently used in ChatInputBox as well, consider moving this to a shared folder
 const ContextsButton = ({session, children} : 
   {
     session : Session
