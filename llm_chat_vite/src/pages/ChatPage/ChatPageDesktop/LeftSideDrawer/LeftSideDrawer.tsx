@@ -5,7 +5,8 @@ import Drawer from '@mui/material/Drawer';
 import { ChevronRight, SquarePen } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
 import CustomListItem from "./CustomListItem/CustomListItem";
-import { type Session } from "../../../../models/Session";
+import { type Session, createSession } from "../../../../models/Session";
+import { createContext, getRandomHexColor } from "../../../../models/Context";
 import ContextsButton from "../../shared/ChatInputBox/ContextsButton/ContextsButton";
 import { useAppContext } from "../../../../utils/AppContext";
 
@@ -37,7 +38,16 @@ const LeftSideDrawer = ({
   {
     const theme = useTheme();
     const [showHistory, setShowHistory] = useState<boolean>(false)
-    const {sessions} = useAppContext(); 
+    const {sessions, contexts, setCurrentContextId, setCurrentSessionId} = useAppContext(); 
+
+    const handleNewChat = () => {
+      const newContext = createContext(getRandomHexColor())
+      contexts.push(newContext)
+      setCurrentContextId(newContext.guid)
+      const newSession = createSession([newContext.guid])
+      sessions.push(newSession)
+      setCurrentSessionId(newSession.guid)
+    }
 
   return(
     
@@ -93,7 +103,14 @@ const LeftSideDrawer = ({
       //sx={{backgroundColor: "green"}} 
       />
       {<List sx={{backgroundColor: "orange" , overflow: "visible",}} >
-          <CustomListItem key={"New Chat"} collapsed={collapsed} collapsedWidth={collapsedWidth} icon={<SquarePen></SquarePen>} text="New Chat"></CustomListItem>
+          <CustomListItem 
+          key={"New Chat"} 
+          collapsed={collapsed} 
+          collapsedWidth={collapsedWidth}
+          icon={<SquarePen></SquarePen>}
+          text="New Chat"
+          onClick={handleNewChat}
+           ></CustomListItem>
           <CustomListItem 
             key={"History"} 
             collapsed={collapsed} 

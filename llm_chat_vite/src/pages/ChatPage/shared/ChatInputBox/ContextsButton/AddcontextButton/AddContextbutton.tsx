@@ -5,6 +5,7 @@ import { useAppContext } from "../../../../../../utils/AppContext";
 import { createContext } from "../../../../../../models/Context";
 import { useEffect, useState } from "react";
 import { useTheme } from '@mui/material/styles';
+import { getRandomHexColor } from "../../../../../../models/Context";
 
 
 const AddContextButton = () => {
@@ -17,11 +18,7 @@ const AddContextButton = () => {
 
   useEffect(() => setColor(getRandomHexColor()), []) //to display the color, before adding it
 
-  const getRandomHexColor = () =>{
-    const randomNum = Math.floor(Math.random() * 0xffffff);
-    const hexString = randomNum.toString(16).padStart(6, '0');
-    return `#${hexString}`;
-  }
+  
 
   const handleAddContext = () =>
   {
