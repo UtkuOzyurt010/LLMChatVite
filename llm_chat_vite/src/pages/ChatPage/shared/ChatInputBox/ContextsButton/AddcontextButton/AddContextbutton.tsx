@@ -30,6 +30,7 @@ const AddContextButton = () => {
     setCurrentContextId(context.guid)
     const session = sessions.find((session) => session.guid === currentSessionId)!
     session.contextIds.push(context.guid) // add contextId to currentSession contexts
+    setColor(getRandomHexColor())
   }
 
 return (
