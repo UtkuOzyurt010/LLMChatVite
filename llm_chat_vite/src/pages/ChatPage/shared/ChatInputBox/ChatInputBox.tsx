@@ -2,6 +2,8 @@ import { Box, Button, TextField, Paper, useTheme } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import { useAppContext } from "../../../../utils/AppContext";
 import ContextsButton from "./ContextsButton/ContextsButton";
+import AddContextButton from "./ContextsButton/AddcontextButton/AddContextbutton";
+
 
 export default function ChatInputBox() {
   const { contexts, currentContextId } = useAppContext();
@@ -66,6 +68,8 @@ export default function ChatInputBox() {
 
         {/* Right ContextsButton */}
         <ContextsButton forChatInputBox={true} />
+
+        <AddContextButton></AddContextButton>
       </Box>
     </Paper>
   );
