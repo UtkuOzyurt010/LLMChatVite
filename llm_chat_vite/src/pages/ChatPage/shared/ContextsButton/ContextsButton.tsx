@@ -3,6 +3,8 @@ import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import { useAppContext } from "../../../../utils/AppContext";
 import type { Session } from '../../../../models/Session';
+import { useTheme } from '@mui/material/styles';
+
 
 //historySessionId is for the leftsideDrawer, to display the contexts belonging to the session
 //currentsessionId is for the chatInputBox, to show the contexts of the current session
@@ -14,26 +16,24 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
   }
 ) =>
 {
-//displaySessionId ?
-const {contexts, sessions, currentSessionId, currentContextId, setCurrentContextId } = useAppContext(); 
+  const {contexts, sessions, currentSessionId, currentContextId, setCurrentContextId } = useAppContext(); 
+  const sessionId = historySessionId ? historySessionId : currentSessionId
+  const currentSession = sessions.find((s) => s.guid === sessionId)!; //currentSessionId
+    //only reorder the contexts for for the ContextsButton displayed in the ChatInputBox
+  const reorderedContextIds = forChatInputBox 
+    ? [
+        currentContextId,
+        ...currentSession.contextIds.filter((cguid) => cguid !== currentContextId),
+      ]
+    : [...currentSession.contextIds];
 
+  const theme = useTheme();
+  const buttonHeight = theme.customSizes.buttonHeight
+  const buttonHeightn = theme.customSizes.buttonHeightn
+  const allCirclesWidth = "40px"
 
-const overlapOffset = 5;
-const [isHovering, setIsHovering] = useState(false);
-const buttonHeight = "24px"
-const allCirclesWidth = "36px"
-const sessionId = historySessionId ? historySessionId : currentSessionId
-    
-const currentSession = sessions.find((s) => s.guid === sessionId)!; //currentSessionId
-
-//only reorder the contexts for for the ContextsButton displayed in the ChatInputBox
-const reorderedContextIds = forChatInputBox 
-  ? [
-      currentContextId,
-      ...currentSession.contextIds.filter((cguid) => cguid !== currentContextId),
-    ]
-  : [...currentSession.contextIds];
-
+  const overlapOffset = 5;
+  const [isHovering, setIsHovering] = useState(false);
 
   return(
     <Box
@@ -42,9 +42,9 @@ const reorderedContextIds = forChatInputBox
       flexDirection={"row"}
       sx={{
         position: "relative",
-        border: "3px solid red",
         height: buttonHeight,
         alignItems: 'center',
+        //border: "3px solid red",
       }}
     >
       <Box
@@ -61,6 +61,8 @@ const reorderedContextIds = forChatInputBox
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         sx={{
+          display: "flex",
+          alignItems: "center",
           position: "absolute",
           right: allCirclesWidth,
           height: buttonHeight,
@@ -72,10 +74,10 @@ const reorderedContextIds = forChatInputBox
               position: "absolute",
               top: 0,
               left: 0,
-              width: isHovering ? `${reorderedContextIds.length * 28}px` : allCirclesWidth, 
+              width: isHovering ? `${reorderedContextIds.length * (buttonHeightn + 4)}px` : allCirclesWidth, 
               height: "100%",
               backgroundColor: "purple",
-              borderRadius: "8px",
+              borderRadius: "12px",
               zIndex: 1,
               //visibility: isHovering ? "visible" : "hidden", //now changing the width to 0 instead
               opacity: isHovering ? 1 : 0,
@@ -90,21 +92,26 @@ const reorderedContextIds = forChatInputBox
           className="circle"
           sx={{
             //visibility: (isHovering || index < 3) ? "visible" : "hidden",
-            width: (isHovering || index < 3) ? "24px" : "0px", //this is much prettier wow! :D
+            display: "flex",
+            alignItems: "center",
+            width: (isHovering || index < 3) ? buttonHeight : "0px", //this is much prettier wow! :D
+            height: "100%",
             position: "absolute",
-            left: `${index * (isHovering ? 28 : overlapOffset)}px`, // spread if hovering
+            left: `${index * (isHovering ? buttonHeightn + 4 : overlapOffset)}px`, // spread if hovering
             zIndex: reorderedContextIds.length - index,
             opacity: (isHovering || index < 3) ? 1 : 0,
             transition: isHovering ?
               "left 0.3s ease, opacity 0.3s ease, width 0.3s ease"
-              :"left 0.3s ease, opacity 0.8s ease, width 0.3s ease"
+              :"left 0.3s ease, opacity 0.8s ease, width 0.3s ease",
+            // boxSizing: "border-box",
+            // border: "3px solid purple"
           }}
         >
           <Button sx={{ padding: 0, minWidth: 0 }}
           onClick={() => setCurrentContextId(contextId)}>
             <CircleIcon sx={{ 
               color: contexts.find((context) => context.guid == contextId)?.color, 
-              fontSize: 24 
+              fontSize: buttonHeight 
               }} />
           </Button>
         </Box>

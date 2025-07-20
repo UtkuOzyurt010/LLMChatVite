@@ -14,9 +14,26 @@ declare module '@mui/material/styles' {
 
       };
     }
+
+    interface Theme {
+    customSizes: {
+      buttonHeight: string;
+      buttonHeightn: number;
+    };
+    }
+    interface ThemeOptions {
+      customSizes?: {
+        buttonHeight?: string;
+        buttonHeightn?: number;
+      };
+    }
   }
 
 const theme = createTheme({
+  customSizes: {
+    buttonHeight: "36px",
+    buttonHeightn: 36
+  },
   transitions: {
     // easing: {
     //   easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',

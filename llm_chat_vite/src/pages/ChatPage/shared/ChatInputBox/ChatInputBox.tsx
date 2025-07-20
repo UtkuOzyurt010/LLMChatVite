@@ -1,22 +1,25 @@
-import { Box, Button, TextField, Paper } from "@mui/material";
+import { Box, Button, TextField, Paper, useTheme } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import { useAppContext } from "../../../../utils/AppContext";
 import ContextsButton from "../ContextsButton/ContextsButton";
 
 export default function ChatInputBox() {
   const { contexts, currentContextId } = useAppContext();
+  const theme = useTheme()
+  const buttonHeight = theme.customSizes.buttonHeight
 
   return (
     <Paper
       elevation={3}
       sx={{
-        width: 500,
+        width: 800,
         p: 2,
+        pb: 1,
         display: "flex",
         flexDirection: "column",
-        gap: 2,
+        //gap: 2,
         boxSizing: "border-box",
-        borderRadius: 2,
+        borderRadius: 8,
       }}
     >
       {/* Input */}
@@ -42,23 +45,34 @@ export default function ChatInputBox() {
           justifyContent: "space-between",
           alignItems: "center",
           pt: 1,
+          pb: 0,
           position: "relative",
         }}
       >
         {/* Left Circle Button */}
         <Button
-          sx={{ p: 0, minWidth: "auto" }}
+          sx={{ p: 0, minWidth: "auto",
+            //border: "2px solid black"
+          }}
           aria-label="Current context color"
         >
           <CircleIcon
             sx={{
               color: contexts.find((c) => c.guid === currentContextId)?.color || "grey",
-              fontSize: 24,
+              fontSize: buttonHeight,
             }}
           />
         </Button>
 
         {/* Right ContextsButton */}
+        <Box sx={{
+            height: buttonHeight, 
+            alignItems: "center",
+            //border: "2px solid blue", 
+          }}
+        >
+
+        </Box>
         <ContextsButton forChatInputBox={true} />
       </Box>
     </Paper>
