@@ -110,7 +110,10 @@ const LeftSideDrawer = ({
           </CustomListItem >
           {showHistory && <List key={"SessionsList"} sx={{backgroundColor: "red", padding: "0" }}>
             {sessions.map((session: Session, sessionIndex) => (
-              <ContextsButton key={`session: ${sessionIndex}`}>
+              <ContextsButton 
+                key={`session: ${sessionIndex}`}
+                historySessionId={session.guid}
+              >
                 {session.summary}
               </ContextsButton>
             ))}

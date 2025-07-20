@@ -19,7 +19,7 @@ return(
   >
     <ChatInputBox></ChatInputBox>
    
-    <ContextsButton ></ContextsButton> 
+    {/* <ContextsButton forChatInputBox={true}></ContextsButton>  */}
       
   </Box>
 )

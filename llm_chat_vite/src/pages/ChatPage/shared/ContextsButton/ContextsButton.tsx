@@ -2,14 +2,19 @@ import CircleIcon from '@mui/icons-material/Circle';
 import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import { useAppContext } from "../../../../utils/AppContext";
+import type { Session } from '../../../../models/Session';
 
-const ContextsButton = ({children} : 
+//historySessionId is for the leftsideDrawer, to display the contexts belonging to the session
+//currentsessionId is for the chatInputBox, to show the contexts of the current session
+const ContextsButton = ({historySessionId, forChatInputBox, children} : 
   {
+    historySessionId? : string
+    forChatInputBox? : boolean
     children?: React.ReactNode;
   }
 ) =>
 {
-
+//displaySessionId ?
 const {contexts, sessions, currentSessionId, currentContextId, setCurrentContextId } = useAppContext(); 
 
 
@@ -17,15 +22,18 @@ const overlapOffset = 5;
 const [isHovering, setIsHovering] = useState(false);
 const buttonHeight = "24px"
 const allCirclesWidth = "36px"
+const sessionId = historySessionId ? historySessionId : currentSessionId
     
-const currentSession = sessions.find((s) => s.guid === currentSessionId)!;
+const currentSession = sessions.find((s) => s.guid === sessionId)!; //currentSessionId
 
-const reorderedContexts = currentSession
+//only reorder the contexts for for the ContextsButton displayed in the ChatInputBox
+const reorderedContextIds = forChatInputBox 
   ? [
       currentContextId,
       ...currentSession.contextIds.filter((cguid) => cguid !== currentContextId),
     ]
-  : [];
+  : [...currentSession.contextIds];
+
 
   return(
     <Box
@@ -34,12 +42,14 @@ const reorderedContexts = currentSession
       flexDirection={"row"}
       sx={{
         position: "relative",
-        backgroundColor: "green"
+        border: "3px solid red",
+        height: buttonHeight,
+        alignItems: 'center',
       }}
     >
       <Box
       sx={{
-        paddingLeft: "20px",
+        //paddingLeft: "20px",
         overflow: "hidden"
       }}
       >
@@ -62,7 +72,7 @@ const reorderedContexts = currentSession
               position: "absolute",
               top: 0,
               left: 0,
-              width: isHovering ? `${currentSession.contextIds.length * 28}px` : allCirclesWidth, 
+              width: isHovering ? `${reorderedContextIds.length * 28}px` : allCirclesWidth, 
               height: "100%",
               backgroundColor: "purple",
               borderRadius: "8px",
@@ -74,7 +84,7 @@ const reorderedContexts = currentSession
               :"opacity 0.3s ease, width 0.3s ease" , //not sure about this one
             }}
           />
-        {reorderedContexts.map((contextId: string, index) => (
+        {reorderedContextIds.map((contextId: string, index) => (
         <Box
           key={index}
           className="circle"
@@ -83,7 +93,7 @@ const reorderedContexts = currentSession
             width: (isHovering || index < 3) ? "24px" : "0px", //this is much prettier wow! :D
             position: "absolute",
             left: `${index * (isHovering ? 28 : overlapOffset)}px`, // spread if hovering
-            zIndex: reorderedContexts.length - index,
+            zIndex: reorderedContextIds.length - index,
             opacity: (isHovering || index < 3) ? 1 : 0,
             transition: isHovering ?
               "left 0.3s ease, opacity 0.3s ease, width 0.3s ease"

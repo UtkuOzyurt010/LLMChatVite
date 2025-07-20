@@ -15,9 +15,18 @@ function initContexts(): Context[] {
   ];
 }
 
-function initSessions(contextIds: string[]): Session[] {
-  const session1 = createSession(contextIds);
-  const session2 = createSession(contextIds);
+function initContexts2(): Context[] {
+  return [
+    createContext("orange"),
+    createContext("yellow"),
+    createContext("purple"),
+    createContext("white"),
+  ];
+}
+
+function initSessions(contextIds1: string[], contextIds2: string[]): Session[] {
+  const session1 = createSession(contextIds1);
+  const session2 = createSession(contextIds2);
   session1.summary = "My first session!";
   session2.summary = "My second session!";
   return [session1, session2];
@@ -26,10 +35,12 @@ function initSessions(contextIds: string[]): Session[] {
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const initialContexts = initContexts();
   const initialContextIds = initialContexts.map((context) => context.guid);
-  const initialSessions = initSessions(initialContextIds);
+  const initialContexts2 = initContexts2();
+  const initialContextIds2 = initialContexts2.map((context) => context.guid);
+  const initialSessions = initSessions(initialContextIds, initialContextIds2);
   const initialSessionIds = initialSessions.map((session) => session.guid);
 
-  const [contexts, setContexts] = useLocalStorage<Context[]>("contexts", initialContexts);
+  const [contexts, setContexts] = useLocalStorage<Context[]>("contexts", [...initialContexts, ...initialContexts2]);
   const [sessions, setSessions] = useLocalStorage<Session[]>("sessions", initialSessions);
   const [currentSessionId, setCurrentSessionId] = useLocalStorage<string>("currentSessionId", initialSessionIds[0]);
   const [currentContextId, setCurrentContextId] = useLocalStorage<string>("currentContextId", initialContextIds[0]);

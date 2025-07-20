@@ -1,56 +1,66 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Paper } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import { useAppContext } from "../../../../utils/AppContext";
+import ContextsButton from "../ContextsButton/ContextsButton";
 
 export default function ChatInputBox() {
+  const { contexts, currentContextId } = useAppContext();
 
-  const { contexts, currentContextId } = useAppContext()
-
-    return(
-      <Box
-        sx={{
-          position: 'relative',
-          width: "500px"
-
-        }}
-      >
-        <Button 
-          sx={{ 
-            padding: 0, 
-            //width: "100%",
-            //minWidth: 0,
-            position: 'absolute',
-            zIndex: 1,
-            left: '0',
-            top: '0' 
-          }}>
-            <CircleIcon sx={{ color: contexts.find((context) => context.guid == currentContextId)?.color, fontSize: 24 }} />
-        </Button>
-      <Box
-        component="form"
-        sx={{ 
-          width: "100%",
-          '& .MuiTextField-root': {width: '100%' } ,
-          boxSizing: "border-box",
-          border: "2px solid green",
-      //     marginTop:"10%",
-      //     paddingBottom:"10%",
-      //     paddingX:"30%",
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField 
+  return (
+    <Paper
+      elevation={3}
+      sx={{
+        width: 500,
+        p: 2,
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        boxSizing: "border-box",
+        borderRadius: 2,
+      }}
+    >
+      {/* Input */}
+      <Box component="form" noValidate autoComplete="off" sx={{ width: "100%" }}>
+        <TextField
           required
-          id="prompt" 
+          id="prompt"
           variant="filled"
           placeholder="Ask me anything!"
-          hiddenLabel={true}
-          
+          hiddenLabel
+          fullWidth
+          sx={{
+            bgcolor: "background.paper",
+            borderRadius: 1,
+          }}
+        />
+      </Box>
+
+      {/* Bottom Button Row */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          pt: 1,
+          position: "relative",
+        }}
+      >
+        {/* Left Circle Button */}
+        <Button
+          sx={{ p: 0, minWidth: "auto" }}
+          aria-label="Current context color"
         >
-        </TextField>
-      </Box> 
-    </Box>
-    )
-    
+          <CircleIcon
+            sx={{
+              color: contexts.find((c) => c.guid === currentContextId)?.color || "grey",
+              fontSize: 24,
+            }}
+          />
+        </Button>
+
+        {/* Right ContextsButton */}
+        <ContextsButton forChatInputBox={true} />
+      </Box>
+    </Paper>
+  );
 }
