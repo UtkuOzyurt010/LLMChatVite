@@ -6,7 +6,7 @@ import { ChevronRight, SquarePen } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
 import CustomListItem from "./CustomListItem/CustomListItem";
 import { type Session } from "../../../../models/Session";
-import ContextsButton from "../../shared/ContextsButton/ContextsButton";
+import ContextsButton from "../../shared/ChatInputBox/ContextsButton/ContextsButton";
 import { useAppContext } from "../../../../utils/AppContext";
 
 const DrawerHeader = styled('div')(({ theme }) => ({

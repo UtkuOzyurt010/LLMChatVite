@@ -1,8 +1,8 @@
 import CircleIcon from '@mui/icons-material/Circle';
 import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
-import { useAppContext } from "../../../../utils/AppContext";
-import type { Session } from '../../../../models/Session';
+import { useAppContext } from "../../../../../utils/AppContext";
+import type { Session } from '../../../../../models/Session';
 import { useTheme } from '@mui/material/styles';
 
 
