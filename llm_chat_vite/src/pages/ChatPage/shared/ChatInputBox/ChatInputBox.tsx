@@ -65,14 +65,6 @@ export default function ChatInputBox() {
         </Button>
 
         {/* Right ContextsButton */}
-        <Box sx={{
-            height: buttonHeight, 
-            alignItems: "center",
-            //border: "2px solid blue", 
-          }}
-        >
-
-        </Box>
         <ContextsButton forChatInputBox={true} />
       </Box>
     </Paper>
