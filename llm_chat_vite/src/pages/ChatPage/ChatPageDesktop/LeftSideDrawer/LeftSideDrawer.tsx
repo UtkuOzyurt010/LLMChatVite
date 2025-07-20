@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconButton, Divider, List, styled, useTheme} from "@mui/material"
+import { IconButton, Divider, List, styled, useTheme, Box, Button} from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 import Drawer from '@mui/material/Drawer';
 import { ChevronRight, SquarePen } from 'lucide-react';
@@ -38,15 +38,21 @@ const LeftSideDrawer = ({
   {
     const theme = useTheme();
     const [showHistory, setShowHistory] = useState<boolean>(false)
-    const {sessions, contexts, setCurrentContextId, setCurrentSessionId} = useAppContext(); 
+    const {sessions, contexts, setCurrentContextId, setCurrentSessionId, s} = useAppContext(); 
 
-    const handleNewChat = () => {
+    const handleNewSession = () => {
       const newContext = createContext(getRandomHexColor())
       contexts.push(newContext)
       setCurrentContextId(newContext.guid)
       const newSession = createSession([newContext.guid])
+      newSession.summary = `a new session with guid: ${newSession.guid}`
       sessions.push(newSession)
       setCurrentSessionId(newSession.guid)
+    }
+
+    const handleSelectSession = (session : Session) => {
+      setCurrentSessionId(session.guid)
+      setCurrentContextId(session.currentContextId)
     }
 
   return(
@@ -104,35 +110,49 @@ const LeftSideDrawer = ({
       />
       {<List sx={{backgroundColor: "orange" , overflow: "visible",}} >
           <CustomListItem 
-          key={"New Chat"} 
-          collapsed={collapsed} 
-          collapsedWidth={collapsedWidth}
-          icon={<SquarePen></SquarePen>}
-          text="New Chat"
-          onClick={handleNewChat}
-           ></CustomListItem>
+            key={"New Chat"} 
+            collapsed={collapsed} 
+            collapsedWidth={collapsedWidth}
+            icon={<SquarePen></SquarePen>}
+            onClick={handleNewSession}
+          >
+            New Chat
+          </CustomListItem>
           <CustomListItem 
             key={"History"} 
             collapsed={collapsed} 
             collapsedWidth={collapsedWidth} 
             icon={showHistory ? <ChevronDown/> : <ChevronRight/>} 
-            text="History"
             onClick={() => 
                 {
                   setShowHistory(!showHistory)
                   if(collapsed) toggleDrawerCollapse()
                 }
-              }>
-            {/* <Button onClick={() => setShowHistory(!showHistory)}></Button> */}
+              }
+          >
+            History
           </CustomListItem >
           {showHistory && <List key={"SessionsList"} sx={{backgroundColor: "red", padding: "0" }}>
             {sessions.map((session: Session, sessionIndex) => (
-              <ContextsButton 
+              <Box
                 key={`session: ${sessionIndex}`}
-                historySessionId={session.guid}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row"
+                }}
               >
-                {session.summary}
-              </ContextsButton>
+                <CustomListItem
+                collapsed={collapsed} 
+                collapsedWidth={collapsedWidth}
+                onClick={() => handleSelectSession(session)}
+                >
+                  {session.summary}
+                </CustomListItem>
+                <ContextsButton 
+                  historySessionId={session.guid}
+                >
+                </ContextsButton>
+              </Box>
             ))}
           </List>}
       </List>}

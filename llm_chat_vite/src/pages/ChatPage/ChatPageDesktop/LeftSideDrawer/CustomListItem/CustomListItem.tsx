@@ -1,11 +1,10 @@
 import { ListItemIcon, ListItemButton, Typography, ListItem } from '@mui/material';
 
-const CustomListItem = ({collapsed, collapsedWidth, icon, text, onClick, children} : 
+const CustomListItem = ({collapsed, collapsedWidth, icon, onClick, children} : 
   {
     collapsed: boolean, 
     collapsedWidth: number, 
     icon?: React.ReactNode
-    text?: string
     onClick?: () => void,
     children?: React.ReactNode;
   }) => 
@@ -13,7 +12,7 @@ const CustomListItem = ({collapsed, collapsedWidth, icon, text, onClick, childre
 return(
   <ListItem key="newChat" disablePadding>
     <ListItemButton onClick={onClick}>
-      <ListItemIcon
+      {icon && <ListItemIcon
         sx={{
           justifyContent: "center",
           minWidth: "0",
@@ -22,12 +21,12 @@ return(
         }}
       >
         {icon}
-      </ListItemIcon>
+      </ListItemIcon>}
       {!collapsed &&
       <Typography
         noWrap
         sx={{
-          paddingLeft: '20px',
+          paddingLeft: icon ? '20px' : "0px",
           //overflow: 'hidden',
           textOverflow: 'ellipsis',
           lineHeight: 1,
@@ -36,9 +35,9 @@ return(
           flexGrow: 1,
         }}
       >
-        {text}
+        {children}
       </Typography>}
-      {children}
+      {/* {children} */}
     </ListItemButton>
   </ListItem>
   )

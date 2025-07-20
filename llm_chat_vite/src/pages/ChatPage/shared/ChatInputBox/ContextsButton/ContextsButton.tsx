@@ -35,6 +35,12 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
   const overlapOffset = 5;
   const [isHovering, setIsHovering] = useState(false);
 
+
+  const handleSelectContext = (contextId : string) => {
+    setCurrentContextId(contextId)
+    currentSession.currentContextId = contextId
+  }
+
   return(
     <Box
       //overflow={"visible"}
@@ -47,7 +53,7 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
         //border: "3px solid red",
       }}
     >
-      <Box
+      {/* <Box
       sx={{
         //paddingLeft: "20px",
         overflow: "hidden"
@@ -56,7 +62,7 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
         <Typography noWrap={true}>
           {children}
         </Typography>
-      </Box>
+      </Box> */}
       <Box
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
@@ -108,7 +114,7 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
           }}
         >
           <Button sx={{ padding: 0, minWidth: 0 }}
-          onClick={() => setCurrentContextId(contextId)}>
+          onClick={() => handleSelectContext(contextId)}>
             <CircleIcon sx={{ 
               color: contexts.find((context) => context.guid == contextId)?.color, 
               fontSize: buttonHeight 
