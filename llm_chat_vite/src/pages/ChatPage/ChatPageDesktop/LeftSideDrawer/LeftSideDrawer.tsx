@@ -2,14 +2,11 @@ import { useState } from "react";
 import { IconButton, Divider, List, styled, useTheme, Box, Button} from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 import Drawer from '@mui/material/Drawer';
-import { ChevronRight, SquarePen } from 'lucide-react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronRight, ChevronDown, SquarePen } from 'lucide-react';
 import CustomListItem from "./CustomListItem/CustomListItem";
-import { type Session, createSession } from "../../../../models/Session";
-import { createContext } from "../../../../models/Context";
+import { type Session} from "../../../../models/Session";
 import ContextsButton from "../../shared/ChatInputBox/ContextsButton/ContextsButton";
-import { useAppContext } from "../../../../utils/AppContext";
-import { useContextController } from "../../../../controllers/ContextController";
+import { useSessionController } from "../../../../controllers/SessionController";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   
@@ -33,28 +30,20 @@ const LeftSideDrawer = ({
   collapsedWidth: number;
   drawerWidth: number;
   toggleDrawerCollapse: () => void;
-  sessions: Session[];
   //contextIds: string[];
 })  =>
   {
     const theme = useTheme()
-    const contextController = useContextController()
+    const sessionController = useSessionController()
     const [showHistory, setShowHistory] = useState<boolean>(false)
-    const {sessions, contexts, setCurrentContextId, setCurrentSessionId, currentSessionId} = useAppContext()
+    const sessions = sessionController.getAllSessions()
 
     const handleNewSession = () => {
-      const newContext = createContext(contextController.getRandomHexColor())
-      contexts.push(newContext)
-      setCurrentContextId(newContext.guid)
-      const newSession = createSession([newContext.guid])
-      newSession.summary = `a new session with guid: ${newSession.guid}`
-      sessions.push(newSession)
-      setCurrentSessionId(newSession.guid)
+      sessionController.addNewSession()
     }
 
     const handleSelectSession = (session : Session) => {
-      setCurrentSessionId(session.guid)
-      setCurrentContextId(session.currentContextId)
+      sessionController.selectSession(session)
     }
 
   return(
@@ -165,6 +154,3 @@ const LeftSideDrawer = ({
 
 export default LeftSideDrawer;
 
-function UseState(arg0: boolean): [any, any] {
-  throw new Error("Function not implemented.");
-}

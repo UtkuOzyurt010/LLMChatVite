@@ -2,15 +2,11 @@ import CircleIcon from '@mui/icons-material/Circle';
 import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import { useAppContext } from "../../../../../utils/AppContext";
-import type { Session } from '../../../../../models/Session';
 import { useTheme } from '@mui/material/styles';
-//import { SelectContext, AddExistingContext } from '../../../../../controllers/ContextController';
 import { useContextController } from '../../../../../controllers/ContextController';
+import { useSessionController } from '../../../../../controllers/SessionController';
 
-
-//historySessionId is for the leftsideDrawer, to display the contexts belonging to the session
-//currentsessionId is for the chatInputBox, to show the contexts of the current session
-const ContextsButton = ({historySessionId, forChatInputBox, children} : 
+const ContextsButton = ({historySessionId, forChatInputBox} : 
   {
     historySessionId : string
     forChatInputBox? : boolean
@@ -18,16 +14,12 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
   }
 ) =>
 {
-  const {sessions, currentContextId } = useAppContext();
+  const { currentContextId } = useAppContext()
   const contextController = useContextController()
-  //const sessionId = historySessionId ? historySessionId : currentSessionId 
-  //when clicking in the left sidebar, currentSession becomes THE CLICKED SESSION!
-  //the logic here is confusing! please change!
-  const historySession = sessions.find((s) => s.guid === historySessionId)!;
-  //const currentSession = sessions.find((s) => s.guid === currentSessionId)!; 
-  
-  //only reorder the contexts for the ContextsButton displayed in the ChatInputBox, 
-  //which is also why I don't want to put this in a controller
+  const sessionController = useSessionController()
+
+  const historySession = sessionController.getSession(historySessionId);
+
   const reorderedContextIds = forChatInputBox 
     ? [
         currentContextId,
@@ -95,6 +87,7 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
               :"opacity 0.3s ease, width 0.3s ease" , //not sure about this one
             }}
           />
+          {/* the listed contexts with buttons */}
         {reorderedContextIds.map((contextId: string, index) => (
         <Box
           key={index}

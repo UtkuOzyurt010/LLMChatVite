@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 
 import LeftSideDrawer from './LeftSideDrawer/LeftSideDrawer';
 import ChatDisplay from '../shared/ChatDisplay/ChatDisplay';
-import { useAppContext } from '../../../utils/AppContext';
 
 
 const drawerWidth = 260;
@@ -42,8 +41,6 @@ const AppBar = styled(MuiAppBar, {
 
 export default function ChatPageDesktop() 
 {
-  const {sessions} = useAppContext(); 
-
   const theme = useTheme();
   const [collapsed, setCollapsed] = React.useState(true);
 
@@ -73,8 +70,6 @@ export default function ChatPageDesktop()
       collapsedWidth={collapsedWidth} 
       drawerWidth={drawerWidth} 
       toggleDrawerCollapse={toggleDrawerCollapse}
-      sessions={sessions}
-      //contextIds={contextIds}
       >
       </LeftSideDrawer>
       {/* <Box sx={{ 

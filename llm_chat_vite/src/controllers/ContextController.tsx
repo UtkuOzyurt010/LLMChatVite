@@ -1,28 +1,41 @@
-import { createContext } from "../models/Context"
+import { createContext, type Context } from "../models/Context"
 import { useAppContext } from "../utils/AppContext";
 
 export function useContextController() {
   const {
     contexts,
     sessions,
+    currentContextId,
     currentSessionId,
-    setCurrentContextId
+    setCurrentContextId,
+    setContexts,
+    setSessions,
   } = useAppContext();
 
+  const getCurrentContext = () : Context =>
+  {
+    return contexts.find((s) => s.guid === currentContextId)!
+  }
+
+  const getCurrentContextId = () : string =>
+  {
+    return currentContextId
+  }
+  
   const getRandomHexColor = () =>
   {
-    const randomNum = Math.floor(Math.random() * 0xffffff);
-    const hexString = randomNum.toString(16).padStart(6, '0');
-    return `#${hexString}`;
+    const randomNum = Math.floor(Math.random() * 0xffffff)
+    const hexString = randomNum.toString(16).padStart(6, '0')
+    return `#${hexString}`
   }
 
   const getContextColor = (contextId : string) : string => {
-    return contexts.find((context) => context.guid == contextId)!.color
+    return contexts.find((context) => context.guid == contextId)?.color ?? "gray"
   }
 
   const selectContext = (contextId : string) => 
   {
-    const currentSession = sessions.find((s) => s.guid === currentSessionId)!; 
+    const currentSession = sessions.find((s) => s.guid === currentSessionId)!
       if(!currentSession.contextIds.includes(contextId)){
         currentSession.contextIds.push(contextId)
       }
@@ -32,17 +45,30 @@ export function useContextController() {
 
   const addNewContext = (color: string) : string =>
   {
-    const context = createContext(color)
-    contexts.push(context) //add created context to all contexts
-    setCurrentContextId(context.guid)
-    const session = sessions.find((session) => session.guid === currentSessionId)!
-    session.contextIds.push(context.guid) // add contextId to currentSession contexts
+    const newContext = createContext(color)
+    //contexts.push(context) 
+    setContexts([...contexts, newContext])
+    setCurrentContextId(newContext.guid)
+
+    const updatedSessions = sessions.map((session) =>
+    session.guid === currentSessionId
+      ? { ...session, contextIds: [...session.contextIds, newContext.guid] }
+      : session
+    );
+    setSessions(updatedSessions);
+    
     return getRandomHexColor()
   }
 
   const addExistingContext = (contextId: string) => {
-    const session = sessions.find((session) => session.guid === currentSessionId)!
-    session.contextIds.push(contextId) // add contextId to currentSession contexts
+
+    const updatedSessions = sessions.map((session) =>
+      session.guid === currentSessionId
+        ? { ...session, contextIds: [...session.contextIds, contextId] }
+        : session
+    );
+    setSessions(updatedSessions);
+      
     setCurrentContextId(contextId)
   }
 
@@ -53,6 +79,8 @@ export function useContextController() {
   }
 
   return{
+    getCurrentContext,
+    getCurrentContextId,
     getRandomHexColor,
     getContextColor,
     selectContext,

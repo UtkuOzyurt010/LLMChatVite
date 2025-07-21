@@ -1,13 +1,15 @@
 import { Box, Button, TextField, Paper, useTheme } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
-import { useAppContext } from "../../../../utils/AppContext";
 import ContextsButton from "./ContextsButton/ContextsButton";
 import AddContextButton from "./ContextsButton/AddcontextButton/AddContextbutton";
+import { useContextController } from "../../../../controllers/ContextController";
+import { useSessionController } from "../../../../controllers/SessionController";
 
 
 export default function ChatInputBox() {
-  const { contexts, currentContextId, currentSessionId } = useAppContext();
   const theme = useTheme()
+  const contextController = useContextController()
+  const sessionController = useSessionController()
   const buttonHeight = theme.customSizes.buttonHeight
 
   return (
@@ -60,7 +62,7 @@ export default function ChatInputBox() {
         >
           <CircleIcon
             sx={{
-              color: contexts.find((c) => c.guid === currentContextId)?.color || "grey",
+              color: contextController.getContextColor(contextController.getCurrentContextId()) || "grey",
               fontSize: buttonHeight,
             }}
           />
@@ -69,7 +71,7 @@ export default function ChatInputBox() {
         {/* Right ContextsButton */}
         <ContextsButton 
         forChatInputBox={true}
-        historySessionId={currentSessionId} />
+        historySessionId={sessionController.getCurrentSessionId()} />
 
         <AddContextButton></AddContextButton>
       </Box>

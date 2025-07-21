@@ -3,14 +3,15 @@ import  { getSortedEntriesAllContexts } from "../../../../models/Session";
 import EmptyChatDisplay from "./EmptyChatHistory/EmptyChatDisplay";
 import ChatHistory from "./ChatHistory/ChatHistory";
 import { useState } from "react";
-import { useAppContext } from "../../../../utils/AppContext";
+import { useSessionController } from "../../../../controllers/SessionController";
 
 export default function ChatDisplay() 
 {
-   const {currentSessionId, sessions} = useAppContext(); 
-  const entries = currentSessionId ? getSortedEntriesAllContexts(sessions.find((session) => session.guid == currentSessionId)!) : []; //since this is only used by ChatHistory...
-        //...it might be better to check a different way whether its empty, like accessing the first element, and then 
-        //getting all entries within ChatHistory rather than passing it as a prop
+  const sessionController = useSessionController()
+  const sessions =sessionController.getAllSessions()
+  const currentSessionId = sessionController.getCurrentSessionId()
+  //ChatDisplay should never be rendered if entries would be empty
+  const entries = getSortedEntriesAllContexts(sessions.find((session) => session.guid == currentSessionId)!); 
   const [focusedField, setFocusedField] = useState("");
   
 
