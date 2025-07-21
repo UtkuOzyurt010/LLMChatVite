@@ -23,8 +23,8 @@ export function createContext(color: string){
         guid: uuidv4(),
         prompts: {},
         responses: {},
-        current_prompt_index: 0,
-        current_response_index: 0,
+        current_prompt_index: -1, //increment when adding, indexing 0 should return first
+        current_response_index: -1, //increment when adding, indexing 0 should return first
         color: color
     }
 }

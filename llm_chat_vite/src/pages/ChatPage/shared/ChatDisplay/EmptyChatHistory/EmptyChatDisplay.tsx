@@ -16,7 +16,7 @@ return(
       boxSizing: "border-box"
     }}
   >
-    <ChatInputBox></ChatInputBox>
+    <ChatInputBox width={"800px"}></ChatInputBox>
    
 
   </Box>

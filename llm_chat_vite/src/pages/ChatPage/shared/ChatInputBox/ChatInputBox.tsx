@@ -4,19 +4,31 @@ import ContextsButton from "./ContextsButton/ContextsButton";
 import AddContextButton from "./ContextsButton/AddcontextButton/AddContextbutton";
 import { useContextController } from "../../../../controllers/ContextController";
 import { useSessionController } from "../../../../controllers/SessionController";
+import { createChatEntry } from "../../../../models/ChatEntry";
+import { useState } from "react";
 
 
-export default function ChatInputBox() {
+export default function ChatInputBox({width} : {width: string}) {
   const theme = useTheme()
   const contextController = useContextController()
   const sessionController = useSessionController()
   const buttonHeight = theme.customSizes.buttonHeight
 
+  const [inputValue, setInputValue] = useState("");
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    contextController.addChatEntry(createChatEntry(inputValue, contextController.getCurrentContextId(), "prompt"));
+    const responseText = sessionController.createResponse();
+    contextController.addChatEntry(createChatEntry(responseText, contextController.getCurrentContextId(), "response"));
+    setInputValue(""); // clear input if desired
+  };
+
   return (
     <Paper
       elevation={3}
       sx={{
-        width: 800,
+        width: width,
         p: 2,
         pb: 1,
         display: "flex",
@@ -27,7 +39,13 @@ export default function ChatInputBox() {
       }}
     >
       {/* Input */}
-      <Box component="form" noValidate autoComplete="off" sx={{ width: "100%" }}>
+      <Box 
+      component="form" 
+      noValidate 
+      autoComplete="off" 
+      sx={{ width: "100%" }}
+      onSubmit={handleSubmit}
+    >
         <TextField
           required
           id="prompt"
@@ -39,6 +57,7 @@ export default function ChatInputBox() {
             bgcolor: "background.paper",
             borderRadius: 1,
           }}
+          onChange={(e) => setInputValue(e.target.value)}
         />
       </Box>
 

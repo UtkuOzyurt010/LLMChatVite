@@ -35,22 +35,22 @@ export function createSession(contextsIds: string[]): Session {
   };
 }
 
-export function addContextGuid(session: Session, guid: string) : Session 
-{
-  return {
-    ...session,
-    contextIds: [...session.contextIds, guid],
-  };
-}
+// export function addContextGuid(session: Session, guid: string) : Session 
+// {
+//   return {
+//     ...session,
+//     contextIds: [...session.contextIds, guid],
+//   };
+// }
 
-export function removeContextGuid(session: Session, guid: string) : Session 
-{
-  const newContextIds = session.contextIds.filter(id => id !== guid);
-  return {
-    ...session,
-    contextIds: newContextIds,
-  };
-}
+// export function removeContextGuid(session: Session, guid: string) : Session 
+// {
+//   const newContextIds = session.contextIds.filter(id => id !== guid);
+//   return {
+//     ...session,
+//     contextIds: newContextIds,
+//   };
+//}
 
 // export function addContext(session: Session, guid: string, allContexts : Context[]) : Session
 // {
@@ -95,19 +95,19 @@ export function removeContextGuid(session: Session, guid: string) : Session
 //   return all
 // }
 
-export function getSortedEntriesAllContexts(session: Session): ChatEntry[] {
-  const entries: ChatEntry[] = [];
+// export function getSortedEntriesAllContexts(session: Session): ChatEntry[] {
+//   const entries: ChatEntry[] = [];
 
-  // for (const context of session.contexts) {
-  //   entries.push(...Object.values(context.prompts));
-  //   entries.push(...Object.values(context.responses));
-  // }
+//   // for (const context of session.contexts) {
+//   //   entries.push(...Object.values(context.prompts));
+//   //   entries.push(...Object.values(context.responses));
+//   // }
 
-  // Sort by datetime ascending
-  entries.sort((a, b) => a.datetime.getTime() - b.datetime.getTime());
+//   // Sort by datetime ascending
+//   entries.sort((a, b) => a.datetime.getTime() - b.datetime.getTime());
 
-  return entries;
-}
+//   return entries;
+//}
 
   // get_all_prompts() : Record<number, PromptResponse>{
   //   const all_prompts: Record<number, PromptResponse> = {};

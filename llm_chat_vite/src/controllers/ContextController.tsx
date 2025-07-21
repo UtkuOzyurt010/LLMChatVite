@@ -1,5 +1,7 @@
+import { createChatEntry, type ChatEntry } from "../models/ChatEntry";
 import { createContext, type Context } from "../models/Context"
 import { useAppContext } from "../utils/AppContext";
+import { useSessionController } from "./SessionController";
 
 export function useContextController() {
   const {
@@ -81,6 +83,28 @@ export function useContextController() {
     return session.contextIds.includes(contextId)
   }
 
+  const addChatEntry = (chatEntry: ChatEntry) => {
+    const newContext = getContext(currentContextId);
+    if(chatEntry.type == "prompt") 
+    {
+      newContext.prompts[++newContext.current_prompt_index] = chatEntry
+    }
+    else
+    {
+      newContext.responses[++newContext.current_response_index] = chatEntry
+    }
+
+    const updatedContexts = contexts.map((context) =>
+      context.guid === newContext.guid
+        ? newContext 
+        : context
+    );
+    setContexts(updatedContexts);
+
+    //sessions only use Ids so we shouldn't need to update those
+
+  }
+
   return{
     getContext,
     getCurrentContext,
@@ -90,7 +114,8 @@ export function useContextController() {
     selectContext,
     addNewContext,
     addExistingContext,
-    isContextIdInCurrentSession
+    isContextIdInCurrentSession,
+    addChatEntry
   }
 }
 

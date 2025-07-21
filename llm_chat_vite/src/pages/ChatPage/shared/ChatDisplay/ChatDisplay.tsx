@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import  { getSortedEntriesAllContexts } from "../../../../models/Session";
 import EmptyChatDisplay from "./EmptyChatHistory/EmptyChatDisplay";
 import ChatHistory from "./ChatHistory/ChatHistory";
 import { useState } from "react";
@@ -8,10 +7,9 @@ import { useSessionController } from "../../../../controllers/SessionController"
 export default function ChatDisplay() 
 {
   const sessionController = useSessionController()
-  const sessions =sessionController.getAllSessions()
-  const currentSessionId = sessionController.getCurrentSessionId()
+
   //ChatDisplay should never be rendered if entries would be empty
-  const entries = getSortedEntriesAllContexts(sessions.find((session) => session.guid == currentSessionId)!); 
+  const entries = sessionController.getSortedEntriesCurrentSessionContexts(); 
   const [focusedField, setFocusedField] = useState("");
   
 

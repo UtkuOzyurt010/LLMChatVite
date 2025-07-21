@@ -1,4 +1,6 @@
 //import { createContext } from "../models/Context"
+import React from 'react';
+import type { ChatEntry } from "../models/ChatEntry";
 import { createContext, type Context } from "../models/Context";
 import { type Session, createSession } from "../models/Session";
 import { useAppContext } from "../utils/AppContext";
@@ -67,6 +69,26 @@ export function useSessionController() {
       return getCurrentSession().contextIds.length
     }
 
+    const getSortedEntriesCurrentSessionContexts = (): ChatEntry[] => {
+      const session = getCurrentSession()
+      const entries: ChatEntry[] = [];
+      for (const contextId of session.contextIds) {
+        const context = contextController.getContext(contextId)
+        entries.push(...Object.values(context.prompts));
+        entries.push(...Object.values(context.responses));
+      }
+    
+      // Sort by datetime ascending
+      entries.sort((a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
+    
+      return entries;
+    }
+
+    const createResponse = () : string => {
+      //for now just return everything that should be considered for the response
+      return getSortedEntriesCurrentSessionContexts().map((chatEntry) => chatEntry.type == "prompt" && `${chatEntry.type}, ${chatEntry.guid}, ${chatEntry.contextGuId}:  ${chatEntry.text}`).join('\n') 
+    }
+
   return{
     getCurrentSession,
     getCurrentSessionId,
@@ -75,7 +97,9 @@ export function useSessionController() {
     addNewSession,
     selectSession,
     removeContextFromSession,
-    getSessionContextIdsLength
+    getSessionContextIdsLength,
+    getSortedEntriesCurrentSessionContexts,
+    createResponse
 
   }
 }
