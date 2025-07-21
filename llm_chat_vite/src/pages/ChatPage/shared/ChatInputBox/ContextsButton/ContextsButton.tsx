@@ -1,5 +1,7 @@
 import CircleIcon from '@mui/icons-material/Circle';
-import { Box, Button, Typography } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import { useState } from "react";
 import { useTheme } from '@mui/material/styles';
 import { useContextController } from '../../../../../controllers/ContextController';
@@ -15,6 +17,7 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
 {
   const contextController = useContextController()
   const sessionController = useSessionController()
+
   const currentContextId = contextController.getCurrentContextId()
 
   const historySession = sessionController.getSession(historySessionId);
@@ -34,12 +37,19 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
   const overlapOffset = 5;
   const [isHovering, setIsHovering] = useState(false);
 
-  const handleContextClick = (contextId: string) => {
+  const handleAddContext = (contextId: string) => {
     if(contextController.isContextIdInCurrentSession(contextId)){
       contextController.selectContext(contextId)
     }
     else{
       contextController.addExistingContext(contextId)
+    }
+    
+  }
+
+  const handleRemoveContext = (contextId: string) => {
+    if(contextController.isContextIdInCurrentSession(contextId)){
+      sessionController.removeContextFromSession(contextId)
     }
     
   }
@@ -108,15 +118,66 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
             // border: "3px solid purple"
           }}
         >
-          <Button sx={{ padding: 0, minWidth: 0 }}
-            onClick={() => handleContextClick(contextId)}>
-            <CircleIcon 
-              sx={{ 
-                color: contextController.getContextColor(contextId), 
-                fontSize: buttonHeight 
-              }}
-            />
-          </Button>
+          <Box sx={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+            <Button
+              sx={{ padding: 0, minWidth: 0 }}
+              onClick={() => handleAddContext(contextId)}
+            >
+              <CircleIcon
+                sx={{
+                  color: contextController.getContextColor(contextId),
+                  fontSize: buttonHeight
+                }}
+              />
+              {historySessionId !== sessionController.getCurrentSessionId() && (
+                <AddIcon
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    color: "white",
+                    fontSize: buttonHeightn,
+                  }}
+                />
+              )}
+            </Button>
+
+            {contextController.isContextIdInCurrentSession(contextId) 
+            && sessionController.getSessionContextIdsLength() > 1 
+            &&(
+              <IconButton
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent triggering add handler
+                  handleRemoveContext(contextId);
+                }}
+                sx={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  padding: 0,
+                  width: buttonHeightn / 2,
+                  height: buttonHeightn / 2,
+                }}
+              >
+                <CircleIcon
+                  sx={{
+                    fontSize: buttonHeightn / 2,
+                    color: "red", // Optional background color for the remove circle
+                  }}
+                />
+                <RemoveIcon
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    color: "white",
+                    fontSize: buttonHeightn / 2,
+                  }}
+                />
+              </IconButton>
+            )}
+          </Box>
         </Box>
         ))}
       </Box>

@@ -12,6 +12,9 @@ export function useContextController() {
     setSessions,
   } = useAppContext();
 
+  const getContext = (contextId: string) : Context => {
+    return contexts.find((s) => s.guid === contextId)!
+  }
   const getCurrentContext = () : Context =>
   {
     return contexts.find((s) => s.guid === currentContextId)!
@@ -56,7 +59,7 @@ export function useContextController() {
       : session
     );
     setSessions(updatedSessions);
-    
+
     return getRandomHexColor()
   }
 
@@ -79,6 +82,7 @@ export function useContextController() {
   }
 
   return{
+    getContext,
     getCurrentContext,
     getCurrentContextId,
     getRandomHexColor,
