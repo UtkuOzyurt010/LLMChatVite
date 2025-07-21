@@ -1,17 +1,11 @@
 import { Box, Button } from "@mui/material"
 import CircleIcon from '@mui/icons-material/Circle';
 import AddIcon from '@mui/icons-material/Add';
-import { useAppContext } from "../../../../../../utils/AppContext";
-import { createContext } from "../../../../../../models/Context";
 import { useEffect, useState } from "react";
 import { useTheme } from '@mui/material/styles';
-//import { AddNewContext, getRandomHexColor } from "../../../../../../controllers/ContextController";
 import { useContextController } from "../../../../../../controllers/ContextController";
 
-
 const AddContextButton = () => {
-
-  //const { contexts, currentSessionId, sessions, setCurrentContextId} = useAppContext();
   const [color, setColor] = useState("")
   const theme = useTheme()
   const contextController = useContextController()

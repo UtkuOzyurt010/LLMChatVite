@@ -1,7 +1,6 @@
 import CircleIcon from '@mui/icons-material/Circle';
 import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
-import { useAppContext } from "../../../../../utils/AppContext";
 import { useTheme } from '@mui/material/styles';
 import { useContextController } from '../../../../../controllers/ContextController';
 import { useSessionController } from '../../../../../controllers/SessionController';
@@ -14,9 +13,9 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
   }
 ) =>
 {
-  const { currentContextId } = useAppContext()
   const contextController = useContextController()
   const sessionController = useSessionController()
+  const currentContextId = contextController.getCurrentContextId()
 
   const historySession = sessionController.getSession(historySessionId);
 
