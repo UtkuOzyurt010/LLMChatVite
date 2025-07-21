@@ -6,7 +6,7 @@ import AddContextButton from "./ContextsButton/AddcontextButton/AddContextbutton
 
 
 export default function ChatInputBox() {
-  const { contexts, currentContextId } = useAppContext();
+  const { contexts, currentContextId, currentSessionId } = useAppContext();
   const theme = useTheme()
   const buttonHeight = theme.customSizes.buttonHeight
 
@@ -67,7 +67,9 @@ export default function ChatInputBox() {
         </Button>
 
         {/* Right ContextsButton */}
-        <ContextsButton forChatInputBox={true} />
+        <ContextsButton 
+        forChatInputBox={true}
+        historySessionId={currentSessionId} />
 
         <AddContextButton></AddContextButton>
       </Box>

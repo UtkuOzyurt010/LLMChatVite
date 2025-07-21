@@ -5,29 +5,26 @@ import { useAppContext } from "../../../../../../utils/AppContext";
 import { createContext } from "../../../../../../models/Context";
 import { useEffect, useState } from "react";
 import { useTheme } from '@mui/material/styles';
-import { getRandomHexColor } from "../../../../../../models/Context";
+//import { AddNewContext, getRandomHexColor } from "../../../../../../controllers/ContextController";
+import { useContextController } from "../../../../../../controllers/ContextController";
 
 
 const AddContextButton = () => {
 
-  const { contexts, currentSessionId, sessions, setCurrentContextId} = useAppContext();
+  //const { contexts, currentSessionId, sessions, setCurrentContextId} = useAppContext();
   const [color, setColor] = useState("")
   const theme = useTheme()
+  const contextController = useContextController()
   const buttonHeight = theme.customSizes.buttonHeight
   const buttonHeightn = theme.customSizes.buttonHeightn
 
-  useEffect(() => setColor(getRandomHexColor()), []) //to display the color, before adding it
+  useEffect(() => setColor(contextController.getRandomHexColor()), []) //to display the color, before adding it
 
   
-
-  const handleAddContext = () =>
+  const handleAddNewContext = () =>
   {
-    const context = createContext(color)
-    contexts.push(context) //add created context to all contexts
-    setCurrentContextId(context.guid)
-    const session = sessions.find((session) => session.guid === currentSessionId)!
-    session.contextIds.push(context.guid) // add contextId to currentSession contexts
-    setColor(getRandomHexColor())
+    const newColor : string = contextController.addNewContext(color);
+    setColor(newColor)
   }
 
 return (
@@ -38,7 +35,7 @@ return (
     }}
   >
     <Button
-      onClick={handleAddContext}
+      onClick={handleAddNewContext}
       sx={{
         position: "relative",
         //border: "3px solid yellow",

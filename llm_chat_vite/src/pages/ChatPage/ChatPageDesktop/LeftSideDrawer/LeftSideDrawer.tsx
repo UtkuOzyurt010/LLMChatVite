@@ -6,9 +6,10 @@ import { ChevronRight, SquarePen } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
 import CustomListItem from "./CustomListItem/CustomListItem";
 import { type Session, createSession } from "../../../../models/Session";
-import { createContext, getRandomHexColor } from "../../../../models/Context";
+import { createContext } from "../../../../models/Context";
 import ContextsButton from "../../shared/ChatInputBox/ContextsButton/ContextsButton";
 import { useAppContext } from "../../../../utils/AppContext";
+import { useContextController } from "../../../../controllers/ContextController";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   
@@ -36,12 +37,13 @@ const LeftSideDrawer = ({
   //contextIds: string[];
 })  =>
   {
-    const theme = useTheme();
+    const theme = useTheme()
+    const contextController = useContextController()
     const [showHistory, setShowHistory] = useState<boolean>(false)
-    const {sessions, contexts, setCurrentContextId, setCurrentSessionId, s} = useAppContext(); 
+    const {sessions, contexts, setCurrentContextId, setCurrentSessionId, currentSessionId} = useAppContext()
 
     const handleNewSession = () => {
-      const newContext = createContext(getRandomHexColor())
+      const newContext = createContext(contextController.getRandomHexColor())
       contexts.push(newContext)
       setCurrentContextId(newContext.guid)
       const newSession = createSession([newContext.guid])

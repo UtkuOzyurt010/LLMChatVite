@@ -1,6 +1,5 @@
 import { Box } from "@mui/material"
 import ChatInputBox from "../../ChatInputBox/ChatInputBox";
-import ContextsButton from "../../ChatInputBox/ContextsButton/ContextsButton";
 
 const EmptyChatDisplay = () => {
 
@@ -19,8 +18,7 @@ return(
   >
     <ChatInputBox></ChatInputBox>
    
-    {/* <ContextsButton forChatInputBox={true}></ContextsButton>  */}
-      
+
   </Box>
 )
 }

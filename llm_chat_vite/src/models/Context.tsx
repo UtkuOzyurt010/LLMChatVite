@@ -15,11 +15,7 @@ export interface Context
 
 export const defaultContext : Context = createContext("black")
 
-export const getRandomHexColor = () =>{
-    const randomNum = Math.floor(Math.random() * 0xffffff);
-    const hexString = randomNum.toString(16).padStart(6, '0');
-    return `#${hexString}`;
-  }
+
 
 export function createContext(color: string){
 

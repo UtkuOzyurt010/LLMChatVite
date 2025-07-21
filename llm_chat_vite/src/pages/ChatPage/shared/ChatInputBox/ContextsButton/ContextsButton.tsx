@@ -4,28 +4,36 @@ import { useState } from "react";
 import { useAppContext } from "../../../../../utils/AppContext";
 import type { Session } from '../../../../../models/Session';
 import { useTheme } from '@mui/material/styles';
+//import { SelectContext, AddExistingContext } from '../../../../../controllers/ContextController';
+import { useContextController } from '../../../../../controllers/ContextController';
 
 
 //historySessionId is for the leftsideDrawer, to display the contexts belonging to the session
 //currentsessionId is for the chatInputBox, to show the contexts of the current session
 const ContextsButton = ({historySessionId, forChatInputBox, children} : 
   {
-    historySessionId? : string
+    historySessionId : string
     forChatInputBox? : boolean
     children?: React.ReactNode;
   }
 ) =>
 {
-  const {contexts, sessions, currentSessionId, currentContextId, setCurrentContextId } = useAppContext(); 
-  const sessionId = historySessionId ? historySessionId : currentSessionId
-  const currentSession = sessions.find((s) => s.guid === sessionId)!; //currentSessionId
-    //only reorder the contexts for for the ContextsButton displayed in the ChatInputBox
+  const {sessions, currentContextId } = useAppContext();
+  const contextController = useContextController()
+  //const sessionId = historySessionId ? historySessionId : currentSessionId 
+  //when clicking in the left sidebar, currentSession becomes THE CLICKED SESSION!
+  //the logic here is confusing! please change!
+  const historySession = sessions.find((s) => s.guid === historySessionId)!;
+  //const currentSession = sessions.find((s) => s.guid === currentSessionId)!; 
+  
+  //only reorder the contexts for the ContextsButton displayed in the ChatInputBox, 
+  //which is also why I don't want to put this in a controller
   const reorderedContextIds = forChatInputBox 
     ? [
         currentContextId,
-        ...currentSession.contextIds.filter((cguid) => cguid !== currentContextId),
+        ...historySession.contextIds.filter((cguid) => cguid !== currentContextId),
       ]
-    : [...currentSession.contextIds];
+    : [...historySession.contextIds];
 
   const theme = useTheme();
   const buttonHeight = theme.customSizes.buttonHeight
@@ -35,10 +43,14 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
   const overlapOffset = 5;
   const [isHovering, setIsHovering] = useState(false);
 
-
-  const handleSelectContext = (contextId : string) => {
-    setCurrentContextId(contextId)
-    currentSession.currentContextId = contextId
+  const handleContextClick = (contextId: string) => {
+    if(contextController.isContextIdInCurrentSession(contextId)){
+      contextController.selectContext(contextId)
+    }
+    else{
+      contextController.addExistingContext(contextId)
+    }
+    
   }
 
   return(
@@ -53,16 +65,6 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
         //border: "3px solid red",
       }}
     >
-      {/* <Box
-      sx={{
-        //paddingLeft: "20px",
-        overflow: "hidden"
-      }}
-      >
-        <Typography noWrap={true}>
-          {children}
-        </Typography>
-      </Box> */}
       <Box
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
@@ -75,6 +77,7 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
           overflow: "visible", 
         }}
       >
+        {/* the purple background */}
          <Box
             sx={{
               position: "absolute",
@@ -114,11 +117,13 @@ const ContextsButton = ({historySessionId, forChatInputBox, children} :
           }}
         >
           <Button sx={{ padding: 0, minWidth: 0 }}
-          onClick={() => handleSelectContext(contextId)}>
-            <CircleIcon sx={{ 
-              color: contexts.find((context) => context.guid == contextId)?.color, 
-              fontSize: buttonHeight 
-              }} />
+            onClick={() => handleContextClick(contextId)}>
+            <CircleIcon 
+              sx={{ 
+                color: contextController.getContextColor(contextId), 
+                fontSize: buttonHeight 
+              }}
+            />
           </Button>
         </Box>
         ))}
