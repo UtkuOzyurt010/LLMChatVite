@@ -43,7 +43,7 @@ export default function ChatPageDesktop()
     <Box
     sx={{
       //height: "100vh",
-      width: "100vw"
+      //width: "100vw"
     }}
     >
       <LeftSideDrawer >

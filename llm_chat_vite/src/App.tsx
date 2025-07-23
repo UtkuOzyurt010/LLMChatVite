@@ -6,7 +6,7 @@ import ChatPageMobile from './pages/ChatPage/ChatPageMobile/ChatPageMobile.tsx'
 import ChatPageDesktop from './pages/ChatPage/ChatPageDesktop/ChatPageDesktop.tsx'
 
 import { AppProvider } from './utils/AppProvider.tsx'
-import { LayoutProvider } from './utils/LAyoutProvider.tsx';
+import { LayoutProvider } from './utils/LayoutProvider.tsx';
 
 function App() {
   const isSmallScreen = !useMediaQuery(theme.breakpoints.up('sm'));

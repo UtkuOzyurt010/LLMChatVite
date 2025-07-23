@@ -16,8 +16,7 @@ const ChatHistory = ({
 }) => {
 
   const contextController = useContextController()
-  const inputBoxHeight = "150px" //the input
-  const {isLeftSideDrawerCollapsed, collapsedWidth, drawerWidth} = useLayoutContext()
+  const {isLeftSideDrawerCollapsed, collapsedWidth, drawerWidth, inputBoxHeight} = useLayoutContext()
   const theme = useTheme()
 
   return (
@@ -25,13 +24,27 @@ const ChatHistory = ({
       {/* Scrollable Chat Area */}
       <Box
         sx={{
-          height: `calc(100vh - ${inputBoxHeight})`, // adjust based on input height
+          height: `calc(100% - ${inputBoxHeight}px)`, // adjust based on input height
+          width: "100%",
           overflowY: "auto",
-          //p: 2,
-          //pb: "150px", // to avoid content being hidden behind fixed input
-          //bgcolor: "#f5f5f5",
+          position: "relative",
+          border: "3px solid red"
+          //paddingBottom: inputBoxHeight,
         }}
       >
+        <Box
+          sx={{
+            position: "sticky",
+            top: 0,
+            height: "60px",
+            width: "100%",
+            background: "linear-gradient(to bottom, white, rgba(255,255,255,0))",
+            zIndex: 1,
+            pointerEvents: "none",
+          }}
+        />
+
+
         {entries.map((value: ChatEntry, index: number) => (
           <Box
             key={`chatEntry-${index}`}
@@ -67,7 +80,7 @@ const ChatHistory = ({
           bottom: 0,
           left: 0,
           width: "100%",
-          height: inputBoxHeight,
+          height: `${inputBoxHeight}px`,
           bgcolor: "#fff",
           //borderTop: "1px solid #ccc",
           display: "flex",
@@ -79,6 +92,7 @@ const ChatHistory = ({
               easing: theme.transitions.easing.easeOut,
               duration: theme.transitions.duration.enteringScreen,
             }),
+            border: "3px solid blue"
         }}
       >
         <ChatInputBox width="1200px" />

@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import EmptyChatDisplay from "./EmptyChatHistory/EmptyChatDisplay";
+import EmptyChatDisplay from "./EmptyChatDisplay/EmptyChatDisplay";
 import ChatHistory from "./ChatHistory/ChatHistory";
 import { useState } from "react";
 import { useSessionController } from "../../../../controllers/SessionController";
@@ -16,7 +16,8 @@ export default function ChatDisplay()
   return (
     <Box
       sx={{
-        //height: "100%",
+        height: "100%",
+        width: "100%",
         boxSizing: "border-box",
        // border: "3px solid black"
       }}
