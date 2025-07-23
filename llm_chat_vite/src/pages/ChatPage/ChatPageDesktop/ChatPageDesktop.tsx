@@ -61,7 +61,7 @@ export default function ChatPageDesktop()
     //display={"flex"}
     //flexDirection={"column"}
     sx={{
-      height: "100vh",
+      //height: "100vh",
       width: "100vw"
     }}
     >
@@ -75,43 +75,45 @@ export default function ChatPageDesktop()
       {/* <Box sx={{ 
         height: "100%",
       }}> */}
-        <CssBaseline />
+      <CssBaseline />
 
-        <AppBar 
-          position="relative"
-           
-          open={true}
-          collapsed={collapsed}
-          sx={{
-              height: `${appBarHeight}px`,
-              backgroundColor: "green"
-            }}
-        >
-          <Toolbar>
-            <Typography variant="h6" noWrap component="div">
-              Green-L Writing
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      
-        <Box
-        //flex={1} //calculating height once using appBarHeight might be more performant
-           sx={{ 
-            height: `calc(100vh - ${appBarHeight}px)`,
-            //height: "50vh",
-            width: `calc(100% - ${collapsed ? collapsedWidth : drawerWidth}px)`,
-            marginLeft: `${collapsed ? collapsedWidth : drawerWidth}px`,
-            transition: theme.transitions.create(['margin', 'width'], {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-            boxSizing: "border-box",
-            //border: "4px solid red",
-            
-           }}
-        >
-          <ChatDisplay></ChatDisplay>
-        </Box>
+      <AppBar 
+        position="fixed"
+          
+        open={true}
+        collapsed={collapsed}
+        sx={{
+            height: `${appBarHeight}px`,
+            backgroundColor: "green"
+          }}
+      >
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            Green-L Writing
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    
+      <Box
+      //flex={1} //calculating height once using appBarHeight might be more performant
+          sx={{ 
+          height: `calc(100vh - ${appBarHeight}px)`,
+          //height: "50vh",
+          width: `calc(100% - ${collapsed ? collapsedWidth : drawerWidth}px)`,
+          marginLeft: `${collapsed ? collapsedWidth : drawerWidth}px`,
+          marginTop: `${appBarHeight}px`,
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+          boxSizing: "border-box",
+          overflowY: 'auto',
+          border: "4px solid red",
+          
+          }}
+      >
+        <ChatDisplay></ChatDisplay>
+      </Box>
       {/* </Box> */}
     {/* </Box> */}
     </Box>

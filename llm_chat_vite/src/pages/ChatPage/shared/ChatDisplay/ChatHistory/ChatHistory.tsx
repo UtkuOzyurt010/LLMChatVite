@@ -20,9 +20,10 @@ const ChatHistory = ({entries, focusedField, setFocusedField}
         flexDirection: "column",
         gap: 2,
         p: 2,
-        height: "100vh",
+        //height: "100vh",
         overflowY: "auto",
-        bgcolor: "#f5f5f5"
+        bgcolor: "#f5f5f5",
+        border: "3px solid blue"
       }}
     >
       {entries.map((value: ChatEntry, index: number) => (
@@ -31,6 +32,7 @@ const ChatHistory = ({entries, focusedField, setFocusedField}
           sx={{
             display: "flex",
             justifyContent: value.type === "prompt" ? "flex-end" : "flex-start",
+            border: "3px solid red"
           }}
         >
           <Box
@@ -56,7 +58,8 @@ const ChatHistory = ({entries, focusedField, setFocusedField}
         display: "flex",
         mt: "auto", 
         pt: 2, 
-        justifyContent: "center"
+        justifyContent: "center",
+        border: "3px solid orange"
         }}>
         <ChatInputBox width="1200px" />
       </Box>

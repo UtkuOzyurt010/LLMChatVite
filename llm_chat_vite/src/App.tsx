@@ -36,15 +36,14 @@ function App() {
                     border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid green" : undefined}
                     margin={"0"}
                     sx={{
-                      height: "100vh",
-                      width: "100vw"
                     }}
                     //overflow={"hidden"}
                 >
                     {isSmallScreen ?
                     <ChatPageMobile></ChatPageMobile> //SwipeableDrawer
                     :
-                    <Box height={"100vh"}>
+                    <Box 
+                    >
                     <ChatPageDesktop //</Box>contextIds={contextIds}
                     ></ChatPageDesktop>
                     </Box>

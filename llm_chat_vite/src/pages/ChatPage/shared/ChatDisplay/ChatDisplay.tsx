@@ -16,7 +16,7 @@ export default function ChatDisplay()
   return (
     <Box
       sx={{
-        height: "100%",
+        //height: "100%",
         boxSizing: "border-box",
        // border: "3px solid black"
       }}

@@ -30,6 +30,8 @@ export default function ChatInputBox({width} : {width: string}) {
       elevation={3}
       sx={{
         width: width,
+        //height: "60px",
+        //height: "100%",
         p: 2,
         pb: 1,
         display: "flex",

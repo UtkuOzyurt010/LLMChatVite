@@ -15,7 +15,7 @@ export interface Context
 
 }
 
-export const defaultContext : Context = createContext("black")
+export const defaultContext : Context = createContext("#000000")
 
 
 
