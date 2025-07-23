@@ -86,7 +86,10 @@ export function useSessionController() {
 
     const createResponse = () : string => {
       //for now just return everything that should be considered for the response
-      return getSortedEntriesCurrentSessionContexts().map((chatEntry) => chatEntry.type == "prompt" && `${chatEntry.type}, ${chatEntry.guid}, ${chatEntry.contextGuId}:  ${chatEntry.text}`).join('\n') 
+      return getSortedEntriesCurrentSessionContexts().map(
+        (chatEntry) => {if(chatEntry.type == "prompt") return `${contextController.getContextColor(chatEntry.contextGuId)}:  ${chatEntry.text}`}
+        //${chatEntry.type}, ${chatEntry.guid}, 
+      ).join('\n') 
     }
 
   return{

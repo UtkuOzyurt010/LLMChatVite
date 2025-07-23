@@ -6,21 +6,21 @@ import { createSession, type Session } from "../models/Session";
 
 function initContexts(): Context[] {
   return [
-    createContext("pink"),
-    createContext("blue"),
-    createContext("red"),
-    createContext("green"),
-    createContext("black"),
-    createContext("brown"),
+    createContext("#FFC0CB"), // pink
+    createContext("#0000FF"), // blue
+    createContext("#FF0000"), // red
+    createContext("#008000"), // green
+    createContext("#000000"), // black
+    createContext("#A52A2A"), // brown
   ];
 }
 
 function initContexts2(): Context[] {
   return [
-    createContext("orange"),
-    createContext("yellow"),
-    createContext("purple"),
-    createContext("white"),
+    createContext("#FFA500"), // orange
+    createContext("#FFFF00"), // yellow
+    createContext("#800080"), // purple
+    createContext("#FFFFFF"), // white
   ];
 }
 

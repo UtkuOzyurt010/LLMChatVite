@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box"
 import type { ChatEntry } from "../../../../../models/ChatEntry"
 import ChatInputBox from "../../ChatInputBox/ChatInputBox"
+import { useContextController } from "../../../../../controllers/ContextController"
 
 const ChatHistory = ({entries, focusedField, setFocusedField} 
   : 
@@ -10,6 +11,8 @@ const ChatHistory = ({entries, focusedField, setFocusedField}
     setFocusedField: (focusedField: string) => void
   }) =>
 {
+  const contextController = useContextController()
+
   return(
     <Box
       sx={{
@@ -35,8 +38,8 @@ const ChatHistory = ({entries, focusedField, setFocusedField}
               maxWidth: "70%",
               px: 2,
               py: 1,
-              bgcolor: value.type === "prompt" ? "#d1eaff" : "#e0e0e0",
-              color: "#000",
+              bgcolor: contextController.getContextColor(value.contextGuId),
+              color: 'x000',
               borderRadius: 2,
               borderTopLeftRadius: value.type === "prompt" ? 16 : 0,
               borderTopRightRadius: value.type === "prompt" ? 0 : 16,

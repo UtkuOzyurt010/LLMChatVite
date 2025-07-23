@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Paper, useTheme } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
+import { lighten, alpha } from "@mui/material";
 import ContextsButton from "./ContextsButton/ContextsButton";
 import AddContextButton from "./ContextsButton/AddcontextButton/AddContextbutton";
 import { useContextController } from "../../../../controllers/ContextController";
@@ -54,7 +55,9 @@ export default function ChatInputBox({width} : {width: string}) {
           hiddenLabel
           fullWidth
           sx={{
-            bgcolor: "background.paper",
+            //bgcolor: "background.paper",
+            bgcolor: `${alpha(contextController.getCurrentContext().color, 0.2)}`,
+            //opacity: "20%",
             borderRadius: 1,
           }}
           onChange={(e) => setInputValue(e.target.value)}

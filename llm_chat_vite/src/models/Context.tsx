@@ -1,4 +1,5 @@
 import { type ChatEntry, createChatEntry } from "./ChatEntry"
+import { alpha } from "@mui/material";
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,6 +11,7 @@ export interface Context
     current_prompt_index : number
     current_response_index : number
     color: string
+    color_light: string
 
 }
 
@@ -25,7 +27,8 @@ export function createContext(color: string){
         responses: {},
         current_prompt_index: -1, //increment when adding, indexing 0 should return first
         current_response_index: -1, //increment when adding, indexing 0 should return first
-        color: color
+        color: color,
+        color_light: alpha(color, 0.2)
     }
 }
 
