@@ -7,6 +7,7 @@ import CustomListItem from "./CustomListItem/CustomListItem";
 import { type Session} from "../../../../models/Session";
 import ContextsButton from "../../shared/ChatInputBox/ContextsButton/ContextsButton";
 import { useSessionController } from "../../../../controllers/SessionController";
+import { useLayoutContext } from "../../../../utils/LayoutContext";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   
@@ -20,19 +21,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 
-const LeftSideDrawer = ({
-  collapsed,
-  collapsedWidth,
-  drawerWidth,
-  toggleDrawerCollapse,
-}: {
-  collapsed: boolean;
-  collapsedWidth: number;
-  drawerWidth: number;
-  toggleDrawerCollapse: () => void;
-  //contextIds: string[];
-})  =>
+const LeftSideDrawer = ()  =>
   {
+    const { collapsedWidth, drawerWidth, isLeftSideDrawerCollapsed, toggleIsLeftSideDrawerCollapsed } = useLayoutContext();
     const theme = useTheme()
     const sessionController = useSessionController()
     const [showHistory, setShowHistory] = useState<boolean>(false)
@@ -52,7 +43,7 @@ const LeftSideDrawer = ({
       sx={{
         
         overflow: "visible",
-        width: collapsed ? collapsedWidth : drawerWidth,
+        width: isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth,
         flexShrink: 0,
         transition: (theme) =>
           theme.transitions.create('width', {
@@ -61,7 +52,7 @@ const LeftSideDrawer = ({
         }),
         '& .MuiDrawer-paper': {
           overflow: "visible",
-          width: collapsed ? collapsedWidth : drawerWidth,
+          width: isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth,
           boxSizing: 'border-box',
           transition: (theme) =>
             theme.transitions.create('width', {
@@ -79,7 +70,7 @@ const LeftSideDrawer = ({
         <IconButton
           color="inherit"
           aria-label="open drawer"
-          onClick={toggleDrawerCollapse}
+          onClick={toggleIsLeftSideDrawerCollapsed}
           edge="start"
           
           sx={[
@@ -102,7 +93,7 @@ const LeftSideDrawer = ({
       {<List sx={{backgroundColor: "orange" , overflow: "visible",}} >
           <CustomListItem 
             key={"New Chat"} 
-            collapsed={collapsed} 
+            collapsed={isLeftSideDrawerCollapsed} 
             collapsedWidth={collapsedWidth}
             icon={<SquarePen></SquarePen>}
             onClick={handleNewSession}
@@ -111,13 +102,13 @@ const LeftSideDrawer = ({
           </CustomListItem>
           <CustomListItem 
             key={"History"} 
-            collapsed={collapsed} 
+            collapsed={isLeftSideDrawerCollapsed} 
             collapsedWidth={collapsedWidth} 
             icon={showHistory ? <ChevronDown/> : <ChevronRight/>} 
             onClick={() => 
                 {
                   setShowHistory(!showHistory)
-                  if(collapsed) toggleDrawerCollapse()
+                  if(isLeftSideDrawerCollapsed) toggleIsLeftSideDrawerCollapsed()
                 }
               }
           >
@@ -133,7 +124,7 @@ const LeftSideDrawer = ({
                 }}
               >
                 <CustomListItem
-                collapsed={collapsed} 
+                collapsed={isLeftSideDrawerCollapsed} 
                 collapsedWidth={collapsedWidth}
                 onClick={() => handleSelectSession(session)}
                 >

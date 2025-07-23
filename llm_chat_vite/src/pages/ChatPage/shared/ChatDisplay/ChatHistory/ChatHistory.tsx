@@ -2,69 +2,88 @@ import Box from "@mui/material/Box"
 import type { ChatEntry } from "../../../../../models/ChatEntry"
 import ChatInputBox from "../../ChatInputBox/ChatInputBox"
 import { useContextController } from "../../../../../controllers/ContextController"
+import { useLayoutContext } from "../../../../../utils/LayoutContext"
+import { useTheme } from "@mui/material"
 
-const ChatHistory = ({entries, focusedField, setFocusedField} 
-  : 
-  {
-    entries : ChatEntry[]
-    focusedField: string
-    setFocusedField: (focusedField: string) => void
-  }) =>
-{
+const ChatHistory = ({
+  entries,
+  focusedField,
+  setFocusedField
+}: {
+  entries: ChatEntry[]
+  focusedField: string
+  setFocusedField: (focusedField: string) => void
+}) => {
+
   const contextController = useContextController()
+  const inputBoxHeight = "150px" //the input
+  const {isLeftSideDrawerCollapsed, collapsedWidth, drawerWidth} = useLayoutContext()
+  const theme = useTheme()
 
-  return(
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        p: 2,
-        //height: "100vh",
-        overflowY: "auto",
-        bgcolor: "#f5f5f5",
-        border: "3px solid blue"
-      }}
-    >
-      {entries.map((value: ChatEntry, index: number) => (
-        <Box
-          key={`chatEntry-${index}`}
-          sx={{
-            display: "flex",
-            justifyContent: value.type === "prompt" ? "flex-end" : "flex-start",
-            border: "3px solid red"
-          }}
-        >
+  return (
+    <>
+      {/* Scrollable Chat Area */}
+      <Box
+        sx={{
+          height: `calc(100vh - ${inputBoxHeight})`, // adjust based on input height
+          overflowY: "auto",
+          //p: 2,
+          //pb: "150px", // to avoid content being hidden behind fixed input
+          //bgcolor: "#f5f5f5",
+        }}
+      >
+        {entries.map((value: ChatEntry, index: number) => (
           <Box
+            key={`chatEntry-${index}`}
             sx={{
-              maxWidth: "70%",
-              px: 2,
-              py: 1,
-              bgcolor: contextController.getContextColor(value.contextGuId),
-              color: 'x000',
-              borderRadius: 2,
-              borderTopLeftRadius: value.type === "prompt" ? 16 : 0,
-              borderTopRightRadius: value.type === "prompt" ? 0 : 16,
-              boxShadow: 1,
+              display: "flex",
+              justifyContent: value.type === "prompt" ? "flex-end" : "flex-start",
+              mb: 1
             }}
           >
-            {value.text}
+            <Box
+              sx={{
+                maxWidth: "70%",
+                px: 2,
+                py: 1,
+                bgcolor: contextController.getContextColor(value.contextGuId),
+                color: '#000',
+                borderRadius: 2,
+                borderTopLeftRadius: value.type === "prompt" ? 16 : 0,
+                borderTopRightRadius: value.type === "prompt" ? 0 : 16,
+                boxShadow: 1,
+              }}
+            >
+              {value.text}
+            </Box>
           </Box>
-        </Box>
-      ))}
+        ))}
+      </Box>
 
-      {/* Chat Input at the bottom */}
-      <Box sx={{ 
-        display: "flex",
-        mt: "auto", 
-        pt: 2, 
-        justifyContent: "center",
-        border: "3px solid orange"
-        }}>
+      {/* Fixed Input Box */}
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: inputBoxHeight,
+          bgcolor: "#fff",
+          //borderTop: "1px solid #ccc",
+          display: "flex",
+          justifyContent: "center",
+          pb: 2,
+          zIndex: 10,
+          marginLeft: `${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px`,
+            transition: theme.transitions.create(['margin', 'width'], {
+              easing: theme.transitions.easing.easeOut,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+        }}
+      >
         <ChatInputBox width="1200px" />
       </Box>
-    </Box>
-
+    </>
   )
 }
 

@@ -9,84 +9,48 @@ import Typography from '@mui/material/Typography';
 import LeftSideDrawer from './LeftSideDrawer/LeftSideDrawer';
 import ChatDisplay from '../shared/ChatDisplay/ChatDisplay';
 
+import { useLayoutContext } from '../../../utils/LayoutContext';
 
-const drawerWidth = 260;
-const collapsedWidth = 70;
-const appBarHeight = 60;
+export const AppBar = ({children} : {children : React.ReactNode}) => {
+  const { collapsedWidth, drawerWidth, appBarHeight, isLeftSideDrawerCollapsed } = useLayoutContext();
+  const theme = useTheme()
 
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-  collapsed?: boolean;
+  return (
+    <MuiAppBar
+      sx = {{
+        height: appBarHeight,
+          backgroundColor: "green",
+          width: `calc(100% - ${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px)`,
+          marginLeft: `${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px`,
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen
+          }),
+      }}
+    >
+      {children}
+    </MuiAppBar>
+  );
 }
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open' && prop !== 'collapsed',
-})<AppBarProps>(({ theme, open, collapsed }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.easeIn,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    //height: `calc(100% - ${appBarHeight}px)`,
-    width: `calc(100% - ${collapsed ? collapsedWidth : drawerWidth}px)`,
-    marginLeft: `${collapsed ? collapsedWidth : drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-
 
 export default function ChatPageDesktop() 
 {
   const theme = useTheme();
-  const [collapsed, setCollapsed] = React.useState(true);
-
-  const handleDrawerCollapse = () => {
-    setCollapsed(true);
-  };
-
-  const handleDrawerExpand = () => {
-    setCollapsed(false);
-  };
-
-  const toggleDrawerCollapse = () => {
-    setCollapsed(!collapsed);
-  }
+  const { collapsedWidth, drawerWidth, appBarHeight, isLeftSideDrawerCollapsed } = useLayoutContext();
 
   return (
     <Box
-    //display={"flex"}
-    //flexDirection={"column"}
     sx={{
       //height: "100vh",
       width: "100vw"
     }}
     >
       <LeftSideDrawer 
-      collapsed={collapsed} 
-      collapsedWidth={collapsedWidth} 
-      drawerWidth={drawerWidth} 
-      toggleDrawerCollapse={toggleDrawerCollapse}
       >
       </LeftSideDrawer>
-      {/* <Box sx={{ 
-        height: "100%",
-      }}> */}
       <CssBaseline />
 
-      <AppBar 
-        position="fixed"
-          
-        open={true}
-        collapsed={collapsed}
-        sx={{
-            height: `${appBarHeight}px`,
-            backgroundColor: "green"
-          }}
-      >
+      <AppBar >
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
             Green-L Writing
@@ -99,8 +63,8 @@ export default function ChatPageDesktop()
           sx={{ 
           height: `calc(100vh - ${appBarHeight}px)`,
           //height: "50vh",
-          width: `calc(100% - ${collapsed ? collapsedWidth : drawerWidth}px)`,
-          marginLeft: `${collapsed ? collapsedWidth : drawerWidth}px`,
+          width: `calc(100% - ${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px)`,
+          marginLeft: `${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px`,
           marginTop: `${appBarHeight}px`,
           transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.easeOut,
@@ -108,7 +72,7 @@ export default function ChatPageDesktop()
           }),
           boxSizing: "border-box",
           overflowY: 'auto',
-          border: "4px solid red",
+          //border: "4px solid red",
           
           }}
       >

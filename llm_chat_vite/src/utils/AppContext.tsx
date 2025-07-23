@@ -1,16 +1,21 @@
-import React, { createContext, useContext } from "react";
+import
+{ type Dispatch, 
+  type SetStateAction, 
+  createContext, 
+  useContext } from "react";
 import type { Context } from "../models/Context";
 import type { Session } from "../models/Session";
 
 type AppContextType = {
   contexts: Context[];
-  setContexts: React.Dispatch<React.SetStateAction<Context[]>>;
+  setContexts: Dispatch<SetStateAction<Context[]>>;
   sessions: Session[];
-  setSessions: React.Dispatch<React.SetStateAction<Session[]>>;
+  setSessions: Dispatch<SetStateAction<Session[]>>;
   currentSessionId: string;
-  setCurrentSessionId: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentSessionId: Dispatch<SetStateAction<string>>;
   currentContextId: string;
-  setCurrentContextId: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentContextId: Dispatch<SetStateAction<string>>;
+  leftSideDrawerCollapsed: boolean;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);

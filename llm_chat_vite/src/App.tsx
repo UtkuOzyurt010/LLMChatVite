@@ -6,51 +6,54 @@ import ChatPageMobile from './pages/ChatPage/ChatPageMobile/ChatPageMobile.tsx'
 import ChatPageDesktop from './pages/ChatPage/ChatPageDesktop/ChatPageDesktop.tsx'
 
 import { AppProvider } from './utils/AppProvider.tsx'
+import { LayoutProvider } from './utils/LAyoutProvider.tsx';
 
 function App() {
   const isSmallScreen = !useMediaQuery(theme.breakpoints.up('sm'));
 
     return (
       <AppProvider>
-        <ThemeProvider theme={theme}>
-            <Box
-                display={"flex"}
-                flexDirection={"column"}
-                height={"100vh"}
-                width={"100vw"}
-                border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid purple" : undefined}
-            >
-                {/* <Box
-                    //flex="1"
-                    border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid yellow" : undefined}
-                    height={"100%"}
-                    width={"100%"}
-                > */}
-                    {/* {
-                        isSmallScreen ? <NavBarMobile isSmallScreen={isSmallScreen} showLeft={showl}></NavBarMobile>
-                    } */}
-                    {/* <NavBar ></NavBar> */}
-                {/* </Box> */}
+        <LayoutProvider>
+            <ThemeProvider theme={theme}>
                 <Box
-                    //flexGrow={"1"}
-                    border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid green" : undefined}
-                    margin={"0"}
-                    sx={{
-                    }}
-                    //overflow={"hidden"}
+                    display={"flex"}
+                    flexDirection={"column"}
+                    height={"100vh"}
+                    width={"100vw"}
+                    border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid purple" : undefined}
                 >
-                    {isSmallScreen ?
-                    <ChatPageMobile></ChatPageMobile> //SwipeableDrawer
-                    :
-                    <Box 
+                    {/* <Box
+                        //flex="1"
+                        border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid yellow" : undefined}
+                        height={"100%"}
+                        width={"100%"}
+                    > */}
+                        {/* {
+                            isSmallScreen ? <NavBarMobile isSmallScreen={isSmallScreen} showLeft={showl}></NavBarMobile>
+                        } */}
+                        {/* <NavBar ></NavBar> */}
+                    {/* </Box> */}
+                    <Box
+                        //flexGrow={"1"}
+                        border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid green" : undefined}
+                        margin={"0"}
+                        sx={{
+                        }}
+                        //overflow={"hidden"}
                     >
-                    <ChatPageDesktop //</Box>contextIds={contextIds}
-                    ></ChatPageDesktop>
+                        {isSmallScreen ?
+                        <ChatPageMobile></ChatPageMobile> //SwipeableDrawer
+                        :
+                        <Box 
+                        >
+                        <ChatPageDesktop //</Box>contextIds={contextIds}
+                        ></ChatPageDesktop>
+                        </Box>
+                        } 
                     </Box>
-                    } 
                 </Box>
-            </Box>
-        </ThemeProvider>
+            </ThemeProvider>
+        </LayoutProvider>
       </AppProvider>
     
     )

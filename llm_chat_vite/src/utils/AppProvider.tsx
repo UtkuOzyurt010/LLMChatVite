@@ -44,6 +44,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [sessions, setSessions] = useLocalStorage<Session[]>("sessions", initialSessions);
   const [currentSessionId, setCurrentSessionId] = useLocalStorage<string>("currentSessionId", initialSessionIds[0]);
   const [currentContextId, setCurrentContextId] = useLocalStorage<string>("currentContextId", initialContextIds[0]);
+  const leftSideDrawerCollapsed = false;
 
   return (
     <AppContext.Provider
@@ -56,6 +57,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCurrentSessionId,
         currentContextId,
         setCurrentContextId,
+        leftSideDrawerCollapsed
       }}
     >
       {children}
