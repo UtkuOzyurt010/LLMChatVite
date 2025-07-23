@@ -6,7 +6,7 @@ export const LayoutProvider = ({ children }: { children: ReactNode }) => {
   const toggleIsLeftSideDrawerCollapsed = () => setIsLeftSideDrawerCollapsed(!isLeftSideDrawerCollapsed)
   const drawerWidth = 260
   const collapsedWidth = 70
-  const appBarHeight = 60
+  const appBarHeight = 65
 
   const value = {
     isLeftSideDrawerCollapsed,

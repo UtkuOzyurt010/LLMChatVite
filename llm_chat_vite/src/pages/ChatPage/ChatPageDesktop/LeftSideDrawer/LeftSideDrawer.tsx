@@ -9,21 +9,21 @@ import ContextsButton from "../../shared/ChatInputBox/ContextsButton/ContextsBut
 import { useSessionController } from "../../../../controllers/SessionController";
 import { useLayoutContext } from "../../../../utils/LayoutContext";
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+const DrawerHeader = styled(Box)(({ theme }) => ({
   
   //width: "500px",
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar   ???????????still???????????
-  ...theme.mixins.toolbar,
+  //...theme.mixins.toolbar,
   //justifyContent: 'flex-end',
 }));
 
 
 const LeftSideDrawer = ()  =>
   {
-    const { collapsedWidth, drawerWidth, isLeftSideDrawerCollapsed, toggleIsLeftSideDrawerCollapsed } = useLayoutContext();
+    const { collapsedWidth, drawerWidth, appBarHeight, isLeftSideDrawerCollapsed, toggleIsLeftSideDrawerCollapsed } = useLayoutContext();
     const theme = useTheme()
     const sessionController = useSessionController()
     const [showHistory, setShowHistory] = useState<boolean>(false)
@@ -41,7 +41,6 @@ const LeftSideDrawer = ()  =>
     
     <Drawer
       sx={{
-        
         overflow: "visible",
         width: isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth,
         flexShrink: 0,
@@ -66,8 +65,13 @@ const LeftSideDrawer = ()  =>
       open={true}
     >
       <DrawerHeader
-        sx={{backgroundColor: "yellow"}}>
+        sx={{
+          backgroundColor: "yellow",
+          height: appBarHeight,
+          border: "2px solid red"
+          }}>
         <IconButton
+
           color="inherit"
           aria-label="open drawer"
           onClick={toggleIsLeftSideDrawerCollapsed}
@@ -75,6 +79,7 @@ const LeftSideDrawer = ()  =>
           
           sx={[
             {
+              minHeight: "0",
               position: "absolute",
               right: "0",
               mr: 2,
@@ -83,6 +88,7 @@ const LeftSideDrawer = ()  =>
           ]}
         >
           <MenuIcon sx={{
+            minHeight: "0"
           //color:"black"
           }}/>
         </IconButton>
