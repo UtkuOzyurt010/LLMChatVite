@@ -99,8 +99,6 @@ const LeftSideDrawer = ()  =>
       {<List sx={{backgroundColor: "orange" , overflow: "visible",}} >
           <CustomListItem 
             key={"New Chat"} 
-            collapsed={isLeftSideDrawerCollapsed} 
-            collapsedWidth={collapsedWidth}
             icon={<SquarePen></SquarePen>}
             onClick={handleNewSession}
           >
@@ -108,8 +106,6 @@ const LeftSideDrawer = ()  =>
           </CustomListItem>
           <CustomListItem 
             key={"History"} 
-            collapsed={isLeftSideDrawerCollapsed} 
-            collapsedWidth={collapsedWidth} 
             icon={showHistory ? <ChevronDown/> : <ChevronRight/>} 
             onClick={() => 
                 {
@@ -130,8 +126,6 @@ const LeftSideDrawer = ()  =>
                 }}
               >
                 <CustomListItem
-                collapsed={isLeftSideDrawerCollapsed} 
-                collapsedWidth={collapsedWidth}
                 onClick={() => handleSelectSession(session)}
                 >
                   {session.summary}

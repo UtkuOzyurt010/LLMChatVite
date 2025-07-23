@@ -1,14 +1,15 @@
 import { ListItemIcon, ListItemButton, Typography, ListItem } from '@mui/material';
+import { useLayoutContext } from '../../../../../utils/LayoutContext';
 
-const CustomListItem = ({collapsed, collapsedWidth, icon, onClick, children} : 
+const CustomListItem = ({icon, onClick, children} : 
   {
-    collapsed: boolean, 
-    collapsedWidth: number, 
     icon?: React.ReactNode
     onClick?: () => void,
     children?: React.ReactNode;
   }) => 
 {
+
+  const {isLeftSideDrawerCollapsed, collapsedWidth} = useLayoutContext()
 return(
   <ListItem key="newChat" disablePadding>
     <ListItemButton onClick={onClick}>
@@ -22,7 +23,7 @@ return(
       >
         {icon}
       </ListItemIcon>}
-      {!collapsed &&
+      {!isLeftSideDrawerCollapsed &&
       <Typography
         noWrap
         sx={{
