@@ -124,7 +124,7 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
         >
           <Box sx={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
             <Button
-              sx={{ padding: 0, minWidth: 0, margin: 0, height:buttonHeight + 20, width: buttonHeight }}
+              sx={{ padding: 0, minWidth: 0, margin: 0, height:buttonHeight, width: buttonHeight }}
               onClick={() => handleAddContext(contextId)}
               disableRipple
               disableElevation

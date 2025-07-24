@@ -8,6 +8,8 @@ import { useContextController } from "../../../../controllers/ContextController"
 import { useSessionController } from "../../../../controllers/SessionController";
 import { createChatEntry } from "../../../../models/ChatEntry";
 import { useState } from "react";
+import { CompressionButton } from "./ChatInputSettings/CompressionButton/CompressionButton";
+import { ChatInputSettings } from "./ChatInputSettings/ChatInputSettings";
 
 
 export default function ChatInputBox({width} : {width: string}) {
@@ -55,6 +57,7 @@ export default function ChatInputBox({width} : {width: string}) {
           required
           id="prompt"
           variant="filled"
+          value={inputValue}
           placeholder="Ask me anything!"
           hiddenLabel
           fullWidth
@@ -93,41 +96,47 @@ export default function ChatInputBox({width} : {width: string}) {
           />
         </Box>
         
-
-        {/* Right Send Prompt button */}
-        <Button
-          sx={{ 
-            p: 0, 
-            minWidth: "auto",
-            //border: "2px solid black"
+        {/* Right Group, settings + Send Prompt button */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row"
           }}
-          aria-label="Current context color"
-          onClick={handleSubmit}
-        >
-          <Avatar
-            sx={{ 
-
-              width: buttonHeight, 
-              height: buttonHeight,
-              backgroundColor: contextController.getContextColor(contextController.getCurrentContextId()),
-            }}
           >
-            {" "}
-          </Avatar>
-          <ArrowUpward
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              color: "white",
-              //fontSize: buttonHeightn, //this just looks to big, default value looks good but remember it's unset
+          <ChatInputSettings text={inputValue} setText={setInputValue}></ChatInputSettings>
+          <Button
+            sx={{ 
+              p: 0, 
+              minWidth: "auto",
+              //border: "2px solid black"
             }}
-          />
-        </Button>
+            aria-label="Current context color"
+            onClick={handleSubmit}
+          >
+            <Box
+              sx={{
+                width: buttonHeight,
+                height: buttonHeight,
+                backgroundColor: contextController.getContextColor(contextController.getCurrentContextId()),
+                borderRadius: "50%",
+              }}
+            />
+            <ArrowUpward
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                color: "white",
+                //fontSize: buttonHeightn, //this just looks to big, default value looks good but remember it's unset
+              }}
+            />
+          </Button>
+        </Box>
         
         
       </Box>
+      
     </Paper>
   );
 }
