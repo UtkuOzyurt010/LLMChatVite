@@ -13,6 +13,7 @@ type LayoutContextType = {
   collapsedWidth: number
   appBarHeight: number
   inputBoxHeight: number
+  inputBoxWidthWide: number
 }
 
 export const LayoutContext = createContext<LayoutContextType | undefined>(undefined)

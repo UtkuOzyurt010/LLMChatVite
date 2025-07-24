@@ -8,6 +8,7 @@ export const LayoutProvider = ({ children }: { children: ReactNode }) => {
   const collapsedWidth = 70
   const appBarHeight = 65
   const inputBoxHeight = 150
+  const inputBoxWidthWide = 1200
 
   const value = {
     isLeftSideDrawerCollapsed,
@@ -16,7 +17,8 @@ export const LayoutProvider = ({ children }: { children: ReactNode }) => {
     drawerWidth,
     collapsedWidth,
     appBarHeight,
-    inputBoxHeight
+    inputBoxHeight,
+    inputBoxWidthWide
   }
 
   return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>

@@ -18,14 +18,14 @@ const ChatHistory = ({
 }) => {
 
   const contextController = useContextController()
-  const {isLeftSideDrawerCollapsed, collapsedWidth, drawerWidth, inputBoxHeight} = useLayoutContext()
+  const {isLeftSideDrawerCollapsed, collapsedWidth, drawerWidth, inputBoxHeight, inputBoxWidthWide} = useLayoutContext()
   const theme = useTheme()
   const scrollableRef = useRef<HTMLDivElement>(null);
   const buttonHeight = theme.customSizes.buttonHeight
 
   const handleAddEntryToCurrentcontext = (chatEntry : ChatEntry) =>
   {
-    contextController.addChatEntry(chatEntry)
+    contextController.addChatEntry({...chatEntry, contextGuId: contextController.getCurrentContextId()})
   }
 
   useEffect(() => {
@@ -47,7 +47,8 @@ const ChatHistory = ({
           width: "100%",
           overflowY: "auto",
           position: "relative",
-          border: "3px solid red"
+          border: "3px solid red",
+          paddingX: `calc((100% - ${inputBoxWidthWide}px)/2)`
           //paddingBottom: inputBoxHeight,
         }}
       >
@@ -138,31 +139,6 @@ const ChatHistory = ({
             </Box>
           </Box>
         ))}
-      </Box>
-
-      {/* Fixed Input Box */}
-      <Box
-        sx={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          height: `${inputBoxHeight}px`,
-          bgcolor: "#fff",
-          //borderTop: "1px solid #ccc",
-          display: "flex",
-          justifyContent: "center",
-          pb: 2,
-          zIndex: 10,
-          marginLeft: `${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px`,
-            transition: theme.transitions.create(['margin', 'width'], {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-            border: "3px solid blue"
-        }}
-      >
-        <ChatInputBox width="1200px" />
       </Box>
     </>
   )
