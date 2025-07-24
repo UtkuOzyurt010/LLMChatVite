@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Paper, useTheme, Avatar } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
+import ArrowUpward from '@mui/icons-material/ArrowUpward'
 import { lighten, alpha } from "@mui/material";
 import ContextsButton from "./ContextsButton/ContextsButton";
 import AddContextButton from "./ContextsButton/AddcontextButton/AddContextbutton";
@@ -14,11 +15,12 @@ export default function ChatInputBox({width} : {width: string}) {
   const contextController = useContextController()
   const sessionController = useSessionController()
   const buttonHeight = theme.customSizes.buttonHeight
+  const buttonHeightn = theme.customSizes.buttonHeightn
 
   const [inputValue, setInputValue] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    //e.preventDefault();
     contextController.addChatEntry(createChatEntry(inputValue, contextController.getCurrentContextId(), "prompt"));
     const responseText = sessionController.createResponse();
     contextController.addChatEntry(createChatEntry(responseText, contextController.getCurrentContextId(), "response"));
@@ -77,31 +79,31 @@ export default function ChatInputBox({width} : {width: string}) {
           position: "relative",
         }}
       >
-
+        {/* Left group: AddContextButton + ContextsButton (should rename to ContextsList?) */}
         <Box
           sx={{
             display: "flex",
             flexDirection: "row"
           }}
         >
-          {/* Right ContextsButton */}
           <AddContextButton></AddContextButton>
           <ContextsButton 
             forChatInputBox={true}
             historySessionId={sessionController.getCurrentSessionId()} 
-            
-            />
+          />
         </Box>
         
 
-        {/* Left Circle Button */}
+        {/* Right Send Prompt button */}
         <Button
-          sx={{ p: 0, minWidth: "auto",
+          sx={{ 
+            p: 0, 
+            minWidth: "auto",
             //border: "2px solid black"
           }}
           aria-label="Current context color"
+          onClick={handleSubmit}
         >
-
           <Avatar
             sx={{ 
 
@@ -112,6 +114,16 @@ export default function ChatInputBox({width} : {width: string}) {
           >
             {" "}
           </Avatar>
+          <ArrowUpward
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              color: "white",
+              //fontSize: buttonHeightn, //this just looks to big, default value looks good but remember it's unset
+            }}
+          />
         </Button>
         
         
