@@ -36,7 +36,7 @@ export const ChatInputSettings = ({text, setText} : {text : string, setText : Di
     </Box>
   )
 
-  buttons.push(<CompressionButton key="compression-button" />)
+  buttons.push(<CompressionButton text={text} setText={setText} key="compression-button" />)
   buttons.push(<BlackListButton text={text} setText={setText} key="blacklist-button" />)
 
   return (
