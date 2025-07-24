@@ -17,6 +17,9 @@ export function useContextController() {
   const getContext = (contextId: string) : Context => {
     return contexts.find((s) => s.guid === contextId)!
   }
+  const getContexts = () : Context[] => {
+      return contexts
+  }
   const getCurrentContext = () : Context =>
   {
     return contexts.find((s) => s.guid === currentContextId)!
@@ -107,6 +110,7 @@ export function useContextController() {
 
   return{
     getContext,
+    getContexts,
     getCurrentContext,
     getCurrentContextId,
     getRandomHexColor,

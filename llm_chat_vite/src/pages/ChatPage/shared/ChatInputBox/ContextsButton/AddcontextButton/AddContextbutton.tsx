@@ -4,15 +4,18 @@ import AddIcon from '@mui/icons-material/Add';
 import { useEffect, useState } from "react";
 import { useTheme } from '@mui/material/styles';
 import { useContextController } from "../../../../../../controllers/ContextController";
+import { useColorController } from "../../../../../../controllers/ColorController";
 
 const AddContextButton = () => {
   const [color, setColor] = useState("")
   const theme = useTheme()
   const contextController = useContextController()
+  const colorController = useColorController()
   const buttonHeight = theme.customSizes.buttonHeight
   const buttonHeightn = theme.customSizes.buttonHeightn
 
-  useEffect(() => setColor(contextController.getRandomHexColor()), []) //to display the color, before adding it
+  //useEffect(() => setColor(contextController.getRandomHexColor()), []) //to display the color, before adding it
+  useEffect(() => setColor(colorController.getRandomDarkColor()), []) 
 
   
   const handleAddNewContext = () =>

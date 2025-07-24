@@ -5,6 +5,7 @@ import { createContext, type Context } from "../models/Context";
 import { type Session, createSession } from "../models/Session";
 import { useAppContext } from "../utils/AppContext";
 import { useContextController } from "./ContextController";
+import { useColorController } from './ColorController';
 
 export function useSessionController() {
   const {
@@ -17,6 +18,7 @@ export function useSessionController() {
     setSessions
   } = useAppContext();
   const contextController = useContextController()
+  const colorController = useColorController()
 
   const getCurrentSession = () : Session => {
     return sessions.find((s) => s.guid === currentSessionId)!;
@@ -35,7 +37,9 @@ export function useSessionController() {
   }
 
   const addNewSession = () => {
-    const newContext = createContext(contextController.getRandomHexColor())
+    //const newContext = createContext(contextController.getRandomHexColor())
+    const newContext = createContext(colorController.getRandomDarkColor())
+
     //contexts.push(newContext) //not saved to localStorage
     setContexts([...contexts, newContext])
     setCurrentContextId(newContext.guid)
