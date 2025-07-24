@@ -90,9 +90,12 @@ export function useSessionController() {
 
     const createResponse = () : string => {
       //for now just return everything that should be considered for the response
-      return getSortedEntriesCurrentSessionContexts().map(
+      // return getSortedEntriesCurrentSessionContexts().map(
+      //   (chatEntry) => {if(chatEntry.type == "prompt") return `${contextController.getContextColor(chatEntry.contextGuId)}:  ${chatEntry.text}`}
+      //   //${chatEntry.type}, ${chatEntry.guid}, 
+      // ).join('\n') 
+      return contextController.getEntriesCurrentContext().map(
         (chatEntry) => {if(chatEntry.type == "prompt") return `${contextController.getContextColor(chatEntry.contextGuId)}:  ${chatEntry.text}`}
-        //${chatEntry.type}, ${chatEntry.guid}, 
       ).join('\n') 
     }
 

@@ -108,6 +108,18 @@ export function useContextController() {
 
   }
 
+  const getEntriesCurrentContext = () => {
+    const entries: ChatEntry[] = [];
+
+    const context = getCurrentContext()
+    entries.push(...Object.values(context.prompts));
+    entries.push(...Object.values(context.responses));
+
+    entries.sort((a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
+
+    return entries
+  }
+
   return{
     getContext,
     getContexts,
@@ -119,7 +131,8 @@ export function useContextController() {
     addNewContext,
     addExistingContext,
     isContextIdInCurrentSession,
-    addChatEntry
+    addChatEntry,
+    getEntriesCurrentContext
   }
 }
 
