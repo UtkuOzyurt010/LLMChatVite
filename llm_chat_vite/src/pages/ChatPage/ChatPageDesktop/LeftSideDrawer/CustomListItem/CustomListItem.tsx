@@ -11,7 +11,7 @@ const CustomListItem = ({icon, onClick, children} :
 
   const {isLeftSideDrawerCollapsed, collapsedWidth} = useLayoutContext()
 return(
-  <ListItem key="newChat" disablePadding>
+  <ListItem disablePadding>
     <ListItemButton onClick={onClick}>
       {icon && <ListItemIcon
         sx={{

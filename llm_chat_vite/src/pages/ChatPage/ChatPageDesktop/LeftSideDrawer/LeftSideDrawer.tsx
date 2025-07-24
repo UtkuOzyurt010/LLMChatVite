@@ -122,18 +122,23 @@ const LeftSideDrawer = ()  =>
                 key={`session: ${sessionIndex}`}
                 sx={{
                   display: "flex",
-                  flexDirection: "row"
+                  flexDirection: "row",
+                  border: "1px solid black"
                 }}
               >
-                <CustomListItem
-                onClick={() => handleSelectSession(session)}
-                >
-                  {session.summary}
-                </CustomListItem>
-                <ContextsButton 
-                  historySessionId={session.guid}
-                >
-                </ContextsButton>
+                <Box>
+                  <CustomListItem
+                    onClick={() => handleSelectSession(session)}
+                  >
+                    {session.summary}
+                  </CustomListItem>
+                </Box>
+                <Box marginLeft={"auto"}>
+                  <ContextsButton 
+                    historySessionId={session.guid}
+                  >
+                  </ContextsButton>
+                </Box>
               </Box>
             ))}
           </List>}

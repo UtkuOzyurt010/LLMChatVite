@@ -77,6 +77,23 @@ export default function ChatInputBox({width} : {width: string}) {
           position: "relative",
         }}
       >
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row"
+          }}
+        >
+          {/* Right ContextsButton */}
+          <AddContextButton></AddContextButton>
+          <ContextsButton 
+            forChatInputBox={true}
+            historySessionId={sessionController.getCurrentSessionId()} 
+            
+            />
+        </Box>
+        
+
         {/* Left Circle Button */}
         <Button
           sx={{ p: 0, minWidth: "auto",
@@ -84,12 +101,7 @@ export default function ChatInputBox({width} : {width: string}) {
           }}
           aria-label="Current context color"
         >
-          {/* <CircleIcon
-            sx={{
-              color: contextController.getContextColor(contextController.getCurrentContextId()) || "grey",
-              fontSize: buttonHeight,
-            }}
-          /> */}
+
           <Avatar
             sx={{ 
 
@@ -101,13 +113,8 @@ export default function ChatInputBox({width} : {width: string}) {
             {" "}
           </Avatar>
         </Button>
-
-        {/* Right ContextsButton */}
-        <ContextsButton 
-        forChatInputBox={true}
-        historySessionId={sessionController.getCurrentSessionId()} />
-
-        <AddContextButton></AddContextButton>
+        
+        
       </Box>
     </Paper>
   );

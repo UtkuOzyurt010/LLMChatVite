@@ -62,8 +62,9 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
       sx={{
         position: "relative",
         height: buttonHeight,
+        width: allCirclesWidth,
         alignItems: 'center',
-        //border: "1px solid red",
+        //border: "1px solid blue",
         boxSizing: 'content-box'
       }}
     >
@@ -71,11 +72,9 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         sx={{
-          display: "flex",
           alignItems: "center",
-          position: "absolute",
-          right: allCirclesWidth,
           height: "100%",
+          width: "100%",
           overflow: "visible", 
           //border: "1px solid black",
           boxSizing: 'content-box'
