@@ -47,7 +47,7 @@ const ChatHistory = ({
           width: "100%",
           overflowY: "auto",
           position: "relative",
-          border: "3px solid red",
+          //border: "3px solid red",
           paddingX: `calc((100% - ${inputBoxWidthWide}px)/2)`
           //paddingBottom: inputBoxHeight,
         }}

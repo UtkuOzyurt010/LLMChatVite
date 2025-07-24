@@ -20,7 +20,7 @@ export const AppBar = ({children} : {children : React.ReactNode}) => {
       sx = {{
         height: appBarHeight,
           backgroundColor: "green",
-          border: "2px solid brown",
+          //border: "2px solid brown",
           width: `calc(100% - ${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px)`,
           marginLeft: `${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px`,
           transition: theme.transitions.create(['margin', 'width'], {

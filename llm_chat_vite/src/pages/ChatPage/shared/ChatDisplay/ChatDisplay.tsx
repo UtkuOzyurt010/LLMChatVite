@@ -39,7 +39,7 @@ export default function ChatDisplay()
               justifyContent: "center",
               pb: 2,
               zIndex: 10,
-              border: "3px solid blue"
+              //border: "3px solid blue"
             }}
           >
             <ChatInputBox width= {`${inputBoxWidthWide}px`} />

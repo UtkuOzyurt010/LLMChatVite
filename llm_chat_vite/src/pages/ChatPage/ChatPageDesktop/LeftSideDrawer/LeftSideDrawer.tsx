@@ -68,7 +68,7 @@ const LeftSideDrawer = ()  =>
         sx={{
           backgroundColor: "yellow",
           height: appBarHeight,
-          border: "2px solid red"
+          //border: "2px solid red"
           }}>
         <IconButton
 
@@ -123,7 +123,7 @@ const LeftSideDrawer = ()  =>
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  border: "1px solid black"
+                  //border: "1px solid black"
                 }}
               >
                 <Box>
