@@ -19,8 +19,8 @@ export default function ChatInputBox({width} : {width: string}) {
 
   const [inputValue, setInputValue] = useState("");
 
-  const handleSubmit = () => {
-    //e.preventDefault();
+  const handleSubmit = (e: React.FormEvent | React.MouseEvent) => {
+    e.preventDefault();
     contextController.addChatEntry(createChatEntry(inputValue, contextController.getCurrentContextId(), "prompt"));
     const responseText = sessionController.createResponse();
     contextController.addChatEntry(createChatEntry(responseText, contextController.getCurrentContextId(), "response"));
