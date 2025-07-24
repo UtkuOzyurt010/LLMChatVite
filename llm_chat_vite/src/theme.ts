@@ -31,8 +31,8 @@ declare module '@mui/material/styles' {
 
 const theme = createTheme({
   customSizes: {
-    buttonHeight: "36px",
-    buttonHeightn: 36
+    buttonHeight: "30px",
+    buttonHeightn: 30
   },
   transitions: {
     // easing: {

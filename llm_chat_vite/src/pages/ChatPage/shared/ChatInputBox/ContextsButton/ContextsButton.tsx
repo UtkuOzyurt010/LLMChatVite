@@ -1,7 +1,7 @@
 import CircleIcon from '@mui/icons-material/Circle';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
 import { useState } from "react";
 import { useTheme } from '@mui/material/styles';
 import { useContextController } from '../../../../../controllers/ContextController';
@@ -63,7 +63,8 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
         position: "relative",
         height: buttonHeight,
         alignItems: 'center',
-        //border: "3px solid red",
+        //border: "1px solid red",
+        boxSizing: 'content-box'
       }}
     >
       <Box
@@ -74,8 +75,10 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
           alignItems: "center",
           position: "absolute",
           right: allCirclesWidth,
-          height: buttonHeight,
+          height: "100%",
           overflow: "visible", 
+          //border: "1px solid black",
+          boxSizing: 'content-box'
         }}
       >
         {/* the purple background */}
@@ -87,7 +90,9 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
               width: isHovering ? `${reorderedContextIds.length * (buttonHeightn + 4)}px` : allCirclesWidth, 
               height: "100%",
               backgroundColor: "purple",
-              borderRadius: "12px",
+              //borderRadius: "12px",
+              //border: "1px solid blue",
+              boxSizing: 'content-box',
               zIndex: 1,
               //visibility: isHovering ? "visible" : "hidden", //now changing the width to 0 instead
               opacity: isHovering ? 1 : 0,
@@ -120,15 +125,22 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
         >
           <Box sx={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
             <Button
-              sx={{ padding: 0, minWidth: 0 }}
+              sx={{ padding: 0, minWidth: 0, margin: 0, height:buttonHeight + 20, width: buttonHeight }}
               onClick={() => handleAddContext(contextId)}
+              disableRipple
+              disableElevation
             >
-              <CircleIcon
+              <Box
                 sx={{
-                  color: contextController.getContextColor(contextId),
-                  fontSize: buttonHeight
+                  width: buttonHeight,
+                  height: buttonHeight,
+                  backgroundColor: contextController.getContextColor(contextId),
+                  borderRadius: "50%",
                 }}
               />
+
+
+
               {historySessionId !== sessionController.getCurrentSessionId() && (
                 <AddIcon
                   sx={{
@@ -160,12 +172,14 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
                   height: buttonHeightn / 2,
                 }}
               >
-                <CircleIcon
-                  sx={{
-                    fontSize: buttonHeightn / 2,
-                    color: "red", // Optional background color for the remove circle
-                  }}
-                />
+                <Box
+                sx={{
+                  width: buttonHeightn / 2,
+                  height: buttonHeightn / 2,
+                  backgroundColor: "red",
+                  borderRadius: "50%",
+                }}
+              />
                 <RemoveIcon
                   sx={{
                     position: "absolute",

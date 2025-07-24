@@ -1,10 +1,12 @@
-import { Box, Button } from "@mui/material"
+import { Avatar, Box, Button } from "@mui/material"
 import CircleIcon from '@mui/icons-material/Circle';
 import AddIcon from '@mui/icons-material/Add';
 import { useEffect, useState } from "react";
 import { useTheme } from '@mui/material/styles';
 import { useContextController } from "../../../../../../controllers/ContextController";
 import { useColorController } from "../../../../../../controllers/ColorController";
+import colorWheel from '../../../../../../assets/new_color_wheel.png';
+
 
 const AddContextButton = () => {
   const [color, setColor] = useState("")
@@ -15,7 +17,7 @@ const AddContextButton = () => {
   const buttonHeightn = theme.customSizes.buttonHeightn
 
   //useEffect(() => setColor(contextController.getRandomHexColor()), []) //to display the color, before adding it
-  useEffect(() => setColor(colorController.getRandomDarkColor()), []) 
+  useEffect(() => setColor(colorController.getDistinctColor()), []) 
 
   
   const handleAddNewContext = () =>
@@ -35,23 +37,29 @@ return (
       onClick={handleAddNewContext}
       sx={{
         position: "relative",
-        //border: "3px solid yellow",
+        //border: "1px solid purple",
         padding: 0,
         width: buttonHeight,
         height: buttonHeight,
         minWidth: 0, // remove default button min width
       }}
     >
-      <CircleIcon
-        sx={{
+
+      <Avatar
+        src={colorWheel}
+        alt="Color Wheel"
+        sx={{ 
+          //zIndex: 10,
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          color: color,
-          fontSize: buttonHeight,
+          width: buttonHeight, 
+          height: buttonHeight,
+          //fontSize: buttonHeight,
         }}
       />
+
       <AddIcon
         sx={{
           position: "absolute",

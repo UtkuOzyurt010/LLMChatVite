@@ -38,7 +38,7 @@ export function useSessionController() {
 
   const addNewSession = () => {
     //const newContext = createContext(contextController.getRandomHexColor())
-    const newContext = createContext(colorController.getRandomDarkColor())
+    const newContext = createContext(colorController.getDistinctColor())
 
     //contexts.push(newContext) //not saved to localStorage
     setContexts([...contexts, newContext])

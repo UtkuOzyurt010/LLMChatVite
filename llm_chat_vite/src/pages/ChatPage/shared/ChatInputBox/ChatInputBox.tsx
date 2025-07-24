@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Paper, useTheme } from "@mui/material";
+import { Box, Button, TextField, Paper, useTheme, Avatar } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import { lighten, alpha } from "@mui/material";
 import ContextsButton from "./ContextsButton/ContextsButton";
@@ -84,12 +84,22 @@ export default function ChatInputBox({width} : {width: string}) {
           }}
           aria-label="Current context color"
         >
-          <CircleIcon
+          {/* <CircleIcon
             sx={{
               color: contextController.getContextColor(contextController.getCurrentContextId()) || "grey",
               fontSize: buttonHeight,
             }}
-          />
+          /> */}
+          <Avatar
+            sx={{ 
+
+              width: buttonHeight, 
+              height: buttonHeight,
+              backgroundColor: contextController.getContextColor(contextController.getCurrentContextId()),
+            }}
+          >
+            {" "}
+          </Avatar>
         </Button>
 
         {/* Right ContextsButton */}
