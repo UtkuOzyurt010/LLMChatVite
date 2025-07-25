@@ -80,7 +80,9 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
           boxSizing: 'content-box'
         }}
       >
-        {/* the purple background */}
+        {/* the background component*/}
+        {
+          reorderedContextIds.length > 1 &&
          <Box
             sx={{
               position: "absolute",
@@ -100,6 +102,7 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
               :"opacity 0.3s ease, width 0.3s ease" , //not sure about this one
             }}
           />
+        }
           {/* the listed contexts with buttons */}
         {reorderedContextIds.map((contextId: string, index) => (
         <Box
