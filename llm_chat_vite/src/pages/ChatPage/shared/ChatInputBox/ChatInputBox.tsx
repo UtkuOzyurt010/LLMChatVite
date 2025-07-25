@@ -21,7 +21,7 @@ export default function ChatInputBox({width} : {width: string}) {
 
   const [inputValue, setInputValue] = useState("");
 
-  const handleSubmit = (e: React.FormEvent | React.MouseEvent) => {
+  const handleSubmit = (e: React.FormEvent | React.MouseEvent | React.KeyboardEvent) => {
     e.preventDefault();
     contextController.addChatEntry(createChatEntry(inputValue, contextController.getCurrentContextId(), "prompt"));
     const responseText = sessionController.createResponse();
@@ -65,6 +65,12 @@ export default function ChatInputBox({width} : {width: string}) {
           hiddenLabel
           fullWidth
           multiline
+          onKeyDown={(e) => {
+            if(e.key == "Enter") 
+              {
+                e.preventDefault()
+                handleSubmit(e)
+              }}}
           maxRows={6}
           sx={{
             bgcolor: `${alpha(contextController.getCurrentContext().color, 0.2)}`,

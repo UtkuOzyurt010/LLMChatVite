@@ -40,7 +40,12 @@ const LeftSideDrawer = ()  =>
   return(
     
     <Drawer
+      elevation={0}
       sx={{
+        boxShadow: "none",
+        borderRight: 'none',
+        
+        //backgroundColor: "#f9f9f9", ?
         overflow: "visible",
         width: isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth,
         flexShrink: 0,
@@ -51,6 +56,9 @@ const LeftSideDrawer = ()  =>
         }),
         '& .MuiDrawer-paper': {
           overflow: "visible",
+          boxShadow: "none",
+          border: "none",
+          backgroundColor: "#f9f9f9",
           width: isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth,
           boxSizing: 'border-box',
           transition: (theme) =>
@@ -66,7 +74,7 @@ const LeftSideDrawer = ()  =>
     >
       <DrawerHeader
         sx={{
-          backgroundColor: "yellow",
+          //backgroundColor: "yellow",
           height: appBarHeight,
           //border: "2px solid red"
           }}>
@@ -75,7 +83,7 @@ const LeftSideDrawer = ()  =>
           color="inherit"
           aria-label="open drawer"
           onClick={toggleIsLeftSideDrawerCollapsed}
-          edge="start"
+          //edge="start"
           
           sx={[
             {
@@ -93,10 +101,12 @@ const LeftSideDrawer = ()  =>
           }}/>
         </IconButton>
       </DrawerHeader>
-      <Divider 
+      {/* <Divider 
       //sx={{backgroundColor: "green"}} 
-      />
-      {<List sx={{backgroundColor: "orange" , overflow: "visible",}} >
+      /> */}
+      {<List sx={{
+        //backgroundColor: "orange" , 
+        overflow: "visible",}} >
           <CustomListItem 
             key={"New Chat"} 
             icon={<SquarePen></SquarePen>}

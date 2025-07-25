@@ -17,9 +17,11 @@ export const AppBar = ({children} : {children : React.ReactNode}) => {
 
   return (
     <MuiAppBar
+      elevation={0}
       sx = {{
         height: appBarHeight,
-          backgroundColor: "green",
+          backgroundColor: "white",
+          color: "black",
           //border: "2px solid brown",
           width: `calc(100% - ${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px)`,
           marginLeft: `${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px`,
@@ -40,18 +42,22 @@ export default function ChatPageDesktop()
   const { collapsedWidth, drawerWidth, appBarHeight, isLeftSideDrawerCollapsed } = useLayoutContext();
 
   return (
+
+    
     <Box
     sx={{
       //height: "100vh",
       //width: "100vw"
     }}
     >
+      <CssBaseline />
       <LeftSideDrawer >
       </LeftSideDrawer>
-      <CssBaseline />
+
+      
 
       <AppBar >
-        <Toolbar>
+        <Toolbar >
           <Typography variant="h6" noWrap component="div">
             Green-L Writing
           </Typography>
