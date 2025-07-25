@@ -140,7 +140,7 @@ const LeftSideDrawer = ()  =>
                   </CustomListItem>
                 </Box>
                 <Box 
-                  sx={{marginleft: "auto"}}
+                  sx={{marginRight: "12px", marginleft: "auto",}}
                 >
                   <ContextsButton 
                     historySessionId={session.guid}

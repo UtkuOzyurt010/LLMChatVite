@@ -154,7 +154,7 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
                     left: "50%",
                     transform: "translate(-50%, -50%)",
                     color: "white",
-                    fontSize: buttonHeightn,
+                    //fontSize: buttonHeightn,
                   }}
                 />
               )}

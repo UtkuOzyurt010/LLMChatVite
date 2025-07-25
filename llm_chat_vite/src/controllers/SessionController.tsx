@@ -44,7 +44,7 @@ export function useSessionController() {
     setContexts([...contexts, newContext])
     setCurrentContextId(newContext.guid)
     const newSession = createSession([newContext.guid])
-    newSession.summary = `a new session with guid: ${newSession.guid}`
+    newSession.summary = `${newSession.guid}`
     //sessions.push(newSession) //not saved to localStorage
     setSessions([...sessions, newSession]);
     setCurrentSessionId(newSession.guid)
