@@ -33,7 +33,7 @@ export default function ChatDisplay()
           <Box
             sx={{
               //width: "100%",
-              height: `${inputBoxHeight}px`,
+              //height: `${inputBoxHeight}px`,
               bgcolor: "#fff",
               display: "flex",
               justifyContent: "center",

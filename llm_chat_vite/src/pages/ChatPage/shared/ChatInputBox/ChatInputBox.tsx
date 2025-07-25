@@ -34,25 +34,28 @@ export default function ChatInputBox({width} : {width: string}) {
       elevation={3}
       sx={{
         width: width,
-        //height: "60px",
-        //height: "100%",
         p: 2,
         pb: 1,
         display: "flex",
         flexDirection: "column",
-        //gap: 2,
         boxSizing: "border-box",
         borderRadius: 8,
       }}
     >
       {/* Input */}
       <Box 
-      component="form" 
-      noValidate 
-      autoComplete="off" 
-      sx={{ width: "100%" }}
-      onSubmit={handleSubmit}
-    >
+        component="form" 
+        noValidate 
+        autoComplete="off" 
+        sx={{ 
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          flex: 1, 
+          minHeight: 0
+        }}
+        onSubmit={handleSubmit}
+      >
         <TextField
           required
           id="prompt"
@@ -61,10 +64,10 @@ export default function ChatInputBox({width} : {width: string}) {
           placeholder="Ask me anything!"
           hiddenLabel
           fullWidth
+          multiline
+          maxRows={6}
           sx={{
-            //bgcolor: "background.paper",
             bgcolor: `${alpha(contextController.getCurrentContext().color, 0.2)}`,
-            //opacity: "20%",
             borderRadius: 1,
           }}
           onChange={(e) => setInputValue(e.target.value)}
@@ -80,6 +83,7 @@ export default function ChatInputBox({width} : {width: string}) {
           pt: 1,
           pb: 0,
           position: "relative",
+          //height: buttonHeight
         }}
       >
         {/* Left group: AddContextButton + ContextsButton (should rename to ContextsList?) */}
