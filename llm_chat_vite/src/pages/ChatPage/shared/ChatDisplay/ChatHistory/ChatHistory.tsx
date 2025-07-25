@@ -4,7 +4,7 @@ import type { ChatEntry } from "../../../../../models/ChatEntry"
 import ChatInputBox from "../../ChatInputBox/ChatInputBox"
 import { useContextController } from "../../../../../controllers/ContextController"
 import { useLayoutContext } from "../../../../../utils/LayoutContext"
-import { alpha, Button, useTheme } from "@mui/material"
+import { alpha, lighten, Button, useTheme } from "@mui/material"
 import { useEffect, useRef } from "react"
 
 const ChatHistory = ({
@@ -88,17 +88,17 @@ const ChatHistory = ({
                     `linear-gradient(
                     210deg,
                     ${contextController.getContextColor(value.contextGuId)} 0%, 
-                    ${alpha(contextController.getContextColor(value.contextGuId), 0.4)}10px, 
-                    ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}80%,
-                    ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}100%
+                    ${lighten(contextController.getContextColor(value.contextGuId), 0.6)}10px, 
+                    ${lighten(contextController.getContextColor(value.contextGuId), 0.7)}80%,
+                    ${lighten(contextController.getContextColor(value.contextGuId), 0.7)}100%
                     )`
                     :
                     `linear-gradient(
                     150deg,
                     ${contextController.getContextColor(value.contextGuId)} 0%, 
-                    ${alpha(contextController.getContextColor(value.contextGuId), 0.4)}10px,
-                    ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}80%,
-                    ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}100%
+                    ${lighten(contextController.getContextColor(value.contextGuId), 0.6)}10px,
+                    ${lighten(contextController.getContextColor(value.contextGuId), 0.7)}80%,
+                    ${lighten(contextController.getContextColor(value.contextGuId), 0.7)}100%
                     )`
                   ,
                 color: '#000',

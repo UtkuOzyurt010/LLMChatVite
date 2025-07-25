@@ -76,9 +76,9 @@ export default function ChatInputBox({width} : {width: string}) {
             background: 
               `linear-gradient(
                     170deg,
-                    ${alpha(contextController.getCurrentContext().color, 0.4)}0%, 
-                    ${alpha(contextController.getCurrentContext().color, 0.3)}20%,
-                    ${alpha(contextController.getCurrentContext().color, 0.3)}100%
+                    ${lighten(contextController.getCurrentContext().color, 0.6)}0%, 
+                    ${lighten(contextController.getCurrentContext().color, 0.7)}20%,
+                    ${lighten(contextController.getCurrentContext().color, 0.7)}100%
                     )`,
             // bgcolor: `${alpha(contextController.getCurrentContext().color, 0.2)}`,
             borderRadius: 1,
