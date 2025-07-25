@@ -21,4 +21,4 @@ class PromptRequest(BaseModel):
 @app.post("/compress")
 def compress_prompt(req: PromptRequest):
     result = compressor.compress_prompt(req.prompt, target_token=req.target_tokens)
-    return {"compressed_prompt": result["compressed_prompt"]}
+    return {"compressed_prompt": result}

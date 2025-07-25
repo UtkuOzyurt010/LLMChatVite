@@ -7,7 +7,7 @@ export const CompressionButton = ({text, setText} : {text : string, setText : Di
   const theme = useTheme()
   const buttonHeight = theme.customSizes.buttonHeight
 
-  const compressPrompt = async (prompt: string, targetTokens: number = Math.floor(prompt.length/5)) => {
+  const compressPrompt = async (prompt: string, targetTokens: number = Math.floor(prompt.length/20)) => {
     const response = await fetch("http://127.0.0.1:8000/compress", {
       method: "POST",
       headers: {
@@ -17,7 +17,7 @@ export const CompressionButton = ({text, setText} : {text : string, setText : Di
     });
 
     const data = await response.json();
-    return data.compressed_prompt
+    return data.compressed_prompt.compressed_prompt
   }
   
   const handleClick = async () => {
