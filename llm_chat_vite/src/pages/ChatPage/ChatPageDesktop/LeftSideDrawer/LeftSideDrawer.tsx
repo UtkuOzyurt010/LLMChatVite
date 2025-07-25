@@ -44,8 +44,6 @@ const LeftSideDrawer = ()  =>
       sx={{
         boxShadow: "none",
         borderRight: 'none',
-        
-        //backgroundColor: "#f9f9f9", ?
         overflow: "visible",
         width: isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth,
         flexShrink: 0,
@@ -74,17 +72,13 @@ const LeftSideDrawer = ()  =>
     >
       <DrawerHeader
         sx={{
-          //backgroundColor: "yellow",
           height: appBarHeight,
-          //border: "2px solid red"
-          }}>
+        }}
+      >
         <IconButton
-
           color="inherit"
           aria-label="open drawer"
           onClick={toggleIsLeftSideDrawerCollapsed}
-          //edge="start"
-          
           sx={[
             {
               minHeight: "0",
@@ -101,11 +95,7 @@ const LeftSideDrawer = ()  =>
           }}/>
         </IconButton>
       </DrawerHeader>
-      {/* <Divider 
-      //sx={{backgroundColor: "green"}} 
-      /> */}
       {<List sx={{
-        //backgroundColor: "orange" , 
         overflow: "visible",}} >
           <CustomListItem 
             key={"New Chat"} 
@@ -120,30 +110,38 @@ const LeftSideDrawer = ()  =>
             onClick={() => 
                 {
                   setShowHistory(!showHistory)
-                  if(isLeftSideDrawerCollapsed) toggleIsLeftSideDrawerCollapsed()
+                  if(isLeftSideDrawerCollapsed && showHistory) setShowHistory(false)
+                  else if(isLeftSideDrawerCollapsed) toggleIsLeftSideDrawerCollapsed()
                 }
               }
           >
             History
           </CustomListItem >
-          {showHistory && <List key={"SessionsList"} sx={{backgroundColor: "red", padding: "0" }}>
+          {showHistory && <List key={"SessionsList"} sx={{padding: "0"}}>
             {sessions.map((session: Session, sessionIndex) => (
               <Box
                 key={`session: ${sessionIndex}`}
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  //border: "1px solid black"
                 }}
               >
-                <Box>
+                <Box
+                  sx={{
+                    flex: 1,
+                    flexShrink: 1,
+                    minWidth: 0 //this one allows child Typography to shrink!
+                  }}
+                >
                   <CustomListItem
                     onClick={() => handleSelectSession(session)}
                   >
                     {session.summary}
                   </CustomListItem>
                 </Box>
-                <Box marginLeft={"auto"}>
+                <Box 
+                  sx={{marginleft: "auto"}}
+                >
                   <ContextsButton 
                     historySessionId={session.guid}
                   >

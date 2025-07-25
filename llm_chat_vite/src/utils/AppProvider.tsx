@@ -20,7 +20,6 @@ function initContexts2(): Context[] {
     createContext("#FFA500"), // orange
     createContext("#FFFF00"), // yellow
     createContext("#800080"), // purple
-    createContext("#FFFFFF"), // white
   ];
 }
 

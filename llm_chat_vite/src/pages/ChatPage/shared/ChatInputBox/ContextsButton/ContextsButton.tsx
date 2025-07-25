@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
 import { useState } from "react";
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { useContextController } from '../../../../../controllers/ContextController';
 import { useSessionController } from '../../../../../controllers/SessionController';
 
@@ -86,10 +86,10 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
               position: "absolute",
               top: 0,
               left: 0,
-              width: isHovering ? `${reorderedContextIds.length * (buttonHeightn + 4)}px` : allCirclesWidth, 
+              width: isHovering ? `${reorderedContextIds.length * (buttonHeightn)}px` : allCirclesWidth, 
               height: "100%",
-              backgroundColor: "purple",
-              //borderRadius: "12px",
+              backgroundColor: `${alpha(contextController.getCurrentContext().color, 0.2)}`,
+              borderRadius: "12px",
               //border: "1px solid blue",
               boxSizing: 'content-box',
               zIndex: 1,

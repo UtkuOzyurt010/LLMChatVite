@@ -49,10 +49,6 @@ export default function ChatInputBox({width} : {width: string}) {
         autoComplete="off" 
         sx={{ 
           width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          flex: 1, 
-          minHeight: 0
         }}
         onSubmit={handleSubmit}
       >

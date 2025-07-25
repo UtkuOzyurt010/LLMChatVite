@@ -50,12 +50,12 @@ export default function ChatPageDesktop()
       //width: "100vw"
     }}
     >
-      <CssBaseline />
+      
       <LeftSideDrawer >
       </LeftSideDrawer>
 
       
-
+      <CssBaseline />
       <AppBar >
         <Toolbar >
           <Typography variant="h6" noWrap component="div">
