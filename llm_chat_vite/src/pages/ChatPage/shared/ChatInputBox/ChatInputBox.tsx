@@ -95,11 +95,15 @@ export default function ChatInputBox({width} : {width: string}) {
             flexDirection: "row"
           }}
         >
-          <AddContextButton></AddContextButton>
-          <ContextsButton 
-            forChatInputBox={true}
-            historySessionId={sessionController.getCurrentSessionId()} 
-          />
+          <Box sx={{mr: "4px"}}>
+            <AddContextButton ></AddContextButton>
+          </Box>
+          <Box sx={{}}>
+            <ContextsButton 
+              forChatInputBox={true}
+              historySessionId={sessionController.getCurrentSessionId()} 
+            />
+          </Box>
         </Box>
         
         {/* Right Group, settings + Send Prompt button */}
@@ -109,7 +113,10 @@ export default function ChatInputBox({width} : {width: string}) {
             flexDirection: "row"
           }}
           >
-          <ChatInputSettings text={inputValue} setText={setInputValue}></ChatInputSettings>
+          <Box sx={{mr: "4px"}}>
+            <ChatInputSettings text={inputValue} setText={setInputValue}></ChatInputSettings>
+          </Box>
+
           <Button
             sx={{ 
               p: 0, 
