@@ -123,8 +123,8 @@ export function useColorController() {
     do {
       let newRGBA : Color = getRandomColor()
       let newHSL : HSL = rgbToHsl(newRGBA)
-      if(newHSL.s > 68) {
-        newHSL.s = (newHSL.s / 100) * 68
+      if(newHSL.s > 60) {
+        newHSL.s = (newHSL.s / 100) * 60
         newRGBA = hslToRgb(newHSL)
       }
       newColorHex = colorToHex(newRGBA)
