@@ -88,7 +88,7 @@ const ChatHistory = ({
                     `linear-gradient(
                     210deg,
                     ${contextController.getContextColor(value.contextGuId)} 0%, 
-                    ${alpha(contextController.getContextColor(value.contextGuId), 0.4)}23%,
+                    ${alpha(contextController.getContextColor(value.contextGuId), 0.4)}10px, 
                     ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}80%,
                     ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}100%
                     )`
@@ -96,7 +96,7 @@ const ChatHistory = ({
                     `linear-gradient(
                     150deg,
                     ${contextController.getContextColor(value.contextGuId)} 0%, 
-                    ${alpha(contextController.getContextColor(value.contextGuId), 0.4)}23%,
+                    ${alpha(contextController.getContextColor(value.contextGuId), 0.4)}10px,
                     ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}80%,
                     ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}100%
                     )`

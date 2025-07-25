@@ -73,8 +73,14 @@ export default function ChatInputBox({width} : {width: string}) {
             '& .MuiOutlinedInput-notchedOutline': { //remove outline... there's probably a better way not using textField at all, but I like multiline convenience
               border: 'none',
             },
-
-            bgcolor: `${alpha(contextController.getCurrentContext().color, 0.2)}`,
+            background: 
+              `linear-gradient(
+                    170deg,
+                    ${alpha(contextController.getCurrentContext().color, 0.4)}0%, 
+                    ${alpha(contextController.getCurrentContext().color, 0.3)}20%,
+                    ${alpha(contextController.getCurrentContext().color, 0.3)}100%
+                    )`,
+            // bgcolor: `${alpha(contextController.getCurrentContext().color, 0.2)}`,
             borderRadius: 1,
           }}
           onChange={(e) => setInputValue(e.target.value)}
