@@ -1,11 +1,10 @@
 import { Avatar, Box, Button } from "@mui/material"
-import CircleIcon from '@mui/icons-material/Circle';
 import AddIcon from '@mui/icons-material/Add';
 import { useEffect, useState } from "react";
 import { useTheme } from '@mui/material/styles';
-import { useContextController } from "../../../../../../controllers/ContextController";
-import { useColorController } from "../../../../../../controllers/ColorController";
-import colorWheel from '../../../../../../assets/new_color_wheel.png';
+import { useContextController } from "../../../../../controllers/ContextController"; 
+import { useColorController } from "../../../../../controllers/ColorController";
+import colorWheel from '../../../../../assets/new_color_wheel.png';
 
 
 const AddContextButton = () => {

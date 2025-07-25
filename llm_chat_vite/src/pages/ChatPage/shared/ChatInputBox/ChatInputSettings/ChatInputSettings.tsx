@@ -1,7 +1,6 @@
-import { Box, Button } from "@mui/material"
+import { Box } from "@mui/material"
 import { CompressionButton } from "./CompressionButton/CompressionButton"
-
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { BlackListButton } from "./BlackListButton/BlackListButton";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { RevealSeattingsButton } from "./RevealSettingsButton/RevealSettingsButton";
@@ -15,7 +14,6 @@ export const ChatInputSettings = ({text, setText} : {text : string, setText : Di
   const overlapOffset = 0
 
   const [isHovering, setIsHovering] = useState(false);
-  
 
   buttons.push(
     <RevealSeattingsButton/>

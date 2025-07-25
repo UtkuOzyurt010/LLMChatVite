@@ -1,7 +1,5 @@
-//import { createContext } from "../models/Context"
-import React from 'react';
 import type { ChatEntry } from "../models/ChatEntry";
-import { createContext, type Context } from "../models/Context";
+import { createContext} from "../models/Context";
 import { type Session, createSession } from "../models/Session";
 import { useAppContext } from "../utils/AppContext";
 import { useContextController } from "./ContextController";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconButton, Divider, List, styled, useTheme, Box, Button} from "@mui/material"
+import { IconButton, List, styled, Box} from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 import Drawer from '@mui/material/Drawer';
 import { ChevronRight, ChevronDown, SquarePen } from 'lucide-react';
@@ -24,7 +24,6 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
 const LeftSideDrawer = ()  =>
   {
     const { collapsedWidth, drawerWidth, appBarHeight, isLeftSideDrawerCollapsed, toggleIsLeftSideDrawerCollapsed } = useLayoutContext();
-    const theme = useTheme()
     const sessionController = useSessionController()
     const [showHistory, setShowHistory] = useState<boolean>(false)
     const sessions = sessionController.getAllSessions()

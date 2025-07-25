@@ -1,11 +1,11 @@
-// import { Box } from "@mui/material";
+import { Box } from "@mui/material";
 
-// export default function ChatTimeline() {
+export default function ChatTimeline() {
 
-//     return(
-//         <Box>
-//             Timeline
-//         </Box>
-//     )
+    return(
+        <Box>
+            Timeline
+        </Box>
+    )
     
-// }
+}

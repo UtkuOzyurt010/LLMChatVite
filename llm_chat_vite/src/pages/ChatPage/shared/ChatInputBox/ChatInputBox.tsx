@@ -1,14 +1,12 @@
-import { Box, Button, TextField, Paper, useTheme, Avatar } from "@mui/material";
-import CircleIcon from '@mui/icons-material/Circle';
+import { Box, Button, TextField, Paper, useTheme } from "@mui/material";
 import ArrowUpward from '@mui/icons-material/ArrowUpward'
-import { lighten, alpha } from "@mui/material";
+import { lighten} from "@mui/material";
 import ContextsButton from "../ContextsButton/ContextsButton";
 import AddContextButton from "../ContextsButton/AddContextButton/AddContextbutton";
 import { useContextController } from "../../../../controllers/ContextController";
 import { useSessionController } from "../../../../controllers/SessionController";
 import { createChatEntry } from "../../../../models/ChatEntry";
 import { useState } from "react";
-import { CompressionButton } from "./ChatInputSettings/CompressionButton/CompressionButton";
 import { ChatInputSettings } from "./ChatInputSettings/ChatInputSettings";
 
 
@@ -17,7 +15,6 @@ export default function ChatInputBox({width} : {width: string}) {
   const contextController = useContextController()
   const sessionController = useSessionController()
   const buttonHeight = theme.customSizes.buttonHeight
-  const buttonHeightn = theme.customSizes.buttonHeightn
 
   const [inputValue, setInputValue] = useState("");
 
