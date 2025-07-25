@@ -6,11 +6,15 @@ export function useColorController() {
 
   const contextController = useContextController()
 
-  type Color = { r: number; g: number; b: number; a?: number };
+  type Color = { r: number; g: number; b: number;};
   type HSL = {h: number, s: number, l: number}
 
-  const hslToRgb = (h: number, s: number, l: number): Color => {
+  const hslToRgb = (hsl: HSL): Color => {
     // h,s,l: [0,1]
+    let h = hsl.h
+    let s = hsl.s
+    let l = hsl.l
+
     let r: number, g: number, b: number;
 
     if (s === 0) {
@@ -33,8 +37,11 @@ export function useColorController() {
     return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
   }
 
-  const rgbToHsl = (r: number, g: number, b: number): HSL => {
+  const rgbToHsl = (color: Color): HSL => {
     // Convert r, g, b from [0,255] to [0,1]
+    let r = color.r
+    let g = color.g
+    let b = color.b
     r /= 255;
     g /= 255;
     b /= 255;
@@ -67,6 +74,14 @@ export function useColorController() {
     return { h, s, l }; // h, s, l ∈ [0,1]
   };
 
+  const colorToHex = (color: Color) : string => {
+    const toHex = (n: number): string => {
+      const clamped = Math.max(0, Math.min(255, Math.round(n)));
+      return clamped.toString(16).padStart(2, '0');
+    };
+    return `#${toHex(color.r)}${toHex(color.g)}${toHex(color.b)}`;
+  }
+
   const getRandomDarkColor = (r: number, g: number, b: number) : string => {
     const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
     if (brightness <= BRIGHTNESS_THRESHOLD) {
@@ -81,6 +96,15 @@ export function useColorController() {
       return `#${[r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')}`
   }
 
+   const getRandomColor = () : Color => {
+    return(
+      {
+        r: Math.floor(Math.random() * 256),
+        g: Math.floor(Math.random() * 256),
+        b: Math.floor(Math.random() * 256),
+      }
+    )
+  }
 
   const getColorDistance = (c1 : string, c2 : string) => {
     const [r1, g1, b1] = c1.match(/\w\w/g)!.map(x => parseInt(x, 16))
@@ -93,20 +117,24 @@ export function useColorController() {
   }
 
   const getDistinctColor = () => {
-    let newColor : string
+    let newColorHex : string
     let attempts = 0
     const usedColors : string[] = getUsedColors()
     do {
-      const randomNum = Math.floor(Math.random() * 0xffffff)
-      const hexString = randomNum.toString(16).padStart(6, '0')
-      newColor = `#${hexString}`
+      let newRGBA : Color = getRandomColor()
+      let newHSL : HSL = rgbToHsl(newRGBA)
+      if(newHSL.s > 68) {
+        newHSL.s = (newHSL.s / 100) * 68
+        newRGBA = hslToRgb(newHSL)
+      }
+      newColorHex = colorToHex(newRGBA)
       attempts++
     } while (
-      usedColors.some(c => getColorDistance(c, newColor) < MIN_DISTANCE) &&
+      usedColors.some(c => getColorDistance(c, newColorHex) < MIN_DISTANCE) &&
       attempts < 100
     )
-    usedColors.push(newColor)
-    return newColor
+    usedColors.push(newColorHex)
+    return newColorHex
   }
 
   const getUsedColors = () : string[] =>
@@ -115,9 +143,37 @@ export function useColorController() {
     return usedColors
   }
 
+  //to use in AppProvider, without context-based usedColors that causes a circular
+  // const initColors = (amount : number) : string[] =>
+  // {
+  //   const usedColors : string[] = []
+
+  //   let newColorHex : string
+  //   let attempts = 0
+  //   for(let i = 0; i < amount; i++)
+  //   {
+  //     do {
+  //       let newRGBA : Color = getRandomColor()
+  //       let newHSL : HSL = rgbToHsl(newRGBA)
+  //       if(newHSL.s > 50) {
+  //         newHSL.s = (newHSL.s / 100) * 50
+  //         newRGBA = hslToRgb(newHSL)
+  //       }
+  //       newColorHex = colorToHex(newRGBA)
+  //       attempts++
+  //     } while (
+  //       usedColors.some(c => getColorDistance(c, newColorHex) < MIN_DISTANCE) &&
+  //       attempts < 100
+  //     )
+  //     usedColors.push(newColorHex)
+  //   }
+  //   return usedColors
+  // }
+
   return{
       getDistinctColor,
-      getRandomDarkColor
+      getRandomDarkColor,
+      //initColors
     }
   
 }

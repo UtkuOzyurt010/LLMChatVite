@@ -12,6 +12,7 @@ export const ChatInputSettings = ({text, setText} : {text : string, setText : Di
 
   buttons.push(
     <Box
+      key="settings-icon"
       sx={{position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center"}}
     >
       <Box
@@ -23,7 +24,7 @@ export const ChatInputSettings = ({text, setText} : {text : string, setText : Di
         }}
       />
       <SettingsIcon
-        key="settings-icon"
+        //key="settings-icon"
         sx={{
           //zIndex: 10,
           position: "absolute",

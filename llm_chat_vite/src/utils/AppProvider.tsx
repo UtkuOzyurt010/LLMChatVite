@@ -1,25 +1,26 @@
 import React from "react";
 import { AppContext } from "./AppContext";
-import { useLocalStorage } from "./useLocalStorage";
 import { createContext, type Context } from "../models/Context";
 import { createSession, type Session } from "../models/Session";
 
+import { useLocalStorage } from "./useLocalStorage";
+
 function initContexts(): Context[] {
   return [
-    createContext("#FFC0CB"), // pink
-    createContext("#0000FF"), // blue
-    createContext("#FF0000"), // red
-    createContext("#008000"), // green
-    createContext("#000000"), // black
-    createContext("#A52A2A"), // brown
+    createContext("#C458B1"), 
+    createContext("#C4606C"), 
+    createContext("#C4C045"),
+    createContext("#83C451"),
+    createContext("#64C47C"),
+    createContext("#7AC4B8"),
   ];
 }
 
 function initContexts2(): Context[] {
   return [
-    createContext("#FFA500"), // orange
-    createContext("#FFFF00"), // yellow
-    createContext("#800080"), // purple
+    createContext("#97C1C4"),
+    createContext("#A2A1C4"),
+    createContext("#C4AA89")
   ];
 }
 
