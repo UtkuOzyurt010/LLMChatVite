@@ -5,7 +5,7 @@ import Drawer from '@mui/material/Drawer';
 import { ChevronRight, ChevronDown, SquarePen } from 'lucide-react';
 import CustomListItem from "./CustomListItem/CustomListItem";
 import { type Session} from "../../../../models/Session";
-import ContextsButton from "../../shared/ChatInputBox/ContextsButton/ContextsButton";
+import ContextsButton from "../../shared/ContextsButton/ContextsButton";
 import { useSessionController } from "../../../../controllers/SessionController";
 import { useLayoutContext } from "../../../../utils/LayoutContext";
 

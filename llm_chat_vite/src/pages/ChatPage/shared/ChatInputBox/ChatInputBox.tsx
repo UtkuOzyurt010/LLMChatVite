@@ -2,8 +2,8 @@ import { Box, Button, TextField, Paper, useTheme, Avatar } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import ArrowUpward from '@mui/icons-material/ArrowUpward'
 import { lighten, alpha } from "@mui/material";
-import ContextsButton from "./ContextsButton/ContextsButton";
-import AddContextButton from "./ContextsButton/AddcontextButton/AddContextbutton";
+import ContextsButton from "../ContextsButton/ContextsButton";
+import AddContextButton from "../ContextsButton/AddContextButton/AddContextbutton";
 import { useContextController } from "../../../../controllers/ContextController";
 import { useSessionController } from "../../../../controllers/SessionController";
 import { createChatEntry } from "../../../../models/ChatEntry";

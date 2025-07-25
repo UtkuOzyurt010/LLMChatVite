@@ -4,8 +4,8 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
 import { useState } from "react";
 import { alpha, darken, lighten, useTheme } from '@mui/material/styles';
-import { useContextController } from '../../../../../controllers/ContextController';
-import { useSessionController } from '../../../../../controllers/SessionController';
+import { useContextController } from '../../../../controllers/ContextController';
+import { useSessionController } from '../../../../controllers/SessionController';
 
 const ContextsButton = ({historySessionId, forChatInputBox} : 
   {

@@ -1,10 +1,9 @@
 import Box from "@mui/material/Box"
 import AddIcon from '@mui/icons-material/Add';
 import type { ChatEntry } from "../../../../../models/ChatEntry"
-import ChatInputBox from "../../ChatInputBox/ChatInputBox"
 import { useContextController } from "../../../../../controllers/ContextController"
 import { useLayoutContext } from "../../../../../utils/LayoutContext"
-import { alpha, lighten, Button, useTheme } from "@mui/material"
+import { lighten, Button, useTheme } from "@mui/material"
 import { useEffect, useRef } from "react"
 
 const ChatHistory = ({
@@ -18,7 +17,7 @@ const ChatHistory = ({
 }) => {
 
   const contextController = useContextController()
-  const {isLeftSideDrawerCollapsed, collapsedWidth, drawerWidth, inputBoxHeight, inputBoxWidthWide} = useLayoutContext()
+  const {inputBoxHeight, inputBoxWidthWide} = useLayoutContext()
   const theme = useTheme()
   const scrollableRef = useRef<HTMLDivElement>(null);
   const buttonHeight = theme.customSizes.buttonHeight
