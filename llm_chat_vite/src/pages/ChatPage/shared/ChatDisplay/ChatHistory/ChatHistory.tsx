@@ -4,7 +4,7 @@ import type { ChatEntry } from "../../../../../models/ChatEntry"
 import ChatInputBox from "../../ChatInputBox/ChatInputBox"
 import { useContextController } from "../../../../../controllers/ContextController"
 import { useLayoutContext } from "../../../../../utils/LayoutContext"
-import { Button, useTheme } from "@mui/material"
+import { alpha, Button, useTheme } from "@mui/material"
 import { useEffect, useRef } from "react"
 
 const ChatHistory = ({
@@ -78,17 +78,38 @@ const ChatHistory = ({
               sx={{
                 display: "flex",
                 flexDirection: "row",
+                position: "relative",
                 maxWidth: "70%",
                 px: 2,
                 py: 1,
-                bgcolor: contextController.getContextColor(value.contextGuId),
+                //bgcolor: alpha(contextController.getContextColor(value.contextGuId), 0.2),
+                background: 
+                  value.type === "prompt" ?
+                    `linear-gradient(
+                    210deg,
+                    ${contextController.getContextColor(value.contextGuId)} 0%, 
+                    ${alpha(contextController.getContextColor(value.contextGuId), 0.4)}23%,
+                    ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}80%,
+                    ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}100%
+                    )`
+                    :
+                    `linear-gradient(
+                    150deg,
+                    ${contextController.getContextColor(value.contextGuId)} 0%, 
+                    ${alpha(contextController.getContextColor(value.contextGuId), 0.4)}23%,
+                    ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}80%,
+                    ${alpha(contextController.getContextColor(value.contextGuId), 0.3)}100%
+                    )`
+                  ,
                 color: '#000',
                 borderRadius: 2,
                 borderTopLeftRadius: value.type === "prompt" ? 16 : 0,
                 borderTopRightRadius: value.type === "prompt" ? 0 : 16,
                 boxShadow: 1,
+                overflow: "hidden" // to hide gradient
               }}
             >
+
               {/* display text to the left of Button for prompt, and to the right for response */}
               {value.type === "prompt" && 
               <Box textAlign={"left"}>
@@ -97,8 +118,10 @@ const ChatHistory = ({
               {value.contextGuId != contextController.getCurrentContextId() && 
               <Box>
                 <Button
+                  
                   onClick={() => handleAddEntryToCurrentcontext(value)}
                   sx={{
+                    zIndex: 2,
                     position: "relative",
                     //border: "1px solid purple",
                     marginLeft: value.type === "prompt" ? 2 : 0,
@@ -136,8 +159,11 @@ const ChatHistory = ({
                 {value.text}
               </Box>
               }
+                
+              </Box>
+              
             </Box>
-          </Box>
+            
         ))}
       </Box>
     </>
