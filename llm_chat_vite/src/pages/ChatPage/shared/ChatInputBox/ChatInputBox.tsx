@@ -55,7 +55,8 @@ export default function ChatInputBox({width} : {width: string}) {
         <TextField
           required
           id="prompt"
-          variant="filled"
+          variant="outlined"
+          
           value={inputValue}
           placeholder="Ask me anything!"
           hiddenLabel
@@ -69,6 +70,10 @@ export default function ChatInputBox({width} : {width: string}) {
               }}}
           maxRows={6}
           sx={{
+            '& .MuiOutlinedInput-notchedOutline': { //remove outline... there's probably a better way not using textField at all, but I like multiline convenience
+              border: 'none',
+            },
+
             bgcolor: `${alpha(contextController.getCurrentContext().color, 0.2)}`,
             borderRadius: 1,
           }}
