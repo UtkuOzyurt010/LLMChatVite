@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar, { type AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
@@ -50,10 +50,8 @@ export default function ChatPageDesktop()
       //width: "100vw"
     }}
     >
-      
-      <LeftSideDrawer >
+      <LeftSideDrawer>
       </LeftSideDrawer>
-
       
       <CssBaseline />
       <AppBar >
@@ -66,26 +64,22 @@ export default function ChatPageDesktop()
     
       <Box
       //flex={1} //calculating height once using appBarHeight might be more performant
-          sx={{ 
-          height: `calc(100vh - ${appBarHeight}px)`,
-          //height: "50vh",
-          width: `calc(100% - ${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px)`,
-          marginLeft: `${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px`,
-          marginTop: `${appBarHeight}px`,
-          transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
-          boxSizing: "border-box",
-          overflowY: 'auto',
-          //border: "4px solid red",
-          
-          }}
+        sx={{ 
+        height: `calc(100vh - ${appBarHeight}px)`,
+        //height: "50vh",
+        width: `calc(100% - ${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px)`,
+        marginLeft: `${isLeftSideDrawerCollapsed ? collapsedWidth : drawerWidth}px`,
+        marginTop: `${appBarHeight}px`,
+        transition: theme.transitions.create(['margin', 'width'], {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        boxSizing: "border-box",
+        overflowY: 'auto',
+        }}
       >
         <ChatDisplay></ChatDisplay>
       </Box>
-      {/* </Box> */}
-    {/* </Box> */}
     </Box>
   );
 }

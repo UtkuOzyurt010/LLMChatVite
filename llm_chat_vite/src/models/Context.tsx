@@ -17,8 +17,6 @@ export interface Context
 
 export const defaultContext : Context = createContext("#000000")
 
-
-
 export function createContext(color: string){
 
     return{
@@ -51,13 +49,3 @@ export function addresponse(context: Context, text: string)
         prompts: newresponses,
     }
 }
-
-    //  still needs to rewritten from class function, but might nto use it at all so not doing that now
-// export function getall(context: Context) : string {
-//     let all = ""
-//     for (let index = 0; index < Object.keys(context.responses).length ; index++) { //there cant be more responses than prompts
-//         all += "P: " + context.prompts[index]
-//         all += "R: " + context.responses[index]
-//     }
-//     return all
-// }

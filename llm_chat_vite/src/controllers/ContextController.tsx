@@ -1,7 +1,6 @@
-import { createChatEntry, type ChatEntry } from "../models/ChatEntry";
+import { type ChatEntry } from "../models/ChatEntry";
 import { createContext, type Context } from "../models/Context"
 import { useAppContext } from "../utils/AppContext";
-import { useSessionController } from "./SessionController";
 
 export function useContextController() {
   const {
@@ -14,10 +13,12 @@ export function useContextController() {
     setSessions,
   } = useAppContext();
 
-  const getContext = (contextId: string) : Context => {
+  const getContext = (contextId: string) : Context => 
+  {
     return contexts.find((s) => s.guid === contextId)!
   }
-  const getContexts = () : Context[] => {
+  const getContexts = () : Context[] => 
+  {
       return contexts
   }
   const getCurrentContext = () : Context =>
@@ -54,7 +55,6 @@ export function useContextController() {
   const addNewContext = (color: string) : string =>
   {
     const newContext = createContext(color)
-    //contexts.push(context) 
     setContexts([...contexts, newContext])
     setCurrentContextId(newContext.guid)
 

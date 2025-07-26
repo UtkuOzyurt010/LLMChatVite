@@ -1,26 +1,25 @@
-import { useAppContext } from "../utils/AppContext";
-import { useContextController } from "./ContextController";
+// import { useAppContext } from "../utils/AppContext";
+// import { useContextController } from "./ContextController";
 
-export function useChatEntryController() {
-  const {
-    contexts,
-    sessions,
-    currentContextId,
-    currentSessionId,
-    setCurrentContextId,
-    setContexts,
-    setSessions,
-  } = useAppContext();
+// export function useChatEntryController() {
+//   const {
 
-  const contextController = useContextController()
+//     currentContextId,
+//     currentSessionId,
+//     setCurrentContextId,
+//     setContexts,
+//     setSessions,
+//   } = useAppContext();
 
-  const addChatEntry = () => {
-    const context = contextController.getContext(currentContextId);
-    context.
-  }
+//   const contextController = useContextController()
 
-  return{
-    addChatEntry
+//   const addChatEntry = () => {
+//     const context = contextController.getContext(currentContextId);
+//     context.
+//   }
+
+//   return{
+//     addChatEntry
  
-  }
-}
+//   }
+// }
