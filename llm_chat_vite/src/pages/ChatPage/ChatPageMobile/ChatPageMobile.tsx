@@ -1,7 +1,7 @@
 import { Box, Button} from "@mui/material";
 import SessionHistory from "../shared/SessionHistory/SessionHistory";
 import ChatHistory from "../shared/ChatDisplay/ChatDisplay";
-import ChatInputBox from "../shared/ChatInputBox/ChatInputBox"; 
+import ChatInputBox from "../shared/ChatDisplay/ChatInputBox/ChatInputBox"; 
 import { useEffect, useState } from "react";
 import type { Context } from "../../../models/Context";
 import ChatTimeline from "../shared/ChatTimeline/ChatTimeline";

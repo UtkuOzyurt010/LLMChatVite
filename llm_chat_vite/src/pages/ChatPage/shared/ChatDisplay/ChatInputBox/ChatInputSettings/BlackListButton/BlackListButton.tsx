@@ -5,7 +5,6 @@ import type { Dispatch, SetStateAction } from 'react';
 export const BlackListButton = ({text, setText} : {text : string, setText : Dispatch<SetStateAction<string>>}) => {
   const theme = useTheme();
   const buttonHeight = theme.customSizes.buttonHeight;
-  const buttonHeightn = theme.customSizes.buttonHeightn;
 
   const blacklist :string[] = ["thank you", "please", "can you", "could you", "if you could"]
 
@@ -54,7 +53,7 @@ export const BlackListButton = ({text, setText} : {text : string, setText : Disp
           }}
         >
           {/* lucide icons dont accept sx like MUI does, so this needs a wrapper container */}
-          <BookX color="white" size={buttonHeightn * 0.7} />
+          <BookX color="white" size={buttonHeight * 0.7} />
         </Box>
       </Button>
     </Box>

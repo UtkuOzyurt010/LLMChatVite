@@ -6,15 +6,11 @@ import { useLayoutContext } from "../../../../../utils/LayoutContext"
 import { lighten, Button, useTheme } from "@mui/material"
 import { useEffect, useRef } from "react"
 
-const ChatHistory = ({
-  entries,
-  focusedField,
-  setFocusedField
-}: {
-  entries: ChatEntry[]
-  focusedField: string
-  setFocusedField: (focusedField: string) => void
-}) => {
+const ChatHistory = ({entries } : 
+  {
+    entries: ChatEntry[]
+  }) => 
+{
 
   const contextController = useContextController()
   const {inputBoxHeight, inputBoxWidthWide} = useLayoutContext()
@@ -36,21 +32,20 @@ const ChatHistory = ({
     }
   }, [entries]);
 
+
   return (
-    <>
-      {/* Scrollable Chat Area */}
-      <Box
+      //scrollable Chat Area 
+      <Box 
         ref={scrollableRef}
         sx={{
           height: `calc(100% - ${inputBoxHeight}px)`, // adjust based on input height
           width: "100%",
           overflowY: "auto",
           position: "relative",
-          //border: "3px solid red",
           paddingX: `calc((100% - ${inputBoxWidthWide}px)/2)`
-          //paddingBottom: inputBoxHeight,
         }}
       >
+        {/* fadeout at top of Chat Area */}
         <Box
           sx={{
             position: "sticky",
@@ -63,14 +58,14 @@ const ChatHistory = ({
           }}
         />
 
-
+        {/* list of ChatEntries as chat bubbles */}
         {entries.map((value: ChatEntry, index: number) => (
           <Box
             key={`chatEntry-${index}`}
             sx={{
               display: "flex",
               justifyContent: value.type === "prompt" ? "flex-end" : "flex-start",
-              mb: 1
+              mb: 1,
             }}
           >
             <Box
@@ -81,7 +76,6 @@ const ChatHistory = ({
                 maxWidth: "70%",
                 px: 2,
                 py: 1,
-                //bgcolor: alpha(contextController.getContextColor(value.contextGuId), 0.2),
                 background: 
                   value.type === "prompt" ?
                     `linear-gradient(
@@ -100,42 +94,53 @@ const ChatHistory = ({
                     ${lighten(contextController.getContextColor(value.contextGuId), 0.7)}100%
                     )`
                   ,
-                color: '#000',
-                borderRadius: 2,
-                borderTopLeftRadius: value.type === "prompt" ? 16 : 0,
-                borderTopRightRadius: value.type === "prompt" ? 0 : 16,
+                //borderRadius: 2, //not sure why 2 here is rounder than 2 below
+                borderBottomLeftRadius : 8,
+                borderBottomRightRadius : 8,
+                borderTopLeftRadius: value.type === "prompt" ? 8 : 0,
+                borderTopRightRadius: value.type === "prompt" ? 0 : 8,
                 boxShadow: 1,
-                overflow: "hidden" // to hide gradient
+                overflow: "hidden" //hide gradient around edges
               }}
             >
 
               {/* display text to the left of Button for prompt, and to the right for response */}
               {value.type === "prompt" && 
-              <Box textAlign={"left"}>
+              <Box textAlign={"left"} 
+                sx={{ 
+                  whiteSpace: "pre-wrap", 
+                  wordBreak: "break-word", 
+                  maxWidth: "100%" 
+                }}
+              >
                 {value.text} 
               </Box>}
+
+              {/* if ChatEntry does not belong to current Context, display button that allows adding it */}
               {value.contextGuId != contextController.getCurrentContextId() && 
               <Box>
                 <Button
-                  
                   onClick={() => handleAddEntryToCurrentcontext(value)}
                   sx={{
-                    zIndex: 2,
                     position: "relative",
-                    //border: "1px solid purple",
                     marginLeft: value.type === "prompt" ? 2 : 0,
                     marginRight: value.type === "response" ? 2 : 0,
                     padding: 0,
                     width: buttonHeight,
                     height: buttonHeight,
-                    minWidth: 0, // remove default button min width
+                    minWidth: 0, // remove default button min width just in case
                   }}
                 >
                   <Box
                     sx={{
                       width: buttonHeight,
                       height: buttonHeight,
-                      backgroundColor: contextController.getContextColor(contextController.getCurrentContextId()),
+                      background: `linear-gradient(
+                        150deg,
+                        ${contextController.getContextColor(contextController.getCurrentContextId())} 0%, 
+                        ${contextController.getContextColor(contextController.getCurrentContextId())} 30%,
+                        ${lighten(contextController.getContextColor(contextController.getCurrentContextId()), 0.4)}100%
+                        )`,
                       borderRadius: "50%",
                     }}
                   />
@@ -154,18 +159,22 @@ const ChatHistory = ({
               {/* display text to the left of Button for prompt, and to the right for response */}
               {
               value.type === "response" && 
-              <Box textAlign={"left"}>
+              <Box textAlign={"left"} 
+                sx={{ 
+                  whiteSpace: "pre-wrap", 
+                  wordBreak: "break-word", 
+                  maxWidth: "100%" 
+                }}
+              >
                 {value.text}
               </Box>
               }
-                
-              </Box>
-              
-            </Box>
-            
-        ))}
+            </Box> 
+          </Box>
+        )) //yes this entire segment is within map()
+        }
       </Box>
-    </>
+    
   )
 }
 

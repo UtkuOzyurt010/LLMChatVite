@@ -13,7 +13,6 @@ const AddContextButton = () => {
   const contextController = useContextController()
   const colorController = useColorController()
   const buttonHeight = theme.customSizes.buttonHeight
-  const buttonHeightn = theme.customSizes.buttonHeightn
 
   //useEffect(() => setColor(contextController.getRandomHexColor()), []) //to display the color, before adding it
   useEffect(() => setColor(colorController.getDistinctColor()), []) 
@@ -26,39 +25,29 @@ const AddContextButton = () => {
   }
 
 return (
-  <Box
-    sx={{
-      //border: "3px solid blue",
-      //display: "inline-block", // shrink to fit content
-    }}
-  >
+  <Box>
     <Button
       onClick={handleAddNewContext}
       sx={{
         position: "relative",
-        //border: "1px solid purple",
         padding: 0,
         width: buttonHeight,
         height: buttonHeight,
         minWidth: 0, // remove default button min width
       }}
     >
-
       <Avatar
         src={colorWheel}
         alt="Color Wheel"
         sx={{ 
-          //zIndex: 10,
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
           width: buttonHeight, 
           height: buttonHeight,
-          //fontSize: buttonHeight,
         }}
       />
-
       <AddIcon
         sx={{
           position: "absolute",
@@ -66,7 +55,7 @@ return (
           left: "50%",
           transform: "translate(-50%, -50%)",
           color: "white",
-          fontSize: buttonHeightn,
+          fontSize: buttonHeight,
         }}
       />
     </Button>

@@ -48,7 +48,6 @@ export const CompressionButton = ({text, setText} : {text : string, setText : Di
               left: "50%",
               transform: "translate(-50%, -50%)",
               color: "white",
-              //fontSize: buttonHeightn,
             }}
           />
         </Button>

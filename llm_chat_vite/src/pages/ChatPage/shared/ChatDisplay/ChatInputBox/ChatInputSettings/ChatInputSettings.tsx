@@ -9,7 +9,6 @@ export const ChatInputSettings = ({text, setText} : {text : string, setText : Di
   const buttons: any[] = []
   const theme = useTheme();
   const buttonHeight = theme.customSizes.buttonHeight
-  const buttonHeightn = theme.customSizes.buttonHeightn
   const allCirclesWidth = "40px"
   const overlapOffset = 0
 
@@ -54,7 +53,7 @@ export const ChatInputSettings = ({text, setText} : {text : string, setText : Di
                   position: "absolute",
                   top: 0,
                   right: 0,
-                  width: isHovering ? `${buttons.length * (buttonHeightn)}px` : allCirclesWidth, 
+                  width: isHovering ? `${buttons.length * buttonHeight}px` : allCirclesWidth, 
                   height: "100%",
                   //backgroundColor: `${alpha(contextController.getCurrentContext().color, 0.2)}`,
                   backgroundColor: "#4BC469",
@@ -82,7 +81,7 @@ export const ChatInputSettings = ({text, setText} : {text : string, setText : Di
                   width: (isHovering || index < 3) ? buttonHeight : "0px", //this is much prettier wow! :D
                   height: "100%",
                   position: "absolute",
-                  right: `${index * (isHovering ? buttonHeightn + 4 : overlapOffset)}px`, // spread if hovering //overlapOffset is set to 0 now
+                  right: `${index * (isHovering ? buttonHeight + 4 : overlapOffset)}px`, // spread if hovering //overlapOffset is set to 0 now
                   zIndex: buttons.length - index,
                   opacity: (isHovering || index < 3) ? 1 : 0,
                   transition: isHovering ?

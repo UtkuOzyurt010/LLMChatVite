@@ -10,7 +10,6 @@ export default function NavBar ({isSmallScreen, showLeft, setShowLeft} :
         setShowLeft: (value : boolean) => void
     }
 ) {
-    //const theme = useTheme()
     return(
         <Box
             border={import.meta.env.VITE_DEBUG === 'true' ? "3px solid orange" : undefined}

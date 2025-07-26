@@ -1,11 +1,11 @@
 import { Box, Button, TextField, Paper, useTheme } from "@mui/material";
 import ArrowUpward from '@mui/icons-material/ArrowUpward'
 import { lighten} from "@mui/material";
-import ContextsButton from "../ContextsButton/ContextsButton";
-import AddContextButton from "../ContextsButton/AddContextButton/AddContextbutton";
-import { useContextController } from "../../../../controllers/ContextController";
-import { useSessionController } from "../../../../controllers/SessionController";
-import { createChatEntry } from "../../../../models/ChatEntry";
+import ContextsButton from "../../ContextsButton/ContextsButton";
+import AddContextButton from "../../ContextsButton/AddContextButton/AddContextbutton";
+import { useContextController } from "../../../../../controllers/ContextController";
+import { useSessionController } from "../../../../../controllers/SessionController";
+import { createChatEntry } from "../../../../../models/ChatEntry";
 import { useState } from "react";
 import { ChatInputSettings } from "./ChatInputSettings/ChatInputSettings";
 
@@ -149,7 +149,6 @@ export default function ChatInputBox({width} : {width: string}) {
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 color: "white",
-                //fontSize: buttonHeightn, //this just looks to big, default value looks good but remember it's unset
               }}
             />
           </Button>

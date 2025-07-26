@@ -1,9 +1,9 @@
-import CircleIcon from '@mui/icons-material/Circle';
+
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 import { useState } from "react";
-import { alpha, darken, lighten, useTheme } from '@mui/material/styles';
+import { alpha, lighten, useTheme } from '@mui/material/styles';
 import { useContextController } from '../../../../controllers/ContextController';
 import { useSessionController } from '../../../../controllers/SessionController';
 
@@ -31,7 +31,6 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
 
   const theme = useTheme();
   const buttonHeight = theme.customSizes.buttonHeight
-  const buttonHeightn = theme.customSizes.buttonHeightn
   const allCirclesWidth = "40px"
 
   const overlapOffset = 5;
@@ -44,14 +43,12 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
     else{
       contextController.addExistingContext(contextId)
     }
-    
   }
 
   const handleRemoveContext = (contextId: string) => {
     if(contextController.isContextIdInCurrentSession(contextId)){
       sessionController.removeContextFromSession(contextId)
     }
-    
   }
 
   return(
@@ -64,7 +61,6 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
         height: buttonHeight,
         width: allCirclesWidth,
         alignItems: 'center',
-        //border: "1px solid blue",
         boxSizing: 'content-box'
       }}
     >
@@ -88,7 +84,7 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
               position: "absolute",
               top: 0,
               left: 0,
-              width: isHovering ? `${reorderedContextIds.length * (buttonHeightn)}px` : allCirclesWidth, 
+              width: isHovering ? `${reorderedContextIds.length * (buttonHeight)}px` : allCirclesWidth, 
               height: "100%",
               backgroundColor: `${alpha(contextController.getCurrentContext().color, 0.2)}`,
               borderRadius: "12px",
@@ -115,7 +111,7 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
             width: (isHovering || index < 3) ? buttonHeight : "0px", //this is much prettier wow! :D
             height: "100%",
             position: "absolute",
-            left: `${index * (isHovering ? buttonHeightn + 4 : overlapOffset)}px`, // spread if hovering
+            left: `${index * (isHovering ? buttonHeight + 4 : overlapOffset)}px`, // spread if hovering
             zIndex: reorderedContextIds.length - index,
             opacity: (isHovering || index < 3) ? 1 : 0,
             transition: isHovering ?
@@ -157,7 +153,6 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
                     left: "50%",
                     transform: "translate(-50%, -50%)",
                     color: "white",
-                    //fontSize: buttonHeightn,
                   }}
                 />
               )}
@@ -176,14 +171,14 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
                   bottom: 0,
                   left: 0,
                   padding: 0,
-                  width: buttonHeightn / 2,
-                  height: buttonHeightn / 2,
+                  width: buttonHeight / 2,
+                  height: buttonHeight / 2,
                 }}
               >
                 <Box
                 sx={{
-                  width: buttonHeightn / 2,
-                  height: buttonHeightn / 2,
+                  width: buttonHeight / 2,
+                  height: buttonHeight / 2,
                   backgroundColor: "red",
                   borderRadius: "50%",
                 }}
@@ -194,7 +189,7 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
                     bottom: 0,
                     left: 0,
                     color: "white",
-                    fontSize: buttonHeightn / 2,
+                    fontSize: buttonHeight / 2,
                   }}
                 />
               </IconButton>

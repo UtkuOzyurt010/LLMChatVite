@@ -1,5 +1,8 @@
-// theme.js or theme.ts
 import { createTheme } from '@mui/material/styles';
+
+
+//this seems a bit useless now with LayoutProvider. buttonHeight likely belogns there too now, 
+// but this is probably still a better place to store custom transitions and palletes
 
 declare module '@mui/material/styles' {
     interface Palette {
@@ -11,28 +14,24 @@ declare module '@mui/material/styles' {
     interface PaletteOptions {
       custom?: {
         bggray: string;
-
       };
     }
 
     interface Theme {
     customSizes: {
-      buttonHeight: string;
-      buttonHeightn: number;
+      buttonHeight: number;
     };
     }
     interface ThemeOptions {
       customSizes?: {
-        buttonHeight?: string;
-        buttonHeightn?: number;
+        buttonHeight?: number;
       };
     }
   }
 
 const theme = createTheme({
   customSizes: {
-    buttonHeight: "30px",
-    buttonHeightn: 30
+    buttonHeight: 30
   },
   transitions: {
     // easing: {
