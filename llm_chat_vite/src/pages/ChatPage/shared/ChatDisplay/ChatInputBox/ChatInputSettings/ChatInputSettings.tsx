@@ -14,10 +14,7 @@ export const ChatInputSettings = ({text, setText} : {text : string, setText : Di
 
   const [isHovering, setIsHovering] = useState(false);
 
-  buttons.push(
-    <RevealSeattingsButton/>
-  )
-
+  buttons.push(<RevealSeattingsButton/>)
   buttons.push(<CompressionButton text={text} setText={setText} key="compression-button" />)
   buttons.push(<BlackListButton text={text} setText={setText} key="blacklist-button" />)
 
@@ -43,11 +40,10 @@ export const ChatInputSettings = ({text, setText} : {text : string, setText : Di
               height: "100%",
               width: "100%",
               overflow: "visible", 
-              //border: "1px solid black",
               boxSizing: 'content-box'
             }}
           >
-            {/* the purple background */}
+            {/* the background component*/}
              <Box
                 sx={{
                   position: "absolute",

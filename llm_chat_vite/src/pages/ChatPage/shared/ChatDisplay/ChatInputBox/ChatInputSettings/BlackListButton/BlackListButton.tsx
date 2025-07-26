@@ -1,4 +1,4 @@
-import { Box, Button, useTheme } from '@mui/material';
+import { Box, Button, lighten, useTheme } from '@mui/material';
 import { BookX } from 'lucide-react';
 import type { Dispatch, SetStateAction } from 'react';
 
@@ -37,7 +37,15 @@ export const BlackListButton = ({text, setText} : {text : string, setText : Disp
           sx={{
             width: buttonHeight,
             height: buttonHeight,
-            backgroundColor: 'green',
+            background: (() => {
+                  const color = "#008000";
+                  return `linear-gradient(
+                    150deg,
+                    ${color} 0%, 
+                    ${color} 30%,
+                    ${lighten(color, 0.4)} 100%
+                  )`;
+                })(),
             borderRadius: '50%',
           }}
         />

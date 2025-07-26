@@ -138,9 +138,18 @@ export default function ChatInputBox({width} : {width: string}) {
               sx={{
                 width: buttonHeight,
                 height: buttonHeight,
-                backgroundColor: contextController.getContextColor(contextController.getCurrentContextId()),
-                borderRadius: "50%",
-              }}
+                //backgroundColor: contextController.getContextColor(contextController.getCurrentContextId()),
+                background: (() => {
+                  const color = contextController.getContextColor(contextController.getCurrentContextId());
+                  return `linear-gradient(
+                    150deg,
+                    ${color} 0%, 
+                    ${color} 30%,
+                    ${lighten(color, 0.4)} 100%
+                  )`;
+                })(),
+                  borderRadius: "50%",
+                }}
             />
             <ArrowUpward
               sx={{

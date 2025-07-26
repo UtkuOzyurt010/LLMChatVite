@@ -1,6 +1,6 @@
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 
 export default function NavBar ({isSmallScreen, showLeft, setShowLeft} : 

@@ -132,13 +132,15 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
                 sx={{
                   width: buttonHeight,
                   height: buttonHeight,
-                  //backgroundColor: contextController.getContextColor(contextId),
-                  background: `linear-gradient(
-                    150deg,
-                    ${contextController.getContextColor(contextId)} 0%, 
-                    ${contextController.getContextColor(contextId)} 30%,
-                    ${lighten(contextController.getContextColor(contextId), 0.4)}100%
-                    )`,
+                  background: (() => {
+                    const color = contextController.getContextColor(contextId);
+                    return `linear-gradient(
+                      150deg,
+                      ${color} 0%, 
+                      ${color} 30%,
+                      ${lighten(color, 0.4)} 100%
+                    )`;
+                  })(),
                   borderRadius: "50%",
                 }}
               />

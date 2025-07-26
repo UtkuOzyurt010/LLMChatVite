@@ -1,4 +1,4 @@
-import { Box, useTheme,  } from "@mui/material"
+import { Box, lighten, useTheme,  } from "@mui/material"
 import SettingsIcon from '@mui/icons-material/Settings';
 
 export const RevealSeattingsButton = () => 
@@ -14,7 +14,16 @@ export const RevealSeattingsButton = () =>
         sx={{
           width: buttonHeight,
           height: buttonHeight,
-          backgroundColor: "green",
+          backgroundColor: "#008000",
+          background: (() => {
+                  const color = "#008000";
+                  return `linear-gradient(
+                    150deg,
+                    ${color} 0%, 
+                    ${color} 30%,
+                    ${lighten(color, 0.4)} 100%
+                  )`;
+                })(),
           borderRadius: "50%",
         }}
       />
