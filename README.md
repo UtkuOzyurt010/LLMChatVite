@@ -8,10 +8,10 @@ The Python backend API uses FastAPI and [LLMLingua](https://github.com/microsoft
 
 currently the only endpoint exposed is '/compress'
 
-# create a virtual environment:
+# (optional) create a virtual environment:
   python -m venv .venv
 
-# Activate the venv
+# (optional) Activate the venv
   # Windows CMD
   .\.venv\Scripts\activate
 
@@ -26,3 +26,7 @@ currently the only endpoint exposed is '/compress'
 
 # run backend on port 8000
   uvicorn llmlingua_api:app --reload --port 8000  
+
+if you wish tou se a different port, be sure to change the port in compressPrompt() in CompressionButton.tsx
+at llm_chat_vite/src/pages/ChatPage/shared/ChatDisplay/ChatInputBox/CompressionButton
+or search using ctrl-shift-f
