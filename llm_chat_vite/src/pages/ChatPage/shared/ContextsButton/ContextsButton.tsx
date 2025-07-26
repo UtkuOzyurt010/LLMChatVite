@@ -145,8 +145,6 @@ const ContextsButton = ({historySessionId, forChatInputBox} :
                 }}
               />
 
-
-
               {historySessionId !== sessionController.getCurrentSessionId() && (
                 <AddIcon
                   sx={{
