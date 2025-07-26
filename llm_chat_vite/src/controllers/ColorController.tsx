@@ -2,8 +2,6 @@ import { useContextController } from "./ContextController"
 
 export function useColorController() {
   const MIN_DISTANCE = 100
-  const BRIGHTNESS_THRESHOLD = 40;
-
   const contextController = useContextController()
 
   type Color = { r: number; g: number; b: number;};
@@ -67,10 +65,8 @@ export function useColorController() {
           h = (r - g) / d + 4;
           break;
       }
-
       h /= 6;
     }
-
     return { h, s, l }; // h, s, l ∈ [0,1]
   };
 
@@ -80,20 +76,6 @@ export function useColorController() {
       return clamped.toString(16).padStart(2, '0');
     };
     return `#${toHex(color.r)}${toHex(color.g)}${toHex(color.b)}`;
-  }
-
-  const getRandomDarkColor = (r: number, g: number, b: number) : string => {
-    const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-    if (brightness <= BRIGHTNESS_THRESHOLD) {
-      return `#${[r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')}` // already dark enough
-    }
-    // Calculate scale factor to reduce brightness to threshold
-    const scale = BRIGHTNESS_THRESHOLD / brightness;
-    
-      r = Math.floor(r * scale)
-      g = Math.floor(g * scale)
-      b  = Math.floor(b * scale)
-      return `#${[r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')}`
   }
 
    const getRandomColor = () : Color => {
@@ -143,37 +125,8 @@ export function useColorController() {
     return usedColors
   }
 
-  //to use in AppProvider, without context-based usedColors that causes a circular
-  // const initColors = (amount : number) : string[] =>
-  // {
-  //   const usedColors : string[] = []
-
-  //   let newColorHex : string
-  //   let attempts = 0
-  //   for(let i = 0; i < amount; i++)
-  //   {
-  //     do {
-  //       let newRGBA : Color = getRandomColor()
-  //       let newHSL : HSL = rgbToHsl(newRGBA)
-  //       if(newHSL.s > 50) {
-  //         newHSL.s = (newHSL.s / 100) * 50
-  //         newRGBA = hslToRgb(newHSL)
-  //       }
-  //       newColorHex = colorToHex(newRGBA)
-  //       attempts++
-  //     } while (
-  //       usedColors.some(c => getColorDistance(c, newColorHex) < MIN_DISTANCE) &&
-  //       attempts < 100
-  //     )
-  //     usedColors.push(newColorHex)
-  //   }
-  //   return usedColors
-  // }
-
   return{
       getDistinctColor,
-      getRandomDarkColor,
-      //initColors
     }
   
 }
