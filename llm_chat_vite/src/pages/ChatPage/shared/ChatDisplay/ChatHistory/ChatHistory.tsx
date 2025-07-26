@@ -76,24 +76,25 @@ const ChatHistory = ({entries } :
                 maxWidth: "70%",
                 px: 2,
                 py: 1,
-                background: 
-                  value.type === "prompt" ?
+                background: (() => {
+                  const color = contextController.getContextColor(value.contextGuId)
+                  return value.type === "prompt" ?
                     `linear-gradient(
                     210deg,
-                    ${contextController.getContextColor(value.contextGuId)} 0%, 
-                    ${lighten(contextController.getContextColor(value.contextGuId), 0.6)}10px, 
-                    ${lighten(contextController.getContextColor(value.contextGuId), 0.7)}80%,
-                    ${lighten(contextController.getContextColor(value.contextGuId), 0.7)}100%
+                    ${color} 0%, 
+                    ${lighten(color, 0.6)}10px, 
+                    ${lighten(color, 0.7)}80%,
+                    ${lighten(color, 0.7)}100%
                     )`
                     :
                     `linear-gradient(
                     150deg,
-                    ${contextController.getContextColor(value.contextGuId)} 0%, 
-                    ${lighten(contextController.getContextColor(value.contextGuId), 0.6)}10px,
-                    ${lighten(contextController.getContextColor(value.contextGuId), 0.7)}80%,
-                    ${lighten(contextController.getContextColor(value.contextGuId), 0.7)}100%
-                    )`
-                  ,
+                    ${color} 0%, 
+                    ${lighten(color, 0.6)}10px,
+                    ${lighten(color, 0.7)}80%,
+                    ${lighten(color, 0.7)}100%
+                    )`}
+                  )(),
                 //borderRadius: 2, //not sure why 2 here is rounder than 2 below
                 borderBottomLeftRadius : 8,
                 borderBottomRightRadius : 8,
