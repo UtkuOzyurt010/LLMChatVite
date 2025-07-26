@@ -4,7 +4,10 @@ and start frontend using:
   npm run dev
 
 
-The Python backend API uses FastAPI and [LLMLingua](https://github.com/microsoft/LLMLingua) to compress prompts for large language models. 
+
+The Python backend API uses FastAPI and [LLMLingua](https://github.com/microsoft/LLMLingua) to compress prompts for large language models using a small locally hosted LLM (gpt2)
+
+The Compression Button only works with the backend running.
 
 currently the only endpoint exposed is '/compress'
 
